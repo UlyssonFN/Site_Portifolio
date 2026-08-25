@@ -54,14 +54,14 @@ Atualmente, meus estudos e projetos estão direcionados principalmente para **Py
 
 Acesse meu portfólio para conhecer os projetos:
 
-**[Acessar Portfólio](#)**
+**[Acessar Portfólio](https://datastockbi.com.br/portfolio)**
 
 > Substitua o `#` acima pelo endereço onde seu site estiver publicado.
 
 ## 📫 Contato
-
+**Site:**[UlyssonFN](https://datastockbi.com.br)
 **GitHub:** [UlyssonFN](https://github.com/UlyssonFN)
-**LinkedIn:** [Ulysson Fontenele](#)
+**LinkedIn:** [Ulysson Fontenele](https://www.linkedin.com/in/ulysson-fontenele-nobre-287a26125/)
 
 ## 📌 Status
 
