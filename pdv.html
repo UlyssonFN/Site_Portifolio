@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sistema PDV DataStock — Automação Comercial na Nuvem</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#0F172A;--blue:#2563EB;--bl:#3B82F6;--mid:#94A3B8;--bdr:rgba(37,99,235,.15);--gray:#F8FAFC}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(15,23,42,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr)}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem}.logo span{color:var(--blue)}
+.back{color:var(--mid);text-decoration:none;font-size:.85rem;transition:color .2s}.back:hover{color:#fff}
+.nav-cta{background:var(--blue);color:#fff;padding:.5rem 1.2rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .2s}.nav-cta:hover{background:var(--bl)}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 2rem 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 55% 45%,rgba(37,99,235,.12),transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,99,235,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 30%,transparent 100%)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);color:#fbbf24;padding:.35rem .9rem;border-radius:50px;font-size:.75rem;font-weight:700;margin-bottom:1.25rem}
+h1.ht{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem}
+h1.ht em{font-style:normal;color:var(--blue)}
+.sub{color:var(--mid);font-size:1rem;line-height:1.75;margin-bottom:2rem;max-width:460px}
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{background:var(--blue);color:#fff;padding:.8rem 1.8rem;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-p:hover{background:var(--bl);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.35)}
+.btn-g{background:transparent;color:#fff;padding:.8rem 1.8rem;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-g:hover{border-color:var(--blue);color:var(--bl);transform:translateY(-2px)}
+/* PDV MOCKUP */
+.pdv-screen{background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:20px;padding:1.5rem;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.pdv-bar{display:flex;gap:.5rem;margin-bottom:1rem}
+.dot{width:10px;height:10px;border-radius:50%}
+.pdv-mock{display:grid;grid-template-columns:160px 1fr;gap:1rem;height:300px}
+.pdv-side{background:rgba(37,99,235,.08);border-radius:10px;padding:.85rem;display:flex;flex-direction:column;gap:.4rem}
+.pm{padding:.45rem .6rem;border-radius:7px;font-size:.7rem;color:var(--mid);cursor:pointer}
+.pm.a{background:var(--blue);color:#fff;font-weight:600}
+.pdv-main{display:flex;flex-direction:column;gap:.6rem}
+.pr{background:rgba(255,255,255,.03);border-radius:8px;padding:.65rem .9rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem}
+.pt{background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:8px;padding:.7rem .9rem;display:flex;justify-content:space-between;font-weight:700;font-size:.85rem}
+.pbtn{background:var(--blue);border-radius:7px;padding:.55rem;text-align:center;font-size:.7rem;font-weight:700;cursor:pointer;margin-top:auto}
+/* SECTIONS */
+section{padding:80px 2rem}
+.container{max-width:1100px;margin:0 auto}
+.sl{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
+.st{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin-bottom:1rem;line-height:1.2}
+.ss{color:var(--mid);font-size:.95rem;line-height:1.75;max-width:560px}
+/* FEATURES */
+#features{background:rgba(255,255,255,.015)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.fc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:1.5rem;transition:all .3s}
+.fc:hover{background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.3);transform:translateY(-3px)}
+.fi{width:44px;height:44px;background:rgba(37,99,235,.12);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem}
+.fc h3{font-size:.95rem;font-weight:600;margin-bottom:.4rem}
+.fc p{color:var(--mid);font-size:.825rem;line-height:1.6}
+/* PLANOS */
+#planos .container{text-align:center}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;text-align:left}
+.plan{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:2rem;transition:all .3s;position:relative}
+.plan.dest{background:rgba(37,99,235,.08);border-color:rgba(37,99,235,.4)}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.7rem;padding:.25rem .9rem;border-radius:50px;font-weight:700;white-space:nowrap}
+.plan-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:.4rem}
+.plan-price{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:var(--bl);margin:.6rem 0}
+.plan-price span{font-size:.9rem;color:var(--mid);font-weight:400}
+.plan-desc{color:var(--mid);font-size:.825rem;line-height:1.6;margin-bottom:1.25rem}
+.plan-items{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.75rem}
+.plan-items li{font-size:.85rem;color:var(--mid);display:flex;align-items:center;gap:.5rem}
+.plan-items li::before{content:'✓';color:#4ade80;font-weight:700;flex-shrink:0}
+/* TECH */
+#tech{background:rgba(255,255,255,.015)}
+.tech-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.tech-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:.7rem 1.1rem;display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:500;transition:all .3s}
+.tech-chip:hover{background:rgba(37,99,235,.1);border-color:rgba(37,99,235,.3)}
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem;max-width:700px}
+.faq-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+.faq-q{padding:1.1rem 1.25rem;cursor:pointer;font-weight:500;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-q::after{content:'＋';color:var(--mid);font-size:1.1rem;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 1.25rem 1.1rem;color:var(--mid);font-size:.875rem;line-height:1.7}
+.faq-item.open .faq-a{display:block}
+/* CTA */
+#cta{background:linear-gradient(135deg,rgba(37,99,235,.15) 0%,rgba(15,23,42,0) 100%);text-align:center}
+#cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:1rem}
+#cta p{color:var(--mid);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7}
+/* REVEAL */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .55s,transform .55s}
+.rev.v{opacity:1;transform:none}
+@media(max-width:900px){.hero-inner,.pdv-mock{grid-template-columns:1fr}.feat-grid,.plans-grid{grid-template-columns:1fr}.pdv-side{display:none}.btns{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Data<span>Stock</span> <span style="font-size:.75rem;font-weight:400;color:var(--mid)">/ Sistema PDV</span></div>
+  <div style="display:flex;gap:1rem;align-items:center">
+    <a href="index.html" class="back">← Voltar ao site</a>
+    <a href="#cta" class="nav-cta">Solicitar Demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="badge">⭐ Solução Principal DataStock</div>
+      <h1 class="ht">Sistema PDV <em>Inteligente</em> para o seu Negócio</h1>
+      <p class="sub">Automação comercial completa hospedada na Oracle Cloud. Frente de caixa, estoque, financeiro e relatórios gerenciais — tudo em um só lugar, acessível de qualquer dispositivo.</p>
+      <div class="btns">
+        <a href="#cta" class="btn-p">🚀 Solicitar Demonstração</a>
+        <a href="#features" class="btn-g">Ver Funcionalidades →</a>
+      </div>
+    </div>
+    <div>
+      <div class="pdv-screen">
+        <div class="pdv-bar"><div class="dot" style="background:#ef4444"></div><div class="dot" style="background:#fbbf24"></div><div class="dot" style="background:#4ade80"></div></div>
+        <div style="font-size:.65rem;color:var(--mid);text-align:center;margin-bottom:.75rem;font-weight:600">SISTEMA PDV DATASTOCK · Oracle Cloud</div>
+        <div class="pdv-mock">
+          <div class="pdv-side">
+            <div class="pm a">🛒 Venda</div>
+            <div class="pm">📦 Estoque</div>
+            <div class="pm">👤 Clientes</div>
+            <div class="pm">💰 Financeiro</div>
+            <div class="pm">📊 Relatórios</div>
+            <div class="pm">⚙️ Config.</div>
+          </div>
+          <div class="pdv-main">
+            <div class="pr"><span style="color:#fff">Produto A</span><span style="color:#4ade80">R$ 45,90</span></div>
+            <div class="pr"><span style="color:#fff">Produto B × 2</span><span style="color:#4ade80">R$ 32,00</span></div>
+            <div class="pr"><span style="color:#fff">Produto C</span><span style="color:#4ade80">R$ 18,50</span></div>
+            <div class="pr" style="background:rgba(251,191,36,.06)"><span style="color:var(--mid)">Desconto</span><span style="color:#fbbf24">-R$ 5,00</span></div>
+            <div class="pt"><span>TOTAL</span><span style="color:var(--bl)">R$ 91,40</span></div>
+            <div class="pbtn">✓ FINALIZAR VENDA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="rev"><p class="sl">Funcionalidades</p><h2 class="st">Tudo que seu negócio precisa</h2><p class="ss">Desenvolvido do zero pela DataStock para atender pequenos e médios negócios com máxima eficiência.</p></div>
+    <div class="feat-grid">
+      <div class="fc rev"><div class="fi">🛒</div><h3>Frente de Caixa</h3><p>Interface intuitiva para registro rápido de vendas, com suporte a múltiplas formas de pagamento e cupom fiscal.</p></div>
+      <div class="fc rev"><div class="fi">📦</div><h3>Controle de Estoque</h3><p>Entradas, saídas, ajustes e alertas de estoque mínimo. Visibilidade total dos seus produtos em tempo real.</p></div>
+      <div class="fc rev"><div class="fi">👤</div><h3>Cadastro de Clientes</h3><p>Base de clientes completa com histórico de compras, dados de contato e segmentação para ações comerciais.</p></div>
+      <div class="fc rev"><div class="fi">💰</div><h3>Controle Financeiro</h3><p>Fluxo de caixa, contas a pagar e receber, sangria e suprimento com relatórios financeiros detalhados.</p></div>
+      <div class="fc rev"><div class="fi">📊</div><h3>Relatórios Gerenciais</h3><p>Dashboards com ranking de produtos, ticket médio, volume de vendas e comparativos por período.</p></div>
+      <div class="fc rev"><div class="fi">☁️</div><h3>Oracle Cloud</h3><p>Banco de dados seguro e escalável hospedado na Oracle Cloud. Seus dados sempre protegidos e disponíveis.</p></div>
+      <div class="fc rev"><div class="fi">👥</div><h3>Multiusuário</h3><p>Múltiplos acessos simultâneos com perfis de permissão por função — caixa, gerente e administrador.</p></div>
+      <div class="fc rev"><div class="fi">📱</div><h3>Acesso Online</h3><p>Acesse de qualquer dispositivo com internet — computador, tablet ou celular, sem instalação local.</p></div>
+      <div class="fc rev"><div class="fi">🔒</div><h3>Dados Seguros</h3><p>Backup automático, criptografia de dados e histórico completo de todas as operações realizadas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section id="planos">
+  <div class="container">
+    <div class="rev"><p class="sl">Planos</p><h2 class="st">Escolha o plano ideal</h2><p class="ss" style="margin:0 auto">Planos flexíveis para cada tamanho de negócio. Todos incluem suporte e atualizações.</p></div>
+    <div class="plans-grid">
+      <div class="plan rev">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">R$ 100,00 <span>Mensal</span></div>
+        <p class="plan-desc">Ideal para negócios iniciando a automação comercial.</p>
+        <ul class="plan-items">
+          <li>Cadastro de produtos</li><li>Controle de estoque</li><li>Relatórios</li><li>1 Usuário Geral</li><li>Suporte por e-mail</li>
+        </ul>
+        <a href="#cta" class="btn-g" style="display:block;text-align:center">Solicitar</a>
+      </div>
+      <div class="plan dest rev">
+        <div class="plan-badge">⭐ Mais Popular</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-price">R$ 150,00 <span>Mensal</span></div>
+        <p class="plan-desc">Para negócios em crescimento que precisam de 1 gerenciador e 1 frente de loja.</p>
+        <ul class="plan-items">
+          <li>Frente de Caixa</li><li>Controle de Estoque</li><li>Cadastro de clientes</li><li>Histórico de vendas</li><li>Relatórios gerenciais</li><li>1 User Geral 1 PDV</li><li>Suporte prioritário</li>
+        </ul>
+        <a href="#cta" class="btn-p" style="display:block;text-align:center">Solicitar</a>
+      </div>
+      <div class="plan rev">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">R$ 200,00 <span> Mensal</span></div>
+        <div class="plan-price">R$ 800,00 <span> Implantação</span></div>
+        <p class="plan-desc">Para operações maiores com necessidades de 2 frentes de loja e 1 gerenciador.</p>
+        <ul class="plan-items">
+          <li>Frente de Caixa</li><li>2 leitores</li><li>2 impressoras térmicas</li><li>Controle de Estoque</li><li>Cadastro de clientes</li><li>Histórico de vendas</li><li>Relatórios gerenciais</li><li>1 User Geral 2 PDV</li><li>Suporte prioritário</li>
+        </ul>
+        <a href="#cta" class="btn-g" style="display:block;text-align:center">Solicitar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section id="tech">
+  <div class="container">
+    <div class="rev"><p class="sl">Tecnologia</p><h2 class="st">Construído com o melhor</h2></div>
+    <div class="tech-row rev">
+      <div class="tech-chip">☁️ Oracle Cloud Database</div>
+      <div class="tech-chip">🐍 Python</div>
+      <div class="tech-chip">🌐 Streamlit</div>
+      <div class="tech-chip">🗃️ SQLite</div>
+      <div class="tech-chip">📊 Power BI (Enterprise)</div>
+      <div class="tech-chip">🔒 Criptografia de Dados</div>
+      <div class="tech-chip">📱 Interface Responsiva</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="rev"><p class="sl">Dúvidas</p><h2 class="st">Perguntas Frequentes</h2></div>
+    <div class="faq-list rev">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Precisa instalar algo no computador?</div><div class="faq-a">Não. O sistema é 100% online, acessível por qualquer navegador. Basta ter internet para usar em qualquer dispositivo.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Meus dados ficam seguros?</div><div class="faq-a">Sim. Os dados são armazenados na Oracle Cloud com backup automático, criptografia e histórico completo de operações.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso usar em mais de um computador ao mesmo tempo?</div><div class="faq-a">Sim. O sistema é multiusuário e permite acessos simultâneos com perfis de permissão diferentes por função.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">O sistema pode ser personalizado para meu negócio?</div><div class="faq-a">Sim. Por ser desenvolvido internamente pela DataStock, adaptações e funcionalidades específicas podem ser desenvolvidas sob demanda.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Como funciona o suporte?</div><div class="faq-a">O suporte é prestado diretamente pela equipe DataStock via WhatsApp e e-mail, com SLA definido conforme o plano contratado.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="rev">
+      <h2>Pronto para automatizar seu negócio?</h2>
+      <p>Solicite uma demonstração gratuita e veja como o Sistema PDV DataStock pode transformar sua operação comercial.</p>
+      <div class="btns" style="justify-content:center">
+        <a href="https://wa.me/5585985672426" target="_blank" class="btn-p">💬 Falar no WhatsApp</a>
+        <a href="index.html#contato" class="btn-g">Formulário de contato →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#080e1c;border-top:1px solid rgba(255,255,255,.06);padding:2rem;text-align:center">
+  <p style="color:var(--mid);font-size:.8rem">© <span id="yr"></span> DataStock Soluções Inteligentes · CNPJ 59.348.157/0001-55</p>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');ro.unobserve(x.target)}})},{threshold:.12});
+document.querySelectorAll('.rev').forEach(r=>ro.observe(r));
+function toggleFaq(el){const item=el.parentElement;item.classList.toggle('open');}
+</script>
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataStock Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#0F172A;--blue:#2563EB;--blue-l:#3B82F6;--white:#fff;--gray:#F8FAFC;--mid:#94A3B8;--text:#64748B;--border:rgba(37,99,235,0.15);--green:#22c55e;--red:#ef4444;--yellow:#f59e0b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#080e1c;color:var(--white);min-height:100vh}
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+/* SIDEBAR */
+aside{background:#0d1526;border-right:1px solid var(--border);padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.25rem;position:sticky;top:0;height:100vh;overflow-y:auto}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;padding:.75rem .75rem 1.25rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border);margin-bottom:.5rem}
+.logo span{color:var(--blue)}
+.logo-icon{background:var(--blue);width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.nav-item{display:flex;align-items:center;gap:.65rem;padding:.65rem .75rem;border-radius:8px;cursor:pointer;color:var(--mid);font-size:.85rem;font-weight:500;transition:all .2s;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:rgba(37,99,235,0.08);color:var(--white)}
+.nav-item.active{background:rgba(37,99,235,0.15);color:var(--blue-l)}
+.nav-section{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text);padding:.75rem .75rem .25rem;margin-top:.5rem}
+.sidebar-footer{margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)}
+.site-link{display:flex;align-items:center;gap:.5rem;color:var(--mid);font-size:.8rem;text-decoration:none;padding:.5rem .75rem;border-radius:7px;transition:all .2s}
+.site-link:hover{color:var(--blue-l)}
+/* MAIN */
+main{padding:2rem;overflow-y:auto}
+.page{display:none}
+.page.active{display:block}
+.page-header{margin-bottom:2rem}
+.page-header h1{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:.3rem}
+.page-header p{color:var(--mid);font-size:.875rem}
+/* CARDS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:#111827;border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.stat-card .num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--blue-l)}
+.stat-card .lbl{font-size:.75rem;color:var(--mid);margin-top:.2rem}
+/* TABLES */
+.table-card{background:#111827;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+.table-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
+.table-header h3{font-size:.9rem;font-weight:600}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:.75rem 1rem;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--mid);background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border)}
+td{padding:.85rem 1rem;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.badge{display:inline-block;padding:.2rem .6rem;border-radius:5px;font-size:.7rem;font-weight:600}
+.badge.green{background:rgba(34,197,94,.15);color:var(--green)}
+.badge.yellow{background:rgba(245,158,11,.15);color:var(--yellow)}
+.badge.red{background:rgba(239,68,68,.15);color:var(--red)}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:8px;font-size:.825rem;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-l)}
+.btn-ghost{background:rgba(255,255,255,0.06);color:var(--mid)}.btn-ghost:hover{color:#fff;background:rgba(255,255,255,0.1)}
+.btn-red{background:rgba(239,68,68,0.1);color:var(--red)}.btn-red:hover{background:rgba(239,68,68,0.2)}
+.btn-sm{padding:.3rem .7rem;font-size:.75rem}
+/* FORMS */
+.form-card{background:#111827;border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.form-card h3{font-size:.9rem;font-weight:600;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.fg label{font-size:.775rem;font-weight:500;color:var(--mid)}
+.fg input,.fg textarea,.fg select{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:.65rem .9rem;color:#fff;font-family:'Inter',sans-serif;font-size:.875rem;outline:none;transition:border-color .2s;width:100%}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue)}
+.fg textarea{resize:vertical;min-height:90px}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--text)}
+/* IMAGE UPLOAD */
+.img-upload{border:2px dashed rgba(37,99,235,0.3);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.img-upload:hover{border-color:var(--blue);background:rgba(37,99,235,0.05)}
+.img-upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.img-upload p{color:var(--mid);font-size:.825rem;margin-top:.5rem}
+/* PROJECT GRID */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.proj-card{background:#111827;border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative}
+.proj-card img{width:100%;height:120px;object-fit:cover}
+.proj-card-body{padding:.85rem}
+.proj-card-body h4{font-size:.85rem;font-weight:600;margin-bottom:.3rem}
+.proj-card-body p{font-size:.75rem;color:var(--mid)}
+.proj-card-actions{display:flex;gap:.4rem;margin-top:.6rem}
+.proj-thumb-placeholder{width:100%;height:120px;background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(15,23,42,.8));display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+/* CONTACT LIST */
+.contact-detail{background:rgba(37,99,235,0.05);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:.5rem}
+.contact-detail p{font-size:.85rem;color:var(--mid);line-height:1.7}
+.contact-detail strong{color:#fff}
+/* PHOTO SECTION */
+.photo-upload-area{display:grid;grid-template-columns:180px 1fr;gap:2rem;align-items:start}
+.founder-preview{width:180px;height:220px;border-radius:12px;border:2px dashed rgba(37,99,235,0.3);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem;background:rgba(37,99,235,0.05);position:relative;cursor:pointer}
+.founder-preview img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.founder-preview input{position:absolute;inset:0;opacity:0;cursor:pointer}
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#1e293b;border:1px solid var(--green);color:#fff;padding:.9rem 1.25rem;border-radius:10px;font-size:.875rem;display:none;align-items:center;gap:.5rem;z-index:9999;animation:slideIn .3s ease}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+/* RESPONSIVE */
+@media(max-width:768px){.layout{grid-template-columns:1fr}.stats-row{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}.proj-grid{grid-template-columns:1fr 1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="logo"><div class="logo-icon">📊</div>Data<span>Stock</span> <span style="font-size:.65rem;color:var(--mid);font-weight:400">Admin</span></div>
+  <div class="nav-section">Visão Geral</div>
+  <button class="nav-item active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+  <div class="nav-section">Conteúdo</div>
+  <button class="nav-item" onclick="showPage('projetos',this)">🖼️ Projetos & Fotos</button>
+  <button class="nav-item" onclick="showPage('fundador',this)">👤 Perfil do Fundador</button>
+  <button class="nav-item" onclick="showPage('servicos',this)">⚙️ Serviços</button>
+  <button class="nav-item" onclick="showPage('depoimentos',this)">💬 Depoimentos</button>
+  <div class="nav-section">Operacional</div>
+  <button class="nav-item" onclick="showPage('contatos',this)">📧 Contatos Recebidos</button>
+  <button class="nav-item" onclick="showPage('config',this)">🔧 Configurações</button>
+  <div class="sidebar-footer">
+    <a class="site-link" href="index.html" target="_blank">🌐 Ver Site ↗</a>
+  </div>
+</aside>
+
+<main>
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header"><h1>Dashboard</h1><p>Visão geral do conteúdo do site</p></div>
+  
+<div style="background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.825rem;color:#94A3B8;display:flex;align-items:center;gap:.75rem">
+  <span style="font-size:1.2rem">💡</span>
+  <span>Os dados salvos aqui ficam disponíveis automaticamente no site — <strong style="color:#fff">foto do fundador, depoimentos, serviços e projetos adicionados</strong> aparecem em tempo real para visitantes no mesmo navegador/dispositivo. Para produção em servidor, use a exportação de backup.</span>
+</div>
+<div class="stats-row">
+    <div class="stat-card"><div class="num" id="stat-proj">0</div><div class="lbl">📁 Projetos</div></div>
+    <div class="stat-card"><div class="num" id="stat-contacts">0</div><div class="lbl">📧 Contatos</div></div>
+    <div class="stat-card"><div class="num" id="stat-dep">0</div><div class="lbl">💬 Depoimentos</div></div>
+    <div class="stat-card"><div class="num" id="stat-services">0</div><div class="lbl">⚙️ Serviços</div></div>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>📧 Últimos Contatos</h3><button class="btn btn-ghost btn-sm" onclick="showPage('contatos',document.querySelector('[onclick*=contatos]'))">Ver todos</button></div>
+    <table><thead><tr><th>Nome</th><th>Empresa</th><th>E-mail</th><th>Data</th><th>Status</th></tr></thead>
+    <tbody id="dash-contacts-table"><tr><td colspan="5" style="text-align:center;color:var(--mid);padding:2rem">Nenhum contato ainda</td></tr></tbody></table>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>🖼️ Projetos Recentes</h3><button class="btn btn-ghost btn-sm" onclick="showPage('projetos',document.querySelector('[onclick*=projetos]'))">Gerenciar</button></div>
+    <table><thead><tr><th>Projeto</th><th>Categoria</th><th>Tecnologias</th><th>Status</th></tr></thead>
+    <tbody id="dash-proj-table"><tr><td colspan="4" style="text-align:center;color:var(--mid);padding:2rem">Nenhum projeto ainda</td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- PROJETOS -->
+<div class="page" id="page-projetos">
+  <div class="page-header"><h1>Projetos & Fotos</h1><p>Gerencie o portfólio exibido no site</p></div>
+  <div class="form-card">
+    <h3>➕ Adicionar Novo Projeto</h3>
+    <div class="form-row">
+      <div class="fg"><label>Nome do Projeto *</label><input id="proj-name" placeholder="Ex: Dashboard Financeiro"></div>
+      <div class="fg"><label>Categoria *</label>
+        <select id="proj-cat">
+          <option value="bi">Dashboards Power BI</option>
+          <option value="auto">Automações Corporativas</option>
+          <option value="log">Projetos Logísticos</option>
+          <option value="pdv">Sistema PDV</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label>Objetivo / Descrição *</label><textarea id="proj-desc" placeholder="Descreva o projeto e seu objetivo..."></textarea></div>
+    <div class="form-row">
+      <div class="fg"><label>Tecnologias utilizadas</label><input id="proj-tech" placeholder="Power BI, Python, SQL..."></div>
+      <div class="fg"><label>Benefícios alcançados</label><input id="proj-benefits" placeholder="Redução de 50% no tempo, +30% produtividade..."></div>
+    </div>
+    <div class="fg"><label>Imagem do Projeto</label>
+      <div class="img-upload" id="proj-upload-area">
+        <input type="file" accept="image/*" onchange="handleProjImage(event)" id="proj-img-input">
+        <div style="font-size:2rem">🖼️</div>
+        <p>Clique para selecionar uma imagem</p>
+        <p style="font-size:.7rem;margin-top:.25rem">JPG, PNG, WebP · Recomendado: 800x500px</p>
+      </div>
+      <img id="proj-img-preview" style="display:none;max-height:160px;border-radius:8px;margin-top:.5rem;object-fit:cover;width:100%">
+    </div>
+    <button class="btn btn-blue" onclick="saveProject()">💾 Salvar Projeto</button>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>Projetos Cadastrados</h3></div>
+    <div class="proj-grid" id="proj-grid" style="padding:1rem"></div>
+  </div>
+</div>
+
+<!-- FUNDADOR -->
+<div class="page" id="page-fundador">
+  <div class="page-header"><h1>Perfil do Fundador</h1><p>Atualize foto e informações exibidas no site</p></div>
+  <div class="form-card">
+    <h3>📸 Foto do Fundador</h3>
+    <div class="photo-upload-area">
+      <div>
+        <div class="founder-preview" id="founder-preview-box">
+          <span id="founder-preview-emoji">👨‍💼</span>
+          <img id="founder-preview-img" style="display:none">
+          <input type="file" accept="image/*" onchange="handleFounderPhoto(event)">
+        </div>
+        <p style="font-size:.7rem;color:var(--mid);text-align:center;margin-top:.5rem">Clique para alterar</p>
+      </div>
+      <div>
+        <div class="fg"><label>Nome Completo</label><input id="founder-name" value="Ulysson Fontenele Nobre"></div>
+        <div class="fg"><label>Cargo / Título</label><input id="founder-role" value="Fundador & CEO · DataStock"></div>
+        <div class="fg"><label>Bio (texto curto)</label><textarea id="founder-bio">Profissional com sólida experiência em logística, gestão operacional, análise de dados e desenvolvimento de soluções corporativas.</textarea></div>
+        <button class="btn btn-blue" onclick="saveFounder()">💾 Salvar Perfil</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-card">
+    <h3>🎓 Formação Acadêmica</h3>
+    <div id="formacao-list"></div>
+    <div style="display:flex;gap:.75rem;margin-top:.5rem">
+      <input id="new-formacao" placeholder="Ex: MBA em Business Intelligence" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:.6rem .9rem;color:#fff;font-size:.875rem;outline:none">
+      <button class="btn btn-blue" onclick="addFormacao()">+ Adicionar</button>
+    </div>
+  </div>
+  <div class="form-card">
+    <h3>💼 Experiências</h3>
+    <div id="exp-list"></div>
+    <div style="display:flex;gap:.75rem;margin-top:.5rem">
+      <input id="new-exp" placeholder="Ex: Desenvolvimento de dashboards em Power BI" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:.6rem .9rem;color:#fff;font-size:.875rem;outline:none">
+      <button class="btn btn-blue" onclick="addExp()">+ Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<div class="page" id="page-servicos">
+  <div class="page-header"><h1>Serviços</h1><p>Gerencie os serviços exibidos no site</p></div>
+  <div class="form-card">
+    <h3>➕ Adicionar / Editar Serviço</h3>
+    <div class="form-row">
+      <div class="fg"><label>Nome do Serviço</label><input id="svc-name" placeholder="Ex: Business Intelligence"></div>
+      <div class="fg"><label>Ícone (emoji)</label><input id="svc-icon" placeholder="📊" style="font-size:1.5rem"></div>
+    </div>
+    <div class="fg"><label>Descrição</label><textarea id="svc-desc" placeholder="Descreva o serviço..."></textarea></div>
+    <button class="btn btn-blue" onclick="saveService()">💾 Salvar Serviço</button>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>Serviços Cadastrados</h3></div>
+    <table><thead><tr><th>Ícone</th><th>Nome</th><th>Descrição</th><th>Ações</th></tr></thead>
+    <tbody id="services-table"></tbody></table>
+  </div>
+</div>
+
+<!-- DEPOIMENTOS -->
+<div class="page" id="page-depoimentos">
+  <div class="page-header"><h1>Depoimentos</h1><p>Adicione e gerencie os depoimentos de clientes</p></div>
+  <div class="form-card">
+    <h3>➕ Adicionar Depoimento</h3>
+    <div class="form-row">
+      <div class="fg"><label>Nome do Cliente *</label><input id="dep-name" placeholder="João Silva"></div>
+      <div class="fg"><label>Cargo / Empresa</label><input id="dep-role" placeholder="Gerente · Empresa XYZ"></div>
+    </div>
+    <div class="fg"><label>Depoimento *</label><textarea id="dep-text" placeholder="Texto do depoimento..."></textarea></div>
+    <div class="fg"><label>Avaliação</label>
+      <select id="dep-stars"><option value="5">★★★★★ 5 estrelas</option><option value="4">★★★★☆ 4 estrelas</option><option value="3">★★★☆☆ 3 estrelas</option></select>
+    </div>
+    <button class="btn btn-blue" onclick="saveDepoimento()">💾 Salvar Depoimento</button>
+  </div>
+  <div class="table-card">
+    <div class="table-header"><h3>Depoimentos Cadastrados</h3></div>
+    <table><thead><tr><th>Cliente</th><th>Cargo</th><th>Avaliação</th><th>Depoimento</th><th>Ações</th></tr></thead>
+    <tbody id="dep-table"></tbody></table>
+  </div>
+</div>
+
+<!-- CONTATOS -->
+<div class="page" id="page-contatos">
+  <div class="page-header"><h1>Contatos Recebidos</h1><p>Mensagens enviadas pelo formulário do site</p></div>
+  <div class="table-card">
+    <div class="table-header"><h3>Todas as mensagens</h3><button class="btn btn-red btn-sm" onclick="clearContacts()">🗑️ Limpar todos</button></div>
+    <table><thead><tr><th>Nome</th><th>Empresa</th><th>E-mail</th><th>Telefone</th><th>Data</th><th>Ações</th></tr></thead>
+    <tbody id="contacts-table"></tbody></table>
+  </div>
+</div>
+
+<!-- CONFIG -->
+<div class="page" id="page-config">
+  <div class="page-header"><h1>Configurações do Site</h1><p>Dados gerais exibidos no site</p></div>
+  <div class="form-card">
+    <h3>🏢 Dados da Empresa</h3>
+    <div class="form-row">
+      <div class="fg"><label>Nome da Empresa</label><input id="cfg-company" value="DataStock Soluções Inteligentes"></div>
+      <div class="fg"><label>CNPJ</label><input id="cfg-cnpj" value="59.348.157/0001-55"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>WhatsApp</label><input id="cfg-whatsapp" placeholder="5585999999999"></div>
+      <div class="fg"><label>E-mail Comercial</label><input id="cfg-email" placeholder="contato@datastock.com.br"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>LinkedIn URL</label><input id="cfg-linkedin" placeholder="https://linkedin.com/in/..."></div>
+      <div class="fg"><label>Localização</label><input id="cfg-location" value="Ceará, Brasil"></div>
+    </div>
+    <button class="btn btn-blue" onclick="saveConfig()">💾 Salvar Configurações</button>
+  </div>
+  <div class="form-card" style="margin-top:1.5rem">
+    <h3>🔐 Alterar Senha do Admin</h3>
+    <div class="form-row">
+      <div class="fg"><label>Nova Senha</label><input id="cfg-newpw" type="password" placeholder="Nova senha"></div>
+      <div class="fg"><label>Confirmar Senha</label><input id="cfg-confirmpw" type="password" placeholder="Confirme a senha"></div>
+    </div>
+    <button class="btn btn-blue" onclick="changePw()">🔐 Salvar Nova Senha</button>
+  </div>
+
+  <div class="form-card">
+    <h3>📤 Exportar / Importar Dados</h3>
+    <p style="color:var(--mid);font-size:.85rem;margin-bottom:1rem">Faça backup de todos os dados ou importe em outro computador.</p>
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+      <button class="btn btn-blue" onclick="exportData()">📥 Exportar backup (JSON)</button>
+      <label class="btn btn-ghost" style="cursor:pointer">📤 Importar backup <input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+      <button class="btn btn-red" onclick="clearAll()">⚠️ Limpar todos os dados</button>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<div class="toast" id="toast">✅ <span id="toast-msg">Salvo com sucesso!</span></div>
+
+<div id="contact-detail-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:999;align-items:center;justify-content:center;padding:2rem">
+  <div style="background:#111827;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:540px;width:100%;position:relative">
+    <button onclick="document.getElementById('contact-detail-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.08);border:none;color:#fff;width:28px;height:28px;border-radius:7px;cursor:pointer">✕</button>
+    <div id="contact-detail-content"></div>
+  </div>
+</div>
+
+<script>
+// ── STORAGE HELPERS ──
+const S = {
+  get: k => { try { return JSON.parse(localStorage.getItem('ds_'+k)) } catch { return null } },
+  set: (k,v) => localStorage.setItem('ds_'+k, JSON.stringify(v)),
+  del: k => localStorage.removeItem('ds_'+k)
+};
+
+// ── TOAST ──
+function toast(msg, ok=true) {
+  const t = document.getElementById('toast');
+  t.style.borderColor = ok ? 'var(--green)' : 'var(--red)';
+  document.getElementById('toast-msg').textContent = msg;
+  t.style.display = 'flex';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+
+// ── NAV ──
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  refreshPage(id);
+}
+
+function refreshPage(id) {
+  if(id==='dashboard') refreshDashboard();
+  if(id==='projetos') renderProjects();
+  if(id==='contatos') renderContacts();
+  if(id==='servicos') renderServices();
+  if(id==='depoimentos') renderDeps();
+  if(id==='fundador') loadFounder();
+  if(id==='config') loadConfig();
+}
+
+// ── DASHBOARD ──
+function refreshDashboard() {
+  const projs = S.get('projects') || [];
+  const contacts = S.get('contacts') || [];
+  const deps = S.get('depoimentos') || [];
+  const svcs = S.get('services') || getDefaultServices();
+  document.getElementById('stat-proj').textContent = projs.length;
+  document.getElementById('stat-contacts').textContent = contacts.length;
+  document.getElementById('stat-dep').textContent = deps.length;
+  document.getElementById('stat-services').textContent = svcs.length;
+  // contacts table
+  const ct = document.getElementById('dash-contacts-table');
+  ct.innerHTML = contacts.length ? contacts.slice(-5).reverse().map(c => `
+    <tr><td>${c.nome}</td><td>${c.empresa||'—'}</td><td>${c.email}</td><td>${c.data}</td>
+    <td><span class="badge green">Novo</span></td></tr>`).join('') :
+    '<tr><td colspan="5" style="text-align:center;color:var(--mid);padding:2rem">Nenhum contato ainda</td></tr>';
+  // projects table
+  const pt = document.getElementById('dash-proj-table');
+  pt.innerHTML = projs.length ? projs.slice(-4).reverse().map(p => `
+    <tr><td>${p.name}</td><td>${catLabel(p.cat)}</td><td style="color:var(--mid);font-size:.78rem">${p.tech||'—'}</td>
+    <td><span class="badge green">Ativo</span></td></tr>`).join('') :
+    '<tr><td colspan="4" style="text-align:center;color:var(--mid);padding:2rem">Nenhum projeto ainda</td></tr>';
+}
+
+function catLabel(c) {
+  return {bi:'Power BI',auto:'Automação',log:'Logística',pdv:'PDV'}[c] || c;
+}
+
+// ── PROJECTS ──
+let projImgData = null;
+function handleProjImage(e) {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    projImgData = ev.target.result;
+    const prev = document.getElementById('proj-img-preview');
+    prev.src = projImgData; prev.style.display = 'block';
+    document.getElementById('proj-upload-area').style.display = 'none';
+  };
+  r.readAsDataURL(f);
+}
+
+function saveProject() {
+  const name = document.getElementById('proj-name').value.trim();
+  const desc = document.getElementById('proj-desc').value.trim();
+  if(!name || !desc) { toast('Preencha nome e descrição', false); return; }
+  const projs = S.get('projects') || [];
+  projs.push({
+    id: Date.now(),
+    name, desc,
+    cat: document.getElementById('proj-cat').value,
+    tech: document.getElementById('proj-tech').value,
+    benefits: document.getElementById('proj-benefits').value,
+    img: projImgData,
+    date: new Date().toLocaleDateString('pt-BR')
+  });
+  S.set('projects', projs);
+  // reset
+  ['proj-name','proj-desc','proj-tech','proj-benefits'].forEach(id => document.getElementById(id).value='');
+  projImgData = null;
+  document.getElementById('proj-img-preview').style.display='none';
+  document.getElementById('proj-upload-area').style.display='block';
+  document.getElementById('proj-img-input').value='';
+  toast('Projeto salvo! ✅'); renderProjects();
+}
+
+function renderProjects() {
+  const projs = S.get('projects') || [];
+  const grid = document.getElementById('proj-grid');
+  if(!projs.length) { grid.innerHTML = '<p style="color:var(--mid);font-size:.85rem;padding:.5rem">Nenhum projeto ainda. Adicione acima.</p>'; return; }
+  grid.innerHTML = projs.map(p => `
+    <div class="proj-card">
+      ${p.img ? `<img src="${p.img}" alt="${p.name}">` : `<div class="proj-thumb-placeholder">📁</div>`}
+      <div class="proj-card-body">
+        <h4>${p.name}</h4>
+        <p>${catLabel(p.cat)} · ${p.date}</p>
+        <div class="proj-card-actions">
+          <button class="btn btn-red btn-sm" onclick="deleteProject(${p.id})">🗑️ Excluir</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function deleteProject(id) {
+  if(!confirm('Excluir este projeto?')) return;
+  S.set('projects', (S.get('projects')||[]).filter(p=>p.id!==id));
+  toast('Projeto excluído'); renderProjects();
+}
+
+// ── FOUNDER ──
+let founderPhotoData = null;
+function handleFounderPhoto(e) {
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    founderPhotoData = ev.target.result;
+    document.getElementById('founder-preview-emoji').style.display='none';
+    const img = document.getElementById('founder-preview-img');
+    img.src = founderPhotoData; img.style.display='block';
+  };
+  r.readAsDataURL(f);
+}
+
+function loadFounder() {
+  const d = S.get('founder') || {};
+  if(d.name) document.getElementById('founder-name').value = d.name;
+  if(d.role) document.getElementById('founder-role').value = d.role;
+  if(d.bio) document.getElementById('founder-bio').value = d.bio;
+  if(d.photo) {
+    founderPhotoData = d.photo;
+    document.getElementById('founder-preview-emoji').style.display='none';
+    const img = document.getElementById('founder-preview-img');
+    img.src = d.photo; img.style.display='block';
+  }
+  renderFormacoes(); renderExps();
+}
+
+function saveFounder() {
+  const d = S.get('founder') || {};
+  d.name = document.getElementById('founder-name').value;
+  d.role = document.getElementById('founder-role').value;
+  d.bio = document.getElementById('founder-bio').value;
+  if(founderPhotoData) d.photo = founderPhotoData;
+  S.set('founder', d); toast('Perfil salvo!');
+}
+
+// formação
+function getFormacoes() { return S.get('formacao') || ['MBA em Business Intelligence','Pós-graduação em Análise de Dados','Tecnólogo em Logística','Técnico em Tecnologia da Informação']; }
+function renderFormacoes() {
+  const list = getFormacoes();
+  document.getElementById('formacao-list').innerHTML = list.map((f,i) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .75rem;background:rgba(255,255,255,0.03);border-radius:7px;margin-bottom:.4rem">
+      <span style="font-size:.875rem">🎓 ${f}</span>
+      <button class="btn btn-red btn-sm" onclick="removeFormacao(${i})">✕</button>
+    </div>`).join('');
+}
+function addFormacao() {
+  const v = document.getElementById('new-formacao').value.trim(); if(!v) return;
+  const list = getFormacoes(); list.push(v);
+  S.set('formacao', list); document.getElementById('new-formacao').value='';
+  renderFormacoes(); toast('Formação adicionada!');
+}
+function removeFormacao(i) { const l=getFormacoes(); l.splice(i,1); S.set('formacao',l); renderFormacoes(); }
+
+// experiência
+function getExps() { return S.get('exps') || ['Desenvolvimento de dashboards corporativos em Power BI','Automação de processos utilizando VBA e Excel','Implantação de projetos de otimização logística','Desenvolvimento de sistemas comerciais','Gestão de operações logísticas']; }
+function renderExps() {
+  const list = getExps();
+  document.getElementById('exp-list').innerHTML = list.map((e,i) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .75rem;background:rgba(255,255,255,0.03);border-radius:7px;margin-bottom:.4rem">
+      <span style="font-size:.875rem">→ ${e}</span>
+      <button class="btn btn-red btn-sm" onclick="removeExp(${i})">✕</button>
+    </div>`).join('');
+}
+function addExp() {
+  const v = document.getElementById('new-exp').value.trim(); if(!v) return;
+  const l = getExps(); l.push(v);
+  S.set('exps', l); document.getElementById('new-exp').value='';
+  renderExps(); toast('Experiência adicionada!');
+}
+function removeExp(i) { const l=getExps(); l.splice(i,1); S.set('exps',l); renderExps(); }
+
+// ── SERVICES ──
+function getDefaultServices() {
+  return [
+    {id:1,icon:'📊',name:'Business Intelligence',desc:'Desenvolvimento de dashboards estratégicos em Power BI para acompanhamento de indicadores e tomada de decisão.'},
+    {id:2,icon:'🔬',name:'Análise de Dados',desc:'Transformação de dados brutos em informações valiosas para gestão empresarial.'},
+    {id:3,icon:'⚙️',name:'Automação de Processos',desc:'Soluções em VBA, Excel, Power Query e integração de processos operacionais.'},
+    {id:4,icon:'💻',name:'Desenvolvimento de Sistemas',desc:'Criação de ferramentas personalizadas para necessidades específicas do cliente.'},
+    {id:5,icon:'🏭',name:'Consultoria Logística',desc:'Projetos de otimização operacional, armazenagem, inventário e produtividade.'},
+    {id:6,icon:'🛒',name:'Automação Comercial',desc:'Sistemas para controle de vendas, estoque, clientes e gestão comercial.'}
+  ];
+}
+function saveService() {
+  const name=document.getElementById('svc-name').value.trim();
+  const desc=document.getElementById('svc-desc').value.trim();
+  if(!name||!desc){toast('Preencha nome e descrição',false);return;}
+  const svcs=S.get('services')||getDefaultServices();
+  svcs.push({id:Date.now(),icon:document.getElementById('svc-icon').value||'🔧',name,desc});
+  S.set('services',svcs);
+  ['svc-name','svc-icon','svc-desc'].forEach(id=>document.getElementById(id).value='');
+  toast('Serviço adicionado!'); renderServices();
+}
+function renderServices() {
+  const svcs=S.get('services')||getDefaultServices();
+  document.getElementById('services-table').innerHTML=svcs.map(s=>`
+    <tr><td style="font-size:1.3rem">${s.icon}</td><td><strong>${s.name}</strong></td>
+    <td style="color:var(--mid);font-size:.8rem;max-width:300px">${s.desc}</td>
+    <td><button class="btn btn-red btn-sm" onclick="deleteSvc(${s.id})">🗑️</button></td></tr>`).join('');
+}
+function deleteSvc(id){
+  if(!confirm('Excluir serviço?'))return;
+  const svcs=(S.get('services')||getDefaultServices()).filter(s=>s.id!==id);
+  S.set('services',svcs); toast('Serviço excluído'); renderServices();
+}
+
+// ── DEPOIMENTOS ──
+function saveDepoimento() {
+  const name=document.getElementById('dep-name').value.trim();
+  const text=document.getElementById('dep-text').value.trim();
+  if(!name||!text){toast('Preencha nome e depoimento',false);return;}
+  const deps=S.get('depoimentos')||[];
+  deps.push({id:Date.now(),name,role:document.getElementById('dep-role').value,text,stars:+document.getElementById('dep-stars').value,date:new Date().toLocaleDateString('pt-BR')});
+  S.set('depoimentos',deps);
+  ['dep-name','dep-role','dep-text'].forEach(id=>document.getElementById(id).value='');
+  toast('Depoimento salvo!'); renderDeps();
+}
+function renderDeps() {
+  const deps=S.get('depoimentos')||[];
+  const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+  document.getElementById('dep-table').innerHTML=deps.length?deps.map(d=>`
+    <tr><td><strong>${d.name}</strong></td><td style="color:var(--mid);font-size:.8rem">${d.role||'—'}</td>
+    <td style="color:#fbbf24">${stars(d.stars)}</td>
+    <td style="color:var(--mid);font-size:.8rem;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.text}</td>
+    <td><button class="btn btn-red btn-sm" onclick="deleteDep(${d.id})">🗑️</button></td></tr>`).join(''):
+    '<tr><td colspan="5" style="text-align:center;color:var(--mid);padding:2rem">Nenhum depoimento ainda</td></tr>';
+}
+function deleteDep(id){if(!confirm('Excluir?'))return;S.set('depoimentos',(S.get('depoimentos')||[]).filter(d=>d.id!==id));toast('Excluído');renderDeps();}
+
+// ── CONTACTS ──
+function renderContacts() {
+  const contacts=S.get('contacts')||[];
+  document.getElementById('contacts-table').innerHTML=contacts.length?contacts.slice().reverse().map(c=>`
+    <tr><td><strong>${c.nome}</strong></td><td>${c.empresa||'—'}</td><td>${c.email}</td>
+    <td>${c.telefone||'—'}</td><td style="color:var(--mid);font-size:.78rem">${c.data}</td>
+    <td><button class="btn btn-ghost btn-sm" onclick="viewContact(${c.id})">👁️ Ver</button></td></tr>`).join(''):
+    '<tr><td colspan="6" style="text-align:center;color:var(--mid);padding:2rem">Nenhum contato recebido ainda</td></tr>';
+}
+function viewContact(id){
+  const c=(S.get('contacts')||[]).find(x=>x.id===id);if(!c)return;
+  document.getElementById('contact-detail-content').innerHTML=`
+    <h3 style="font-family:'Space Grotesk',sans-serif;margin-bottom:1rem">📧 Mensagem de ${c.nome}</h3>
+    <div class="contact-detail"><p><strong>Nome:</strong> ${c.nome}</p><p><strong>Empresa:</strong> ${c.empresa||'—'}</p>
+    <p><strong>E-mail:</strong> ${c.email}</p><p><strong>Telefone:</strong> ${c.telefone||'—'}</p>
+    <p><strong>Data:</strong> ${c.data}</p><p style="margin-top:.75rem"><strong>Mensagem:</strong><br>${c.mensagem||'—'}</p></div>`;
+  document.getElementById('contact-detail-modal').style.display='flex';
+}
+function clearContacts(){if(!confirm('Limpar todos os contatos?'))return;S.del('contacts');toast('Contatos limpos');renderContacts();}
+
+// ── CONFIG ──
+function loadConfig(){
+  const c=S.get('config')||{};
+  ['company','cnpj','whatsapp','email','linkedin','location'].forEach(k=>{
+    const el=document.getElementById('cfg-'+k);if(el&&c[k])el.value=c[k];
+  });
+}
+function saveConfig(){
+  const c={};
+  ['company','cnpj','whatsapp','email','linkedin','location'].forEach(k=>{
+    const el=document.getElementById('cfg-'+k);if(el)c[k]=el.value;
+  });
+  S.set('config',c);toast('Configurações salvas!');
+}
+
+// ── EXPORT/IMPORT ──
+function exportData(){
+  const data={projects:S.get('projects'),founder:S.get('founder'),formacao:S.get('formacao'),exps:S.get('exps'),services:S.get('services'),depoimentos:S.get('depoimentos'),contacts:S.get('contacts'),config:S.get('config')};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='datastock-backup.json';a.click();
+}
+function importData(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      Object.entries(data).forEach(([k,v])=>{if(v!==null)S.set(k,v)});
+      toast('Backup importado com sucesso!');refreshPage('dashboard');
+    }catch{toast('Arquivo inválido',false);}
+  };r.readAsText(f);
+}
+function clearAll(){if(!confirm('⚠️ Isso apagará TODOS os dados. Continuar?'))return;localStorage.clear();toast('Dados limpos');refreshDashboard();}
+
+
+function changePw(){
+  const np=document.getElementById('cfg-newpw').value;
+  const cp=document.getElementById('cfg-confirmpw').value;
+  if(!np){toast('Digite a nova senha',false);return;}
+  if(np!==cp){toast('Senhas não conferem',false);return;}
+  localStorage.setItem('ds_admin_pw',np);
+  toast('Senha alterada com sucesso!');
+  document.getElementById('cfg-newpw').value='';
+  document.getElementById('cfg-confirmpw').value='';
+}
+
+// INIT
+refreshDashboard();
+</script>
+
+<div id="pw-gate" style="position:fixed;inset:0;background:#080e1c;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem">
+  <div style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700">📊 DataStock <span style="color:#2563EB">Admin</span></div>
+  <div style="background:#111827;border:1px solid rgba(37,99,235,.2);border-radius:16px;padding:2rem;width:320px;display:flex;flex-direction:column;gap:1rem">
+    <p style="font-size:.85rem;color:#94A3B8;text-align:center">Digite a senha para acessar</p>
+    <input id="pw-input" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')checkPw()"
+      style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;color:#fff;font-size:.9rem;outline:none;font-family:'Inter',sans-serif">
+    <p id="pw-err" style="color:#ef4444;font-size:.8rem;display:none;text-align:center">Senha incorreta</p>
+    <button onclick="checkPw()" style="background:#2563EB;color:#fff;border:none;border-radius:8px;padding:.75rem;font-weight:600;cursor:pointer;font-size:.9rem">Entrar</button>
+  </div>
+  <p style="font-size:.7rem;color:#334155">DataStock Soluções Inteligentes</p>
+</div>
+<script>
+(function(){
+  // Default password — change via Configurações no admin
+  const DEFAULT_PW = 'datastock2025';
+  if(sessionStorage.getItem('ds_auth')==='1'){
+    document.getElementById('pw-gate').style.display='none';
+  }
+  window.checkPw = function(){
+    const stored = localStorage.getItem('ds_admin_pw') || DEFAULT_PW;
+    const val = document.getElementById('pw-input').value;
+    if(val === stored){
+      sessionStorage.setItem('ds_auth','1');
+      document.getElementById('pw-gate').style.display='none';
+    } else {
+      document.getElementById('pw-err').style.display='block';
+      document.getElementById('pw-input').value='';
+    }
+  }
+})();
+</script>
+</body>
+</html>

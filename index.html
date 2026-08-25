@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataStock Soluções Inteligentes | Transformando Dados em Decisões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #0F172A;
+  --blue: #2563EB;
+  --blue-light: #3B82F6;
+  --blue-glow: rgba(37,99,235,0.15);
+  --white: #FFFFFF;
+  --gray: #F8FAFC;
+  --gray-mid: #94A3B8;
+  --gray-text: #64748B;
+  --border: rgba(37,99,235,0.15);
+  --card-bg: rgba(255,255,255,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:70px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(16px);background:rgba(15,23,42,0.85);border-bottom:1px solid var(--border);transition:all .3s}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:-.02em}
+.nav-logo span{color:var(--blue)}
+.nav-logo-icon{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--gray-mid);text-decoration:none;font-size:.875rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--blue);color:var(--white);border:none;padding:.5rem 1.25rem;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none}
+.nav-cta:hover{background:var(--blue-light);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:100px 2rem 60px}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(37,99,235,0.12) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,99,235,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 100% 100% at 50% 50%,black 30%,transparent 100%)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,235,0.12);border:1px solid rgba(37,99,235,0.3);padding:.35rem .9rem;border-radius:50px;font-size:.78rem;font-weight:600;color:var(--blue-light);margin-bottom:1.5rem;letter-spacing:.05em;text-transform:uppercase}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--blue-light);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+h1.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;margin-bottom:1.25rem}
+h1.hero-title em{font-style:normal;color:var(--blue)}
+.hero-sub{color:var(--gray-mid);font-size:1.05rem;line-height:1.75;margin-bottom:2.2rem;max-width:480px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--blue);color:var(--white);padding:.8rem 1.8rem;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{background:var(--blue-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,0.35)}
+.btn-ghost{background:transparent;color:var(--white);padding:.8rem 1.8rem;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:1px solid rgba(255,255,255,0.15);cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue-light);transform:translateY(-2px)}
+/* Hero visual */
+.hero-visual{position:relative}
+.hero-dashboard{background:rgba(255,255,255,0.04);border:1px solid rgba(37,99,235,0.2);border-radius:20px;padding:1.5rem;backdrop-filter:blur(10px);animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.dash-title{font-weight:600;font-size:.85rem;color:var(--gray-mid)}
+.dash-badge{background:rgba(34,197,94,0.15);color:#4ade80;font-size:.7rem;padding:.2rem .6rem;border-radius:50px;font-weight:600}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.2rem}
+.kpi{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.15);border-radius:12px;padding:.9rem;text-align:center}
+.kpi-val{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:var(--white)}
+.kpi-label{font-size:.65rem;color:var(--gray-mid);margin-top:.2rem}
+.dash-chart{background:rgba(37,99,235,0.05);border-radius:12px;padding:1rem;height:120px;position:relative;overflow:hidden}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:80px;padding-top:10px}
+.bar{flex:1;border-radius:4px 4px 0 0;animation:grow 1.5s ease forwards}
+@keyframes grow{from{height:0}to{height:var(--h)}}
+.dash-mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.75rem}
+.mini-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:.75rem;display:flex;align-items:center;gap:.6rem}
+.mini-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.mini-text{font-size:.7rem;color:var(--gray-mid);line-height:1.3}
+.mini-text strong{color:var(--white);display:block;font-size:.8rem}
+/* SECTIONS */
+section{padding:90px 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.75rem}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;margin-bottom:1rem;line-height:1.2}
+.section-sub{color:var(--gray-mid);font-size:1rem;line-height:1.75;max-width:580px}
+/* SOBRE */
+#sobre{background:rgba(255,255,255,0.015)}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.sobre-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.feat-item{display:flex;align-items:flex-start;gap:.75rem}
+.feat-icon{width:36px;height:36px;background:rgba(37,99,235,0.12);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.feat-text{font-size:.85rem;color:var(--gray-mid);line-height:1.5}
+.feat-text strong{color:var(--white);display:block;font-size:.9rem;margin-bottom:.2rem}
+.sobre-visual{position:relative}
+.sobre-stat-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center}
+.sobre-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+.stat{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.15);border-radius:12px;padding:1.25rem;text-align:center}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--blue-light)}
+.stat-label{font-size:.75rem;color:var(--gray-mid);margin-top:.3rem}
+/* FUNDADOR */
+#fundador{background:linear-gradient(135deg,rgba(37,99,235,0.06) 0%,rgba(15,23,42,0) 60%)}
+.fundador-grid{display:grid;grid-template-columns:360px 1fr;gap:4rem;align-items:start}
+.founder-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.founder-avatar {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.2), rgba(15,23,42,0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.founder-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.founder-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(15,23,42,0.9));
+}
+.founder-info{padding:1.5rem}
+.founder-name{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:.3rem}
+.founder-role{color:var(--blue-light);font-size:.85rem;font-weight:600}
+.founder-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.badge{background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);color:var(--blue-light);font-size:.7rem;padding:.3rem .7rem;border-radius:6px;font-weight:500}
+.founder-bio{color:var(--gray-mid);line-height:1.75;font-size:.95rem;margin-bottom:2rem}
+.founder-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
+.metric{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.metric-num{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--blue-light)}
+.metric-label{font-size:.7rem;color:var(--gray-mid);margin-top:.3rem;line-height:1.4}
+.exp-title{font-weight:600;margin-bottom:1rem;font-size:.9rem;color:var(--gray-mid);text-transform:uppercase;letter-spacing:.06em}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.exp-list li{display:flex;align-items:center;gap:.75rem;color:var(--gray-mid);font-size:.9rem}
+.exp-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.formacao-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem}
+.formacao-list li{display:flex;align-items:center;gap:.75rem;color:var(--gray-mid);font-size:.9rem}
+.formacao-list li::before{content:'🎓';flex-shrink:0}
+/* SERVIÇOS */
+#servicos{background:rgba(255,255,255,0.015)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.service-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.75rem;transition:all .3s;cursor:default}
+.service-card:hover{background:rgba(37,99,235,0.08);border-color:rgba(37,99,235,0.3);transform:translateY(-4px)}
+.service-icon{width:48px;height:48px;background:rgba(37,99,235,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem}
+.service-card h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:.6rem}
+.service-card p{color:var(--gray-mid);font-size:.875rem;line-height:1.65}
+/* PDV */
+#pdv{background:linear-gradient(135deg,#0d1426 0%,rgba(37,99,235,0.08) 100%)}
+.pdv-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.pdv-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);color:#fbbf24;padding:.4rem 1rem;border-radius:50px;font-size:.78rem;font-weight:700;margin-bottom:1.25rem}
+.pdv-features{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:2rem 0}
+.pdv-feat{display:flex;align-items:center;gap:.6rem;font-size:.875rem;color:var(--gray-mid)}
+.pdv-feat::before{content:'✓';color:#4ade80;font-weight:700;flex-shrink:0}
+.pdv-screen{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:20px;padding:1.5rem}
+.pdv-screen{
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-15px);
+    }
+}
+.pdv-topbar{display:flex;gap:.5rem;margin-bottom:1rem}
+.dot{width:10px;height:10px;border-radius:50%}
+.pdv-mock{display:grid;grid-template-columns:180px 1fr;gap:1rem;height:280px}
+.pdv-sidebar{background:rgba(37,99,235,0.08);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.5rem}
+.pdv-menu-item{padding:.5rem .6rem;border-radius:7px;font-size:.7rem;color:var(--gray-mid);cursor:pointer}
+.pdv-menu-item.active{background:var(--blue);color:var(--white)}
+.pdv-main{display:flex;flex-direction:column;gap:.75rem}
+.pdv-row{background:rgba(255,255,255,0.03);border-radius:8px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;font-size:.75rem}
+.pdv-total{background:rgba(37,99,235,0.15);border:1px solid rgba(37,99,235,0.3);border-radius:8px;padding:.75rem 1rem;display:flex;justify-content:space-between;font-weight:700;font-size:.85rem}
+/* ANTES E DEPOIS */
+#transformacao{background:rgba(255,255,255,0.015)}
+.ad-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem}
+.ad-col{border-radius:20px;padding:2.5rem;position:relative;overflow:hidden}
+.ad-col.before{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15)}
+.ad-col.after{background:rgba(37,199,94,0.05);border:1px solid rgba(34,197,94,0.2)}
+.ad-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.ad-col.before .ad-label{color:#f87171}
+.ad-col.after .ad-label{color:#4ade80}
+.ad-items{display:flex;flex-direction:column;gap:.85rem}
+.ad-item{display:flex;align-items:center;gap:.75rem;font-size:.9rem;color:var(--gray-mid)}
+.ad-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ad-col.before .ad-item-icon{background:rgba(239,68,68,0.1)}
+.ad-col.after .ad-item-icon{background:rgba(34,197,94,0.1)}
+.ad-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.ad-metric{background:rgba(37,99,235,0.08);border:1px solid rgba(37,99,235,0.15);border-radius:14px;padding:1.5rem;text-align:center}
+.ad-metric-num{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--blue-light)}
+.ad-metric-label{font-size:.78rem;color:var(--gray-mid);margin-top:.4rem}
+/* PORTFÓLIO */
+.portfolio-cats{display:flex;gap:.75rem;margin:2rem 0;flex-wrap:wrap}
+.port-cat{padding:.45rem 1.1rem;border-radius:8px;font-size:.825rem;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.08);color:var(--gray-mid);background:transparent;transition:all .2s}
+.port-cat.active,.port-cat:hover{background:var(--blue);color:var(--white);border-color:var(--blue)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.port-card{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all .3s;background:rgba(255,255,255,0.03)}
+.port-card:hover{transform:translateY(-4px);border-color:rgba(37,99,235,0.3)}
+.port-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(15,23,42,0.8))}
+.port-info{padding:1rem}
+.port-info h4{font-size:.9rem;font-weight:600;margin-bottom:.3rem}
+.port-info p{font-size:.775rem;color:var(--gray-mid)}
+/* CASES */
+#cases{background:rgba(255,255,255,0.015)}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.case-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.75rem;transition:all .3s}
+.case-card:hover{border-color:rgba(37,99,235,0.3);transform:translateY(-3px)}
+.case-icon{font-size:2rem;margin-bottom:1rem}
+.case-card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.75rem}
+.case-card p{color:var(--gray-mid);font-size:.855rem;line-height:1.65;margin-bottom:1.25rem}
+.case-results{display:flex;flex-direction:column;gap:.4rem}
+.case-result{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:#4ade80}
+.case-result::before{content:'↑';font-weight:700}
+/* TECNOLOGIAS */
+#tecnologias{background:linear-gradient(135deg,rgba(37,99,235,0.06) 0%,transparent 100%)}
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem}
+.tech-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.5rem;text-align:center;transition:all .3s}
+.tech-card:hover{background:rgba(37,99,235,0.08);border-color:rgba(37,99,235,0.25);transform:translateY(-3px)}
+.tech-icon{font-size:2rem;margin-bottom:.75rem}
+.tech-name{font-weight:600;font-size:.9rem}
+.tech-desc{font-size:.75rem;color:var(--gray-mid);margin-top:.25rem}
+/* DEPOIMENTOS */
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.dep-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:1.75rem}
+.dep-stars{color:#fbbf24;font-size:1rem;margin-bottom:1rem}
+.dep-text{color:var(--gray-mid);font-size:.875rem;line-height:1.7;font-style:italic;margin-bottom:1.25rem}
+.dep-author{display:flex;align-items:center;gap:.75rem}
+.dep-avatar{width:40px;height:40px;border-radius:50%;background:rgba(37,99,235,0.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.dep-name{font-weight:600;font-size:.875rem}
+.dep-role{font-size:.75rem;color:var(--gray-mid)}
+.dep-placeholder{opacity:.4;pointer-events:none}
+/* CONTATO */
+#contato{background:rgba(255,255,255,0.015)}
+.contato-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:1.5rem}
+.contact-item{display:flex;align-items:center;gap:1rem}
+.contact-icon{width:44px;height:44px;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.contact-label{font-size:.75rem;color:var(--gray-mid);margin-bottom:.2rem}
+.contact-val{font-weight:500;font-size:.9rem}
+.contact-val a{color:var(--white);text-decoration:none;transition:color .2s}
+.contact-val a:hover{color:var(--blue-light)}
+.contact-form{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:2.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group label{font-size:.8rem;font-weight:500;color:var(--gray-mid)}
+.form-group input,.form-group textarea{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:.75rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;transition:border-color .2s;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--blue)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--gray-mid)}
+.form-group textarea{resize:vertical;min-height:110px}
+/* FOOTER */
+footer{background:#080e1c;border-top:1px solid rgba(255,255,255,0.06);padding:3rem 2rem 2rem}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand p{color:var(--gray-mid);font-size:.875rem;margin-top:.75rem;line-height:1.65}
+.footer-col h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-mid);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-col ul li a{color:var(--gray-mid);text-decoration:none;font-size:.875rem;transition:color .2s}
+.footer-col ul li a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{color:var(--gray-mid);font-size:.8rem}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.open{display:flex}
+.modal{background:#111827;border:1px solid var(--border);border-radius:20px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;padding:2.5rem;position:relative}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,0.08);border:none;color:var(--white);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.modal h3{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:.5rem}
+.modal-tag{display:inline-block;background:rgba(37,99,235,0.12);color:var(--blue-light);font-size:.75rem;padding:.25rem .75rem;border-radius:6px;font-weight:500;margin-bottom:1.25rem}
+.modal p{color:var(--gray-mid);line-height:1.75;margin-bottom:1.25rem}
+.modal-section{margin-top:1.25rem}
+.modal-section h4{font-weight:600;margin-bottom:.6rem;font-size:.9rem}
+.modal-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.modal-tag-item{background:rgba(255,255,255,0.06);color:var(--gray-mid);font-size:.75rem;padding:.25rem .65rem;border-radius:6px}
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:rgba(37,99,235,0.4);border-radius:4px}
+/* MOBILE */
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .sobre-grid,.fundador-grid,.pdv-inner,.ad-grid,.contato-grid{grid-template-columns:1fr}
+  .services-grid,.cases-grid,.tech-grid{grid-template-columns:1fr 1fr}
+  .portfolio-grid,.dep-grid{grid-template-columns:1fr}
+  .founder-metrics{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .form-row{grid-template-columns:1fr}
+  .sobre-features{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  section{padding:60px 1.25rem}
+  .services-grid,.cases-grid,.tech-grid,.dash-kpis,.pdv-features,.founder-metrics,.ad-metrics{grid-template-columns:1fr}
+  .pdv-mock{grid-template-columns:1fr}
+  .pdv-sidebar{display:none}
+}
+/* Mobile nav open */
+nav.mobile-open .nav-links{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:#0d1526;padding:1.5rem 2rem;gap:1.25rem;border-bottom:1px solid var(--border)}
+nav.mobile-open .nav-cta{display:block;margin:0 2rem 1.5rem;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-icon">📊</div>
+    Data<span>Stock</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#fundador">Fundador</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#pdv">Sistema PDV</a></li>
+    <li><a href="#powerbi">Solução PowerBI</a></li>
+    <li><a href="portfolio.html">Portfólio</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Solicitar Orçamento</a>
+  <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">✦ Inteligência de Dados para Negócios</div>
+      <h1 class="hero-title">Transformando Dados em <em>Decisões Inteligentes</em></h1>
+      <p class="hero-sub">Ajudamos empresas a otimizar operações, automatizar processos e tomar decisões estratégicas através de Business Intelligence, Power BI e soluções personalizadas de automação.</p>
+      <div class="hero-btns">
+        <a href="#contato" class="btn-primary">🚀 Solicitar Orçamento</a>
+        <a href="portfolio.html" class="btn-ghost">Ver Projetos →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-dashboard">
+        <div class="dash-header">
+          <span class="dash-title">📊 Dashboard Executivo</span>
+          <span class="dash-badge">● LIVE</span>
+        </div>
+        <div>
+        <img src="AnaliseFrete.png" alt="AnaliseFrete" style="width:620px;height:auto;">
+        </div>
+        <div class="dash-mini-cards">
+          <div class="mini-card">
+            <div class="mini-icon" style="background:rgba(34,197,94,0.12)">🤖</div>
+            <div class="mini-text"><strong>Automação Ativa</strong>14 processos em execução</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-icon" style="background:rgba(251,191,36,0.12)">⚡</div>
+            <div class="mini-text"><strong>Power BI Online</strong>Atualizado em tempo real</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="reveal">
+        <p class="section-label">Quem Somos</p>
+        <h2 class="section-title">Sobre a DataStock</h2>
+        <p style="color:var(--gray-mid);line-height:1.8;margin-bottom:1.25rem">A DataStock nasceu com o propósito de transformar informações em resultados. Atuamos no desenvolvimento de dashboards inteligentes, análise de dados, automação de processos e soluções comerciais voltadas para ganho de produtividade e tomada de decisão.</p>
+        <p style="color:var(--gray-mid);line-height:1.8;margin-bottom:2rem">Diferentemente de consultorias tradicionais, buscamos entender profundamente o negócio de cada cliente para desenvolver soluções práticas, eficientes e com retorno mensurável.</p>
+        <div class="sobre-features">
+          <div class="feat-item"><div class="feat-icon">📈</div><div class="feat-text"><strong>Business Intelligence</strong>Dashboards que orientam decisões estratégicas</div></div>
+          <div class="feat-item"><div class="feat-icon">⚙️</div><div class="feat-text"><strong>Automação</strong>Processos automatizados, menos retrabalho</div></div>
+          <div class="feat-item"><div class="feat-icon">🔍</div><div class="feat-text"><strong>Análise de Dados</strong>Dados brutos transformados em insights</div></div>
+          <div class="feat-item"><div class="feat-icon">🚀</div><div class="feat-text"><strong>Transformação Digital</strong>Tecnologia a serviço do seu crescimento</div></div>
+        </div>
+      </div>
+      <div class="sobre-visual reveal">
+        <div class="sobre-stat-card">
+          <p style="font-size:.8rem;color:var(--gray-mid);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Impacto nos Negócios</p>
+          <div class="sobre-stats">
+            <div class="stat"><div class="stat-num counter" data-target="2">0</div><div class="stat-label">Anos de Experiência</div></div>
+            <div class="stat"><div class="stat-num counter" data-target="20">0</div><div class="stat-label">Projetos Desenvolvidos</div></div>
+            <div class="stat"><div class="stat-num counter" data-target="15">0</div><div class="stat-label">Dashboards Entregues</div></div>
+            <div class="stat"><div class="stat-num" style="font-size:1.6rem">Diário</div><div class="stat-label">Processamento de Dados</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDADOR -->
+<section id="fundador">
+  <div class="container">
+    <div class="fundador-grid">
+      <div class="reveal">
+        <div class="founder-card">
+          <div class = pdv-screen>
+            <div class="founder-avatar">
+              <img src="Ulysson Nobre.png" alt="Ulysson Fontenele">
+              </div>
+          
+          <div class="founder-info">
+            <div class="founder-name">Ulysson Fontenele Nobre</div>
+            <div class="founder-role">Fundador & CEO · DataStock</div>
+            <div class="founder-badges">
+              <span class="badge">Business Intelligence</span>
+              <span class="badge">Power BI</span>
+              <span class="badge">Data Analytics</span>
+              <span class="badge">Logística</span>
+              <span class="badge">VBA Expert</span>
+              <span class="badge">SQL</span>
+              <span class="badge">PowerQuery</span>
+              <span class="badge">Excel</span>
+              <span class="badge">Inglês A2</span>
+              <span class="badge">Python</span>
+              <span class="badge">Yellow Belt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="reveal">
+        <p class="section-label">Conheça o Fundador</p>
+        <h2 class="section-title">Ulysson Fontenele Nobre</h2>
+        <p class="founder-bio">Profissional com sólida experiência em logística, gestão operacional, análise de dados e desenvolvimento de soluções corporativas. Combina visão de negócio com domínio técnico para criar soluções que realmente geram resultado.</p>
+        <div class="founder-metrics">
+          <div class="metric"><div class="metric-num counter" data-target="7" data-suffix="+">0</div><div class="metric-label">Anos de Experiência</div></div>
+          <div class="metric"><div class="metric-num counter" data-target="27" data-suffix="+">0</div><div class="metric-label">Projetos Desenvolvidos</div></div>
+          <div class="metric"><div class="metric-num counter" data-target="15" data-suffix="+">0</div><div class="metric-label">Dashboards Entregues</div></div>
+          <div class="metric"><div class="metric-num" style="font-size:1.1rem">Milhares</div><div class="metric-label">Registros Processados/dia</div></div>
+        </div>
+        <p class="exp-title">Formação Acadêmica</p>
+        <ul class="formacao-list">
+          <li>MBA em Business Intelligence</li>
+          <li>Pós-graduação em Análise de Dados</li>
+          <li>Bacharel em Engenharia de Software</li>
+          <li>Tecnólogo em Logística</li>
+          <li>Técnico em Tecnologia da Informação</li>
+        </ul>
+        <p class="exp-title">Experiência Destacada</p>
+        <ul class="exp-list">
+          <li>Desenvolvimento de dashboards corporativos em Power BI</li>
+          <li>Automação de processos utilizando VBA e Excel</li>
+          <li>Implantação de projetos de otimização logística</li>
+          <li>Desenvolvimento de sistemas comerciais</li>
+          <li>Gestão de operações logísticas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">O que Fazemos</p>
+      <h2 class="section-title">Nossas Soluções</h2>
+      <p class="section-sub">Do diagnóstico à entrega, desenvolvemos soluções sob medida para cada desafio do seu negócio.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal"><div class="service-icon">📊</div><h3>Business Intelligence</h3><p>Desenvolvimento de dashboards estratégicos em Power BI para acompanhamento de indicadores e tomada de decisão em tempo real.</p></div>
+      <div class="service-card reveal"><div class="service-icon">🔬</div><h3>Análise de Dados</h3><p>Transformação de dados brutos em informações valiosas para uma gestão empresarial mais precisa e orientada a resultados.</p></div>
+      <div class="service-card reveal"><div class="service-icon">⚙️</div><h3>Automação de Processos</h3><p>Soluções em VBA, Excel, Power Query e integração de processos operacionais, eliminando tarefas repetitivas e erros manuais.</p></div>
+      <div class="service-card reveal"><div class="service-icon">💻</div><h3>Desenvolvimento de Sistemas</h3><p>Criação de ferramentas personalizadas para necessidades específicas do cliente, desde sistemas simples a plataformas completas.</p></div>
+      <div class="service-card reveal"><div class="service-icon">🏭</div><h3>Consultoria Logística</h3><p>Projetos de otimização operacional, armazenagem, inventário e produtividade com metodologias comprovadas no mercado.</p></div>
+      <div class="service-card reveal"><div class="service-icon">🛒</div><h3>Automação Comercial</h3><p>Sistemas para controle de vendas, estoque, clientes e gestão comercial integrada, aumentando a produtividade da equipe.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTES E DEPOIS -->
+<section id="transformacao">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:1rem">
+      <p class="section-label">Transformação Digital</p>
+      <h2 class="section-title">Antes e Depois da Transformação</h2>
+      <p class="section-sub" style="margin:0 auto">Veja o que muda quando você passa a trabalhar com dados e automação de verdade.</p>
+    </div>
+    <div class="ad-grid reveal">
+      <div class="ad-col before">
+        <div class="ad-label">❌ Antes</div>
+        <div class="ad-items">
+          <div class="ad-item"><div class="ad-item-icon">📋</div>Planilhas manuais e propensas a erros</div>
+          <div class="ad-item"><div class="ad-item-icon">🐢</div>Processos lentos e dependentes de pessoas</div>
+          <div class="ad-item"><div class="ad-item-icon">🚫</div>Falta de indicadores de desempenho</div>
+          <div class="ad-item"><div class="ad-item-icon">🤷</div>Decisões baseadas em feeling, sem dados</div>
+          <div class="ad-item"><div class="ad-item-icon">⏰</div>Relatórios prontos apenas no fim do mês</div>
+        </div>
+      </div>
+      <div class="ad-col after">
+        <div class="ad-label">✅ Depois</div>
+        <div class="ad-items">
+          <div class="ad-item"><div class="ad-item-icon">📊</div>Dashboards em tempo real no Power BI</div>
+          <div class="ad-item"><div class="ad-item-icon">🤖</div>Automação de processos sem intervenção manual</div>
+          <div class="ad-item"><div class="ad-item-icon">📈</div>KPIs e métricas sempre visíveis</div>
+          <div class="ad-item"><div class="ad-item-icon">🎯</div>Decisões estratégicas baseadas em dados reais</div>
+          <div class="ad-item"><div class="ad-item-icon">⚡</div>Maior produtividade e escalabilidade</div>
+        </div>
+      </div>
+    </div>
+    <div class="ad-metrics reveal">
+      <div class="ad-metric"><div class="ad-metric-num counter" data-target="60" data-suffix="%">0</div><div class="ad-metric-label">Redução de tempo em processos manuais</div></div>
+      <div class="ad-metric"><div class="ad-metric-num counter" data-target="40" data-suffix="%">0</div><div class="ad-metric-label">Aumento de produtividade operacional</div></div>
+      <div class="ad-metric"><div class="ad-metric-num counter" data-target="100" data-suffix="%">0</div><div class="ad-metric-label">Decisões com base em dados reais</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PDV -->
+<section id="pdv">
+  <div class="container">
+    <div class="pdv-inner">
+      <div class="reveal">
+        <div class="pdv-badge">⭐ Solução Principal</div>
+        <p class="section-label">Produto em Destaque</p>
+        <h2 class="section-title">Sistema PDV DataStock</h2>
+        <p style="color:var(--gray-mid);line-height:1.75;margin-bottom:1.5rem">Sistema de automação comercial desenvolvido pela DataStock, hospedado em nuvem Oracle, projetado para pequenos e médios negócios que precisam de controle e eficiência operacional.</p>
+        <div class="pdv-features">
+          <div class="pdv-feat">Frente de caixa intuitiva</div>
+          <div class="pdv-feat">Cadastro de produtos</div>
+          <div class="pdv-feat">Cadastro de clientes</div>
+          <div class="pdv-feat">Controle de estoque</div>
+          <div class="pdv-feat">Controle financeiro</div>
+          <div class="pdv-feat">Histórico de vendas</div>
+          <div class="pdv-feat">Relatórios gerenciais</div>
+          <div class="pdv-feat">Banco de dados seguro</div>
+          <div class="pdv-feat">Acesso multiusuário</div>
+          <div class="pdv-feat">Operação online (Oracle Cloud)</div>
+        </div>
+        <a href="pdv.html" class="btn-primary">📱 Conhecer o Sistema PDV</a>
+      </div>
+      <div class="reveal">
+        
+        <div class="pdv-screen"><img src="data:image/jpeg;base64,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kXEjSbI1XnjcPmzzgVxmDQncLWEoob5VJI6DNeoap8KEthc2tn4nsbrXLfTRqr6a1rJExg8sOdshypIB6cUPTUOtjy+itu98J+IbHRINYvdE1GDSp9pju5ICsbbvu89s9s9atX/gLxbp9qbi98N6rBB5qwb5LcgeYxAVfxJAHbJoA5qiu68UfC3xRofiS30aLTLzULi5hE0Bt4DiT5FZwB/sFgpJ71yOraXf6PqMthqtlcWd7EQHgmQq656ce9FwsU6K7q7+G+r6X4F1PX9estQ02eC4toba3ng2idZd2WyecjA49657X/C2v+Hre3n13Rr/AE+K4B8lriEoJMDOB747Hmi4GNRXoMXwzuJfF+m6OuqQfYr3SxrA1Ewt5aW/ll2JXOeCpXr1rmZvCevw6FFrcmi6gmjzFRHeNARG244U59Ceh6UeQGJRXQaz4L8TaJp73+r6BqVlZJJ5TTzwFUDZxjP1/Ctxfhtq9r4F1zxDrllqOmmz+ym0jmt9q3Qlk2nk8jAwce9FwODorc1/wj4i8PWsFzruiahp1vOdsclzCUDHGcexx2PNYdABRRRTAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA36KKcqgjJdB7HP+FMY2in7B/wA9Y/1/wo2D/nrH+v8AhQAyin7B/wA9Y/1/wo2D/nrH+v8AhQAyin7B/wA9Y/1/wo2D/nrH+v8AhQAyin7B/wA9Y/1/wo2D/nrH+v8AhQAyin7B/wA9Y/1/wo2D/nrH+v8AhQAyin7B/wA9Y/1/wprAA8MG+lADawa3qwaTEwooooAK7zwhqCw+F5YbyfTktFmdFMl48EqGQKT0icEHywR6YPrXB0UeoHtmmeIND/s7VI7u40+e0uGD3qvdPMfKLAOkaiJDk/w88HBPAry3wZf22l+MtD1C7ZktLW/hnlYAsVRZAScDqcDtWLRQnbVCkuZWZ6h4k+JtzqvjNljltbbwyNbS/ZbSxWBrhFmDLJLtG52C8885960fF3inwrZxePLvw/qtzq2p+K5SgX7G9vFZQmXzDuL8u/QDAxXj1FSlZKK/rb/Iq+tz1n4oePdJ8Q+D7GDSWlOr6nNDea5ujKgTQwLEoB6MCdzcd647SfFlvp+nQWr+E/DF80Qwbi7tJHlk5zliJACe3SuXop2EbPiXXYtbjhWHQtF0oxbudNgeLzMj+Lc7Zxjjp1Nd/wDEX4pT3l01r4XktE0+bTba0uLhbFY7mYLGBJE0pG/ZkYx0xXk9FFugdbnuPirxz4auovGGt2erXN1d+JdPhso9Fe2dRZMuzLM5+Qhdp27fWq3i/wCIGi6pqfxMkt764lttZsLSDTg8UgDPHsJGD9zBDdcV4vRS5R3/AK/r0PetY8aeE9W1bxBKNfltI/E+jwWTzfY5S2myRBPlkx95HwQSmelcf4v8YaTJ428H3Vg0uqWPh22tLaS6ljKNe+S+5mCtyB2G7nivNaKaVnf+v61Jtpb+v60Pd9T8beFtLk1m+sdcuNdm1LxBZ62LR7SSPy445CzRln43AHHpwPwx/jB4x0nWdIuLbw/f6TPbahqX9oyQ2+m3EFwrbWAaWSRypf5tp2jnrx0ryCilyq1v66f5Fc39ff8A5nrFn470mL4PyaezyjxZHZy6JD+7bb9ilmWQkt0yAGXGc4Nb/i/4jaHqnhu4utJuNJtby90630+5spNMnN2AhTcomD+VsG3cp254xjNeEUU7CPcdc+JOhXGufES7S5nu7fVJdOk0+GSJ8SiCRGdcEfJwpHOOtHi3xX4QuLLxtLD4ivdSbxNeWV2LT7JJG9tHHMGeMu3y7gpIGOMKOa8OopKKVg7+Z7Z8TPFnhC48BanoXhm7t5TPqcF5bxw2U0ZEYVgTLLKSXl6ZPHt7eJ0UU0rAFFFFMAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDfooqRIsqCzhd3QYpjI6K6z4feD/wDhLtRvbV9Rj08WsQlaR494PzYx1GPXNMvPB0ya/d6ZZ3kMxgjidZJVMfmGQgKoA3cknHJx9KFqm+wrq9v6/rU5aiujTwVrhjlZ7aOPZGJAHmTL524A56ncMZxk5HWhvBWueeI4baOYM2EdJkw/IBI5zwSAf7pIzikOxzlFbV94Y1PT9OmvL6OOCOLZ8hlUudxx90EkYyM59RWLQAUUUUwCiiigAooooASsGt6sGkxMKKKKACiipNsf/PU/98f/AF6AI6Kk2x/89T/3x/8AXo2x/wDPU/8AfH/16QEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0bY/wDnqf8Avj/69AEdFSbY/wDnqf8Avj/69G2P/nqf++P/AK9AEdFSbY/+ep/74/8Ar0xsAnacj1xigBKKKKYBRRRQBv1p6fpmo3lq01pZtNEmRvx+g55rMrtvCvjq80Pw7d6VFaLNBNjc2B2O4AnGRye1Z1XNL3FdnXg4UJ1LYiXLH+vJ9L9NdtNzn/D19q9nPdHRpnikliKT42jcmeh3cdatbfElzq14ImvHvxCouPIfDeWQNoO0jI5HAqlpF5fDUpWsYPtFzc5BjEZfdk7j8oqzLrurtqGoXEQaC5njRLjyYipVUIPblfujJrRPocrXYl1Q+KbWOQ6lJqscf+scyStg7Sqgk5wcEqPYmoLHU/EFyWaxvtSlKbAxjmY44O3PPoGp194p1TUoGtmkgETTCcRwQgYcFmyOvBLMxHcgHtUNn4k1OzuJLiG5XzZYjAWaNfu7g3HGM5HX3PrQvMAX+3L8LYj+0p1uJRiFt5DuAOoPGQMfSsuSN4mCyo6MQDh1IOD0PNdS3xA1555ZmngfzSGKtHlQQSQRzxgn9AOnFYmt6vda1dRz3vlb44VgQRpsUIucDH4mgDPooopgFFFFABRRRQAlYNb1YNJiYUUUUAFFOjXc6r0yQKcZFBOIo8D1BP8AWgCOipPMH/POL8j/AI0+QPGEMkCoHG5SykZHqOaAIKKsTJLAMz2hiGcZkiZefxqLzVxnZFjOM47/AJ0gGUVYiSWXHlWvmZzjZGzdOT09Kd5NxsD/AGJ9hOA3ktgn0B/EUAVaKsKsjY22uc+kbfWlSKd22pZszYJwsTE4Ayf0IP40AVqKteTPuC/Ym3EAgeS2SCMjH1HNLJb3UQzLYSIM4y8Drz+NAFSirTQzrs3WTrvxtzCw3Z6Y9aQxzK5RrQhwdpUxNkHjjHryOPcUAVqKti3uS20WEhbcVwIHzkdR9R3Hao5BJEqGW2CBxuQtGwDD1GeooAgoqTzB/wA84/yP+NHmD/nnH+R/xoAjoqTzB/zzj/I/40eYP+ecf5H/ABoAjoqTzB/zzj/I/wCNHmD/AJ5x/kf8aAI6Kk8wf884/wAj/jR5g/55x/kf8aAI6Kk8wf8APOP8j/jR5g/55x/kf8aAI6Kk8wf884/yP+NHmD/nnH+R/wAaAI6Kk8wf884/yP8AjR5g/wCecf5H/GgCOipPMH/POP8AI/40eYP+ecf5H/GgCOipPMH/ADzj/I/40eYP+ecf5H/GgCOipPMH/POP8j/jR5g/55x/kf8AGgCOipPMH/POP8j/AI0eYP8AnnH+R/xoAjoqTzB/zzj/ACP+NHmD/nnH+R/xoAjoqTzB/wA84/yP+NHmD/nnH+R/xoAjoqTzB/zzj/I/40eYP+ecf5H/ABoAjoqTzB/zzj/I/wCNHmD/AJ5x/kf8aAI6Kk8wf884/wAj/jR5g/55x/kf8aAI6Kk8wf8APOP8j/jR5g/55x/kf8aAI6Kk8wf884/yP+NHmD/nnH+R/wAaAI6Kk8wf884/yP8AjR5g/wCecf5H/GgCOipch0f5FUqMgr9R/jUVMAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAN+rEcibI8vsKdse/UVXqzER5a7SgH8W7FMZp+FNfOgay16sHnI6lHTdtO3IPB/AdeKsN4vvl1rVtTgSOO41DaGJ+bYAwPGeuQuOfWsGDyfOfzP8AV4O3IJ+nStPSLvTrae8NxGCJI1ELm3EwQhgWG1iPvDI3dqXsor9512Lcny8t9Dai8eSRgsNJsvOO/Ei/LtzngYX7uDgj+LA5HQo3jgG0Nqui2awAsY0LZC7gM5yvOSM9ug9OXXOqeDpSZDpF20pkO75ti7OOiqwA7/jjqOKbqeoeDri3kNppdzBctE+GGdqvtGzC78YyOT9TjkCl02IfY5nWb0alqlzeCBYBO+/y1OQvFU6KKoAooooAKKKKACiiigBKwa3qwaTEwooooAfB/ro/94fzqbT7prHUba7Rdz28yyhSxXJU5xkcjp2qtUhlJOSsZPqVHNADrudrq7nuJEjRppGkZYkCKCTkhQOAOeBV59Uxc6fPDEfMs3V1Erb1bawIBGPUc1n+b/sRf98Ueb/sRf8AfFOMnFWQXOzg8fNCGX+yLe4Q+YQbuZp2UvnJBYdtx7dOPepB8RJmsJbWXRdOdWVwp2j5CwAyAVIzhQufQVxHm/7EX/fFHm/7EX/fFQkkrBe53Ph74lXehWEVpaaVYukUksqO7OH3SNlySMA5ARcYGNgPtUupfE+81G3EVxpyKArhWiunUqWdJA4OPvBo19uvArgfN/2Iv++KPN/2Iv8AvinbW4HcWXxJvbfU7+/k0+2lnubz7Wg8xkWHIVSgA6rtRVHTGO9VR4/1GGSE2cMcKwWEunwq7mTakj7ixJHzMAFTn+FV9K5Hzf8AYi/74o83/Yi/74osB6JefFnU7jTr6yTT7ZI7tJA0jTSPJG77/mRjyu3e21egHFOj+Leqrdw3MlhbzyRzXEu2aZ3RhMcsrA8kAcDnp715z5v+xF/3xR5v+xF/3xSsguegXHxQurm7tLmfSYGktZbaaIfaXAV4CxXjHIO85z+dRaZ8Tb/T4L2GPT7aWO6vHvSZJGMiO5jztcYxxHjPbIPVRXCeb/sRf98Ueb/sRf8AfFOyA9Mg+MWpwRQxx6VZssLZQyyu7Y2lcseCzEHlieTzgVyHjPxRP4purO4uoBC9tbrbgLIXDAd+QMH1rC83/Yi/74o83/Yi/wC+KLINiOipPN/2Iv8Avijzf9iL/vimBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQBHRUnm/7EX/fFHm/7EX/AHxQARfdl/3P6itLwppi6z4jsNOcOVuJNhEbBWPBOATwOnU1mNISpGFUHrtGM1Npt9cabfQ3llJ5dzC25HwDg9OhpxtzLm2Jmm4tR3PaJPgyqRvIdN1Qqg3Mf7Rg4H/fFcb4F0CzPxp0vQr+2W4shqHkSQT4kDLtJw2OD26elZq/EXxSrBl1PBByD5KcfpXP3Oq31xq0uqSXUq6hJIZWnjbY289wVxj8K1qSp/Y/K3+ZzUadVN8+3q3+dj2bS/CfhPxpqVlFAsRNsqW+pXuhIbS186aYrCFjkRmZgoOdqgEjkjGaym+GuiWXht57251G41KWWe3tRDNFEJZ1uzbpEI2UscgFy+QvBWvLdO1TUNNaVtNv7uzaVdkht52jLrnODtIyK6+z+J+u2fhdtEgWFY2tpbVp98u5kkcszMm/y2kyx/eFS3vkCue1jsudpq/wp8P6aftc1xq62UOm393PAksckgltZI1ZRIY1Ug7yDgEAjgsKfL8I/D13raabpuoatbvHqNpbzSXRjcNFcWzzqqBVHzqE25PBJ6dq8evNd1e9dmvdV1G4ZkMbGa6kfKnGVOT0OBkdDgelQvqd+7Fnv7xmLI5JncksgwjdeqjgHt2oSfUR61F8PvB5e6u2vtYnsYnsIjb27r5kUlxLJGVaR4lDAbFYEKOpHvV6T4b+HpbLStMWHUxeQ6hq8N1ewBS9ytoc+WFx99gAEHbLZ3cY8dvNc1a+meW91XULiVyhZ5bl3LbOUySedpJx6Z4pI9b1WNGWPVL9Faf7UQty4zN/z06/f/2utCT6gbXxC8PWnh/UNM/s83a2uo6fFqCW95jz7feWHluQACflyDgZBHFcrU99eXN/dSXV9cz3VzIcvNPIXdj7seTUFNAFFFFMAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAN+p0i3KhClt3p/KoKnjRQi7mf5/7p4H+NMZq+FdLttS1GeG7ubaCFE4eeTYCdwAx68Zq/JpGgWGtajZ3mqfaLaOGL7Pcp0Z3ZQxIU8hQWOM9qq+DNCg1rVp4Ls3Bht4mmZbdNzOAQMA9uvoas3nheGDXdWsYpbp1tIklijEaiV9+OoJAwucsfQdPQB9B76J4ZV/LPiJw5A+fYrohOeCV+9jHVeDuGO9TP4d8MCScDxQBGo+RzGh3HfjG0HPAw2R1zx0NPk8ATq6xjVbEyiRUYBv723BA9snP04rkL+2ayvrm1aRJGgkaIuhyrbSRke3FSteoHXXmheFVlQx+ITHGVRWVdspVsANyPQ5YkcEHC9DWJ4k03TNP8k6VqYvwzyK33QVCkbThSeCD1z26Vi0U0gCiiimAUUUUAFFFFACVg1vVg0mJhRRRQAUUDrUmxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEdFSbE/wCeyfk3+FGxP+eyfk3+FAEda/h3QLrXnuI7J4VliCBUkJBlZyQqLgHkkHrge9ZbKoGRIrH0AP8AhVjT7i9hMy2FxPD5qbJPKkKb19DjqKQG1N4G8Qwsyy2ARlcRkGePhztCr97qSwAHUnjsadD4G16UErbwAFSyZuY/3g7beed3Y9Dg81U/tLX8OP7TvcOcti5YbjgDJ55OAOaYb3XDO0x1G785s5f7S2TnPv7n86AXmWrHwTr9/LPHaWSytC6oxE8ePmUOCDnBG0hsjjBpLjwbrVtY3N3dW8cUNuhZz5qsQ2AQhCk4Yg55pYNc8QwWt1BHfSAXMonlkLZkLgAZ39RwAPpx0JzSe51h7VrZ766a3bOYjcNtORg8Z9AKNQNy5+H+oW1qLie9sliKSOoG8u+xsMFXblsckkZwBziuTvbZ7O9uLWXHmQSNE2OmVJBx+Va41LXRNLIL+cNLw4835W/4D0/TufU1nTW11PNJNMQ8sjF3YsMsxOSfzoswKdFWfsU/91f++qPsU/8AdX/vqmBWoqz9in/ur/31R9in/ur/AN9UAVqKs/Yp/wC6v/fVH2Kf+6v/AH1QBWoqz9in/ur/AN9UfYp/7q/99UAVqKs/Yp/7q/8AfVH2Kf8Aur/31QBWoqz9in/ur/31R9in/ur/AN9UAVqKs/Yp/wC6v/fVH2Kf+6v/AH1QBWoqz9in/ur/AN9UfYp/7q/99UAVqKs/Yp/7q/8AfVH2Kf8Aur/31QBWoqz9in/ur/31R9in/ur/AN9UAVqKs/Yp/wC6v/fVH2Kf+6v/AH1QBWoqz9in/ur/AN9UfYp/7q/99UAVqKs/Yp/7q/8AfVH2Kf8Aur/31QBWoqz9in/ur/31R9in/ur/AN9UAVqKs/Yp/wC6v/fVV2UqxVhgjqKAEooooAKKKKAN+po0bYD5gXPQf56VDViLzCi4VD/d3HB/+vTGa/gvw3ceKNdOl21wlvN5Mku5wSDsxxx9atXPgnUP+El1jRreWG4m0wZkdgyhxx0GDjr3wPU1kaDq2p6Pqi3ej3MltfFWjEiYzhuo5qY3uuajq13dxzXcuoTOvnyQkhmYkKuce+APelZ79B6WLY8D6556wvZRxy9XWSRF8oFgoLHOAMntnHemv4N1lVUrbo2UBwsi/e7oOeSvfsO5FRQap4iuJvIivNRaSQiQrvYZI+bcc/TOT6VFLqGvO0M8l1qRbAMbFn6ZwMfUj8cd6Yn5FbVdJvtKMIv4PKMoLJ86tuA7jBPHp6jmqNW7/UL6+KC/up5/LLFRKxO0k/N+JwPyHpVSkAUUUUwCiiigAooooASsGt6sGkxMKKKKACipLaPzrmKInHmOqZ9MnFdDBpqy291NBp8UkFqFMrkklAzbVz83OWIHApXKUbq7ZzVFb7QwIxV7GBWHBBVgR/49SeXbf8+dv+Tf/FUXfYfIu5g0VveXbf8APnb/AJN/8VR5VuOtlb+vRv8A4qjXsHKu5g0VveXbf8+dv+Tf/FUeVb/8+dv+Tf8AxVGvYORdzBore8u2/wCfO2/Jv/iqPLtv+fO3/Jv/AIqjXsHIu5g0VveXb/8APnb/AJN/8VR5dt/z5235N/8AFUa9g5F3MGit7y7b/nzt/wAm/wDiqPLtv+fO3/Jv/iqNewci7mDRW95dt/z52/5N/wDFUeXbf8+dv+Tf/FUa9g5F3MGit7y7b/nzt/yb/wCKo8u2/wCfO3/Jv/iqNewci7mDRW95dt/z5235N/8AFUeXbf8APnb/AJN/8VRr2DkXcwaK3vLtv+fO3/Jv/iqPLtv+fO3/ACb/AOKo17ByLuYNFb3l23/Pnb/k3/xVHl23/Pnb/k3/AMVRr2DkXcwaK3vLtv8Anzt/yb/4qjy7b/nzt/yb/wCKo17ByLuYNFb3l23/AD52/wCTf/FUeXbf8+dv+Tf/ABVGvYORdzBore8u2/587f8AJv8A4qjy7b/nzt/yb/4qjXsHIu5g0VveXbf8+dv+Tf8AxVHl23/Pnb/k3/xVGvYORdzBore8u2/587f8m/8AiqPLtv8Anzt/yb/4qjXsHIu5g0VveXbf8+dv+Tf/ABVHl23/AD52/wCTf/FUa9g5F3MGit7y7b/nzt/yb/4qjy7b/nzt/wAm/wDiqNewci7mDRW95dt/z52/5N/8VR5dt/z52/5N/wDFUa9g5F3MGit7y7b/AJ87f8m/+Ko8u2/587f8m/8AiqNewci7mDRW95dt/wA+dv8Ak3/xVHl23/Pnb/k3/wAVRr2DkXcwaK3vLtv+fO3/ACb/AOKrP1WCOFoXiXYsqklQeAQccUX7g4aXTKNFaNvaRtAjtnJGTT/scP8Ak0yDLorV+xQ+ho+xQ+hoAyqK1fsUPoaUWUI6rn8aAMmitf7HB/c/U0fY4P7n6mgDIq/pXWX8KW9tY44S6DaR71Xs7gQM24EhvSgD0TS/DFleWenXLXzbJY2a5CvGNjfwqMnjnI+brg4rL8U6XZ6TfRQ6ffC9iaPf5oK4PJAYY6BgAQDyAea5n7fHz8p560fb4/7po6jRdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBdoql9vT+6aPt6f3TQBowRpIxEkyRADOWBOfbgVHVT7fD/t/lR9vh/wBv8qAN280+1g0PT72LUoZrq4eRZbRVYPAFxgkkYOc/4Z5xyt7/AMfUn1/pV37fD/t/lWdPJ5szPjGTQIZRRRQAUUUUAb9TxsCgzG7bOMr0x15qCpklAVBkrt9Pr1pjEgdzcqyJvkZvlUA8kntitW1vdS8PapdKbMQXR2h4LiJiUYMGU4JByGAI7fWq+iapHpWoG/8As6S3MY3228/JHJnhyP4sdh64q8PFN3c6lfX+rg6hcXYh3uXEZBidWXoCMfKBjHSo56jly2938blO3LvqXB8QNXR422WHmRDaGaIluARyS3J5Jyecn04plv471qA7xJAx35DMhGD1IyGHbjHYdMVY/wCE1jWEiPQ7BZDIJA7KrbcLjauU4HU9zlmyT2SHxlbxysx0GzeMqVWFmHlplQvA29MDPOTkk5p26knIzz+fPLM3lhpHLkJwoJOcAdhTMjjkc9Peuz/4ThWSTzdB0t5GUKshjXKgFTjG3GMgn1561DqvjEalpL2cuk2iOYzGsqYG3J3EgbeuSTwRyfwpgcnRRRTAKKKKACiiigBKwa3qwaTEwooooAsaf/yELX/rsn/oQruvDGr2+lWOuibLTXC24hQA/MVnDNz0GF55rz0Eggg4Iq+NVuMfMtux7s0IJP1qWjSMlazOvudfWTxAmopbnYkZjVSQCeCM/rUj67p7HzG0mGSRt2Q+CE7Ag4yfoeB255rjP7Vn/wCedr/35FH9qz/887X/AL8iklZJJA+Vu7Z0keoWqpbg6fHmONkZhg7iQBu5HsTzn7xx2rQHiC0Ysp01VWTashBBJUfh2HAHAwOeea4v+1Z/+edr/wB+RR/as/8Azztf+/Ip6itHudffarpzXkbW2nR+VG5bOxV3DaR0x6kHnI+UcDJok122e887+zIlDRukigg+YWYNkkjnp+px2rkP7Vn/AOedr/35FH9qz/8APO1/78ij5DtHuda+s2ZlUx6TAsfG4YUscbe+30BH40xtVsTciUaVEE2Mvl5GMlsjt6cZ646Yrlf7Vn/552v/AH5FH9qz/wDPO1/78igLR7nVQava29xNLDpyjegVRuGR97POO+R05+UVdl1zTojGlvpySwbV3qyKuWBHsc9Ov4c1xH9qz/8APO1/78ij+1Z/+edr/wB+RTuxWj3Ok/tG2CJt0+HeszS5IGCDuwMY9xwePlHHWrB1qzXBj0i3B5+8FIH0+X155+g44rk/7Vn/AOedr/35FH9qz/8APO1/78ii7HaPc6qTVrJpCy6TbqPIaIL1wxOd3v8A/Xp8er2MPkKumQzKiAMzqoLHbj0/vc89fyxyX9qz/wDPO1/78ij+1Z/+edr/AN+RRd9hWj3OuGtWIUgaVGCcA4Kgds8Y9uh4+uajl1ezeGeMaTbqXRkR8DKE9+nJ7+3auV/tWf8A552v/fkUf2rP/wA87X/vyKQ7R7nXnX4mnWVrCNyAoBfaxUBQOMj6n8aq3+oWd3tVNPW2QHOIdoJ4AwTjp1/Oua/tWf8A552v/fkUf2rP/wA87X/vyKLsLR7mgepxnHbNFZ/9qz/887X/AL8ij+1Z/wDnna/9+RTuwtHuaFFZ/wDas/8Azztf+/Io/tWf/nna/wDfkUXYWj3NCis/+1Z/+edr/wB+RR/as/8Azztf+/IouwtHuaFFZ/8Aas//ADztf+/Io/tWf/nna/8AfkUXYWj3NCis/wDtWf8A552v/fkUf2rP/wA87X/vyKLsLR7mhRWf/as//PO1/wC/Io/tWf8A552v/fkUXYWj3NCis/8AtWf/AJ52v/fkUf2rP/zztf8AvyKLsLR7mhRWf/as/wDzztf+/Io/tWf/AJ52v/fkUXYWj3NCis/+1Z/+edr/AN+RR/as/wDzztf+/IouwtHuaFFZ/wDas/8Azztf+/Io/tWf/nna/wDfkUXYWj3NCis/+1Z/+edr/wB+RR/as/8Azztf+/IouwtHuaFFZ/8Aas//ADztf+/Io/tWf/nna/8AfkUXYWj3NCqetfcs/wDcf/0M1H/as/8Azztf+/IqrcTyXEm+UgkDAAGAB6AUtWF4pOz3NvRpxbSWVwQxETpJhSATtIOATn0rtNP8Y2WnIUttOncSTPcOZJEBRmJJC/L6YXP90sMCvMEnkRQquQB2pftU3981RmbTtudm2hcknA6D2FJWN9qm/vmj7VN/fNAXNmisb7VN/fNKLuYdH/MZouFzclkDqgEUabRjKAgt7nmrvh/U10jVI7x7G0vwisvkXSlkOVIzwRyM1y/22f8Avj/vkUfbZ/74/wC+RQFzQ1IhreQhVUE52r0HPQe1ZIC7SWz1xxT5biWUYdsj0ximqSIzg45H9aAG5T0b8xRlPRvzFXpNN1GOyt7t7aUW9wC0TAAlwCRkKOcZBGcYJGBU82ha1Czh9NvMoYwdsJbmQEpjA5zg4x6UgMrKejfmKMp6N+YrTj0XV3lt4xYXQadVaItGVVg2dpyeOcHGfSs0SMQCG4PNAAdgA+9yM9RSZT0b8xT2dsJz2/qa3dS8JeItMtbq41DTZraC2CmR5GTA3EqAOfmOQcgZIwcgUAc/lPRvzFGU9G/MVtXfhrXrO1uLm50y5jt7dEkllIBVVb7pyDz0PTpjnFLd+GPEFnZy3d1pV3FbRRrK8jIAFVuh/wAR1HfFAGKdu0Fc9cc02nsxMYyf4j/KmUwCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAN+rMJHlrtKY/j3Y/rVarEaLsj/d793U8+vT2pjNzwLc6daeIkm1O8+xW6ZdJjB52GHQFO+c1eh1Hw5b+JdXe8iOo6dJGIreQW/JIwC4U42nAP41m+BotIl8YafB4gjMumPKY5B5mwc5ClmyMLnGeafp1pod/r2qpJK1jp37w2jTTgeWN3y7j1fC9lyScdsmp9q2/Z22V79OpT+BevzNA3nguOVxFZXzwNGUO4HfuwmGUl8Bchsj73OAQKpay3hgaTL/ZS3BvGkxF5m4FQCpJI3EYwWHckjPA660PgrSf7Ma9uPEUaQhmQSIiOhYDO3O7qT/IjrRH4d8LJAUfX4mldcec8i4hJOQ2xTluMArzyQegNO9yLHB0VteJNL0/TWh/s3U1v1dpFbG0FdpABwCeCD1zzg1i0DCiiimAUUUUAFFFFACVg1vVg0mJhRRRQAUUVu2Xhi8urCG78+zhimXeglkYMV+bnAU/3G/L6UgMKitvXvDtxolnZz3c9tIbtn8pYWLZVcAsSQMc8YxU1t4O1q48OnXFt4I9O2u8bTXMcTzKn32jRmDOF7lQaAOeoqZ7W4QoHt51LrvUGNhuX+8OOR79Ku6Zol7f3htwi2pVXZpLvMSLtVmwWI4J2kAdzxQBmUVo6Po19q2p6fY20DrLfXEdtC8qlELuQFBbGB1B+nNQ3Wm3dtftZyW8puAxQIqMS+CRlRjLDg8imBUorR0PSLnWdS+xWpjjkWOWaR5m2pGkaF3ZjjgAKe3XirWq+FdZ0rRYNWvrLZYTFVEiTRybWZd6q4ViUJXkBgMikBiUVuan4W1TT7S6vGijuLC2eGOW6tnEkSvLH5irn1xnPGARgnpWUbO6EoiNtcCUgME8pt2D0OMZwe3rQBBRWjpGi3+q6tY6da27i4vZhBD5qlFLZwckjoO/pg1Lo+gXmr6xa6fZ+WWupzbQTvuWGWQZwA+MckAD6jOKAMmitLUdGu9P03Tb6cIbe/WQxlTkq0b7HRh2YHBx6MDWbQAUUUUwCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACnf8ALM/Uf1ptPViIzgkcj+tIDpdE8baho+nwWdrb2TxRHcDMrsSdwYH73y/MqnC4BIGQatL8RNX8sxtDaNEy7WT94MkqVY5D5BKnHBAHUAHmsVdA1l7G1vIbOaaC5wYvJIkY53AEopLAHY+CQM7TUKaPrDkBNN1BidmALdz9/wC7279vWgDpB8SdZ/fM0Fg0s20SSGNssFbcBjdgD6D9STXEAAAAdBxWvFoWtyxPImmX5jRHkLGFgNqkKxGRzgkAgetULuG5s7h7e7imgnjOHjlUqyn3B5FJWWwETHGw+39TXYax8Q9W1m01GLUoLKaS9hWAyhGXYgkLjC7tuRkgNjcB3rkWd8J8x6f1NdDqvg3xFpFndXWpWf2e3ttu92uIyCWYqFXDHcwKtlRyMHIpvzBbmjF8Q7s28tlc6TpT6XMkUU1pFG8aNHH0UfOcfXsSSMEkmO/+I2uXujz6ZIbdbaW2FocByQmcsQWY/M3Qk5OOBis4+EvEI1MacdOmF4YPtPll1/1ecZznGd3y4znd8uM8VQ1jSdT0Z4E1S2ltmnjEsYcg5X8DwR3B5HcUWTAz/wDlmP8AeP8AKm09mLRjJJ+Y/wAqZTAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA36UMQCASAeuDSUUxiUtFFABk4xk464ooooAKKKKACiiigAooooAKKKKAErBrerBpMTCiiigArttI1jT10Cyg1KWAPGrRLsZw6qC+Aw8th/wAtWwc8/ga4migDuPiJrOkarY6MumnfcW0ZTcpbCx9cNkD5i+TwBgdc5GHahqnhrXvDGhDVbzUrLVNFsDYLbQWiyx3IEjOjLIWHln5yGyD0yK4WigD33VPiv4eS4sZNNutVlksk1Bbe4mhdpYxPbhIgXkkYkhxkkYUdlrmbH4mgHwxHf3+qTW1jpN7BfIxLiW7mWdVkOT85/er8x5HP4+UUUrf19/8AmC0PaLH4p6cDawX0+pS2FodCe3gMe5YmtNv2gqucAtg4P8XfFLD8UbG8shFf6prFtqkkGoWy6wkXmTWay3EckWz5gxGxGQhSCobivFqKb1/H8Rp2PT28Sad4g+Ivii5tT9lg1jSbiygmutsRebyFw8nZTI0Zzz1es7X9e0A/DGHw9pVxcXNybqO6TOnraeVhGDiZlY+e2WwpI+UDrziuBopWFc9ul+KWjzG+VrjU/sgvdLvUtDFmO7S3gWOaBhuwoZlByQQdoyKTxD8V7aSbWZdM1O7a4n02W3sbqK2lgnheS5SXa7vK7HCq2CpABJCjBrxKik1cI+6rI9/l+KWka/4qjSW6vRBLrnnWsl2m1LWCSyaAnqdn719xA9yaxPD/AIj0u60jwhoF9qswv9L1C2OQGt7a3ihkZ5TIfMMcvfY6qGOcHPFeN0YoSt/XYG7nceNtUtbzwpo8cLxma61LUdUMasC0EUroqK2OhPlscemD3rh6KKaVtAbCiiimAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAU4AmM4BPI6fjTacD+7OD3H9aQHSaT4z1nSrWC3sjAiRReQT5JDSR5chWYEHAMjEYwckegqaXx1rMyQrPFZy+UCFMkDFjuQo+W3Zbcp2nJOBjGKbpngq/wBR0i31KHUdIS2mDE+ddMjRbXVDvG3j5pEXgnlh2yRYn+HmuRW00qyWMrwWst3NDFcEyRJE5jcMNuNwYMMAnO1uwzQ/MF5EA8ea/wDaDM0kLOSCA0HAIxtIHtgflzmsLV9QuNVvTc3KIrbFjVI0KqiKMKoHJwB6k0zVbKfS9Uu7C6K/aLWVoZNjbl3KcHB7iquT6n86PMNtBzBhs+U9PT3NdZqnj7XdVt9Rj1H7PPLewLbPOYSHWMSFwo5x1OASMgdCK5NicJyenr7muu8QfD3WtBs7651GWyVLRI3ZY5mZn3uy4A2gjBU8nCnsTkUPzDqSf8LD1gytcNa2DXpwPPNt/DuMhG3pkykSlv7wHbisLxFr+o+IZbeTUzGzwoVBji2biTlnbHVmPJNX7vwVq9to13qvmWUthbQxTvLDc7gUkJCkcc8gjnHTjNWtS+HXiPTtIn1K4hg+ywwidik+47f4sDHO3v29CaNEG5yBBEYyCPmPX6U2nHPljP8AeP8AKm0wCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAN+nKEx8xfPsB/jTaKYx+IvWT8h/jRiL1k/If40yigB+IvWT8h/jRiL1k/If40yigB+IvWT8h/jRiL1k/If40yigB+IvWT8h/jRiL1k/If40yigB+IvWT8h/jRiL1k/If40yigB+IvWT8h/jTW25+UnHuKSigBKwa3qwaTEwooooAVcbl3fdyM/Sujkn8N3E0rNbXFsu5gvlk8qDwQOgYjPB44Ga5uikB1DN4X8xGxPtWIxlQr/M2OHz6/wBcdqwtVFmLwjTTIbfaOXznPfrz/k1UooAKKKKYBRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAVJGYRHIJVkMhHyFWAAPuMc/pUdKqljhQSfQDNACUU/yZf+ecn/AHyaRkdPvIy/UEUANrd8PvpAgk/tVI2ZWLMrBtzr8uAhB4wdxI6kdKwqKQGprbaYRarpIbaqt5jMDliTxnNZdFFABRRRTAsXKWq21q1tNK87ITcI6BVjbPAU5+YY5zxVenKjP9xWbHoM0vky/wDPOT/vk0AMopWVlOGUqfcYpKAN2zfQvsUIvUl87aA4jDAggtk56cgrx/s/nW1ttMk8ltKBQKu2RWVgWOT83oOMdKy6KQBRRRTAKKKKACiiigABwQQASOcHoa6gy+GZZZHaOSLeCoVUYKnvge3v1Jz2rl6KQF/WjYG7X+yt/wBmCAfOCGJyeT68Y5qhRRTAKKKKACiiigAoooAJIABJPYUAFFSeTL/zzk/75NMYFThgQfQigBKeqkxnAzyP60ynf8sz9R/WkBr6T4h1nSFiXT7ySJIg4RCiOo3lWb5WBB+ZEPPQqCMVNbeLPEdsm231a8jHOcMPmyzsQxx8wLSOSDkEsfar1l4D1C/0jTryxuLWWa9jMqWznY20F14J4PKY7DLKM81W1PwTrGm2L3V0loESPzWRbhWfaMFvl9VBBPsQRmgDK1fUb7WL1rzUpPPuWGGk2Ihb3O0AE+55qlsb+6abijFAEjI+E4PT+preuvF3iC8tr2G8vnnF5F5MskkaGQx795QPjIUseRnHaufYZ2D2/qa7zxP8Nbnw/b6k8+p2089nBHcfZ4oX3ujOyFiD91AV+9yORnGaH5h1MyPx34lE5kmvVuFbYJIpYIikiqAArAKMjAAI7gAHgVSufFGu3NjLZy3zm1kgW2aNY0UeUpzsGAMAnk46981tN8N9QXXhpjXtpn7OZjNsfaGE3kGPGM5835c4xj5ulYvi7wvdeGJ7WG8mgmaZGJ8oH5HU4dDkc4JHzDg9qWjAxGUiMZGPmP8AKmU7/lmP94/yptUAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQBv11+g+AdS1rw7Dq1rLEkcly8RWQH5IlUlpiRklcgrgAkmuQqaC7ubd0e3uZ4nQYVo5WUqM5wMHjnn60wO8l+FupJqDRre2j2yzmPIJExQPt3bCMZxk43VVi+G2qyQgi4tDLIUEYVyRkqzFW+XO/AXAAOS2M1x/267zn7Xc56585v8aWPUL2Jg0V5dIw7rMw7Y9fSkk7FaHZzfDDV/tj21pd2Nw4RmAzIhO2ON24KYGDIq5JAJNSS/CzWvLtRBNaSTyL+8QsyhZN7DYDt5wEJJOB2BbjPEjUb4EEXt2CE8sYnf7nHy9enA49hSnU79gQb+8IKqhzO/KqcqOvQHoO1KzERX1v9kvZ7fzYpjC5jMkRJRiDgkEgHH4VDQSSSSck8kmimAUUUUwCiiigAooooASsGt6sGkxMKKKKAFQAuoY4UkZPtmvSNX03wNFb3UmkXEVyzSDy45rwo0aebIrDJIB+VVIbDcMDtPNebUZpAeiXuleEkv7fyrmwFiZ/Mu2+2OZLeMBWESKGbzGYbgWUt8x4IwBVHWNK8NwIp0y+tLnzJoo4i90UGDLKXMg6ooj8kFvXOOc1xNFFgPSv7J8EmT5bm3x5jBVbUCA3zENk84VVCuhzli20kkEVzXjKy0W0Fo2g3UE8Llx8sjNIyALteTJwrNlvlAXBBGDwTzVFFguFFFFMAooooAKKKKACiiigAooooAKKKKACiiigAqxbkiGQjgkqPw5qvVi2w0boCAxIIBOM9f8aBFy3069uYPOghZ4ufmDKOnXqaqqSY5QSSChOKDCSclVJ+opWXy45C5AypUDIJJNN26AVKKKKQwrTl0eVPDdvrXnwtBLdvZ+Uu7ejqgfJ4xghhjBP4VmVbbU79tLXTWvbk6csnmramU+UH/vBemfekCKlFFFMCypIt4wCQCWJ9+a1JNEvU0ddRZT5RbkbhkLgEN175xjrWZEN8CBSMqTkEgHk1KTMbdYCR5KuZAuV4YjBP5Cri468wiGUk2xyc4cYz24NVqszjZBtYjcWBwDngA/41WqAPQPDmn+E7nS9FW5aCTVZGYXSS3JjVAfNAZssAwAEZKrtb3O4Cqum6P4fn0bSp2niluUmZ79RdhCYdxUYDEY5Mf90kMcE87eJopDOw8a2Phm1sIG8PXPm3BuHRgJd+5ADlupwN2AucEjJO7rXH0UUAFFFFMAooooAktwjXEQlOIy6hznGFyM/pXe+ItP8ACRs9SfQpLfZG8Bjne5YnBkZWRIyxYHbgliGBCkjbkA+fUUgPSZND8HxavdyzXAGivD+4eK9UuJFGXAG7JY5TH3l5OR1C8h4vt9Mttckj0SQPaeXGTtfequV+ZQ2TkA+5781i0UWAKKKKYBRRRQAVPanHmkcEJwfxFQVNbYy6kgFlwM8c5BoA34PDtxL4QuPEIuYhbQzi3MJ3bySVGR2x836Vg3JJjiJ5PzDPtkVcW4vFsms1nkFozb2hEnyFvXGevA/KqdzgLGmQWGScHOM0CIKeoJjOPUf1plO/5Zn6j+tIZbtNQ1GzkD2l5cwOIvIDRzFSI852Ag9M849ea0da8T63rKGO9uyIWQI8UOI0cA5G4D73Pr04AwBU/hDwfqHimDUZbEYFpHlcrnzZSCViHoSFY59h61D4f8NvrOnXNxHciKWO4itYoWTJkd1ZuTkEABDnAY+3BqVOMpOKeq3G4tJN9TC2N6fqKNjen6iu5k+GeqB7eBLi1N7JJ5TQtuwp+f5gwBG35BycfeFY+t+DtS0bTPtt3JZsgZVeOKUs6FuORgDg4BwT1qroRgMjYTjt6j1NaL65rL2dzaSalePbXPE0bzlg/wA27nJ/vEk+ueazGGdg9v6mvQfFPw0fw/a6o76qt1PZ26XAhjtiGZDIyMzfMQFG3qCTyMqvOB6bh1OXXxN4gWExjVr4AkEt5534CFAN2c7dpIx05rOvbu9vjCb25nuDDGIYzLKX2IOijJ4A9K7G/wDhxdW2iX+pRXvm/ZbeG4Fu1o8crh+SNpOQQCrd+GUnbmptU+GVxY+H7nVU1ixuI4rMXgjRSC6A4bBz0zwDjk8ELQ2kC8jgWBEYz/eP8qZTj9z/AIEf5U2mAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQBv1p6Pot1qyyG0MWU4wz4JPpWZU1td3FqSbaeWEt12MVzSlzNe7uXHlv72xo6doF1f280sLxYil8sgk8gfeYY6gcdu4qw3ha980qskDDcwGG546ZHbt9M1gq7KwKsysOhBIIo3t/eb8zTJN6PwteyZxJBgKWJBJHQkYwOhx1460sHhS/lUPvg8shgrBidzDPHQdcdelYIlkAwJHA68MaPMkxjzHxjGNxxj0oAt6lps+neWLhoyZMlQpJOB35Ax1+tUqVmZyS7MxPcnJpKYBRRRQAUUUUAFFFFACVg1vVg0mJhRRRQAUm4eo/OnoQrqTyAQT+deinxh4cZrjy9Ja0eSaV4pUgRzDueUq+CeoDqNo4GOOgpAeb7l/vL+dBZR1YD8a9Mi8aeH7f7MLawm8uC7E7pNbRuZ0DMQrnIB6jORUMvizw80LJZWtxp+bYwbRaxTD544lbOSCdu2TaT3ZSe9AHnORnGRn60BlOMMDnpz1r0yTxl4XaWSRdElWCSRWksGhiZJAqhF/ecFcBQ/A5bIOckmpqPi7RpdA1CwW0kub24i2/bntY4t7DOCUU8YBCgg8bQ3PShhY8+3L/AHl9OtLXpE/i/QPJm+z29ykkpjwrW0e2ONXLeSoBHGDtzyDgEjNcJrUlrNq13LYM5tpZXkQPGIyoZidu0EgYzjrQmBSooopgFFFFABRRRQAUUUUAFFFFABRRRQAU+ONpM7cYHUk4AplTwf6iT/eX+RoAb9nP96L/AL7pGgZVLDYQOu1s4q/BbQyQ75L+CF+f3bpIT+YUjn61WX7kn/XM03GwirRRRSGFFFb8+iQL4FtdbSV/tT372skRljwECAqwUHf13AkjHFIDAooopgSJCzru+ULnGWOKX7Of70X/AH3Ug/1EX/Av51ryabaL4fS9W+jNwZCvl7X5+UHZ0+8M9elVGDle3QDCkiaMAnaVPGVORTKsSf8AHu3++v8AI1XqQE3DnkcdeaCQOpA/GvQvDni3RrPStFsbm1aGa0ZjPdfZ1kLBvNzs5BVsOoDHPIGRheaXhvxBo+nafBFdxSSOpulcfZELmKTy9qrJuGH+Q/MQQu44GKQHFZHqPzpa9D03xF4a0yytLNoGvDbrtM/2GP5+cuPmOSJAdpJ5Xbkda88/SjqAUUUUwCiiigApAwOMEHPoalt2VLiF3GUV1ZhjOQCCa7vxV4r0fWtM1eO1t3smuDEYolt13lldjlpBwUCtwuAQdoBIBynoCPP8jOMjP1oBB6EH8a9Bu9e8OX0c1tIHjt3uoroYsVjJ2RIHRtrHKsUIAAGC5JOMiq3ifxHouo6NcW1lasLp3Q+abSOLeQVPmEqflIUFNo4Od3WgDiKKKKYBRRRQAU6NGkbao5688AU2prbpL/uj/wBCFACfZz/ei/77pskbRkBscjIIOQa6q30fTZPAV1q73bjVI7kQpb+YuCmV5243dCfyrmbj/VRf8C/pQIgpw5QjIByOpptFAzb0fxNrmi2pttJ1e4s4C5k2ROANxGM9OvFZ3227+0tcC7kWdpfPLrIVJk5+bjvyefc1VoqFCKbaWrG5NqzehoJq2poWKapeKW+8RdOCevXn3P5mq0txcSqVlupHU9Q8pIP51BRVCHsOF+ZeB6+9XP7U1E2k9qdRuTbT4MsRnYq+G3DIJ555+tUKKANa31/Wbe5S4i1i985GVgzXLtypypIJOcE5GelVptRv54nin1G5ljcKro9wzBgv3QQTyB29KpUUAOPCAZBOexptFFMAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDfqwuEjTCrkjJJUHuar1YP+qiPbb/AFNMYbz/AHU/74H+FG8/3U/74H+FNzRmgB28/wB1P++B/hRvP91P++B/hTc0ZoA0dO0y+1GG5lsrdJI7Zd8pwg2jBPfr0NV1t7lrT7Utsxtt2zzRCNu7GcZx1xWjoGvyaNa6jBHAkovI/LYsxG3gjI9fvVJ4f8UXehwJFaw2smyXzlaZWYq2McfNgfh16HIqIuV3fboXJR5VbfqY0qyRMVliCMOzRgf0pm8/3U/74H+FXtY1e51eWOS7KDy1KoqDaqgsWOBnjk/yrPzVkMdvP91P++B/hRvP91P++B/hTc0ZoAdvP91P++B/hTLgD5GAALA5x04NLmi44SLPoT+tAEFYNb1YNJiYUUUUAFFKoLMAOpOBW8/g7xAkqRHSp/Nd0iRA6Es7gFVADckgg4HYg0gMCitq38La7cQxywaVdOkgQoQoywfBUgZyQQQc9s84oXwrrjoHTTZnQuU3oyMoIznJBwAMH5jxweaAMWitOPQdWlmnhj065aWCZLeVQnKSPnap9ztOPpTbTRNTvBEbaxnkWVVdCAMFW3YbOeB+7fk8fKaAM6itGfRNSt4buWezkijtJBFOXIXY5GQuCck454zxz0qZ/DWtJM8Tabc+ZG0cbqACUaQlUU4PBJBGDzkc0AZFFB4OD1ooAKKKKYBRRRQAUUUUAFFFFABRRRQAVNA6BXRyVyQQcZ6Z/wAahqWGMOGZyQq4HA5JP/6qAJP3X/PUf98n/ChnjVH2vuZhtAAIx780nlw+sv6UjRIUYoz5UZw2ORQIgooooGFJgZzgZ9cc0tFABRRRQBYjdDEqs21lJ7ZBBp2Y8Y84Y/3W/wAKjjiQxh5C3JOAo9Kd5cPrL+lAhJnTytiNuJbJOMAY/wD11BU0sSiPehYjOCGHIqGgYUVr2XhrWb22t7i10+WS3n3GOXKhSBuySSflHyPycD5TVddH1F4bKVbOUpeuY7YjGZWBwQoznggjPTigChRV/UdG1LTIkk1Cxnto3do1aRcAsvUf569s1QpAFFFFMAooooAKKVFLuqqCWYgADuTWtf8AhrWdPgmmvdPmgiiZUZnK43MSABg/McqQcZxjnFIDIorUbw9q4vbq0/s64N1arvniUBmjHvg9fbr7VU1CxutNu3tb+CS3uFAJjccgEZBoArUUUUwCiiigAqW3dVZg+QrDGRzjnP8ASoqkhjDsdxwqjJx1oAl/df8APVf++T/hTJ3UhFQkhc5OMZJp3lxf9Nf0qOaMJtKklW6Z6igRHRRTkYrnAU/VQaBjaKk81vRP++B/hR5reif98D/CgCOipPNb0T/vgf4Uea3on/fA/wAKAI6Kk81vRP8Avgf4Uea3on/fA/woAjoqTzW9E/74H+FHmt6J/wB8D/CgCOipPNb0T/vgf4Uea3on/fA/woAjoqTzW9E/74H+FHmt6J/3wP8ACgCOipPNb0T/AL4H+FHmt6J/3wP8KAI6Kk81vRP++B/hR5reif8AfA/woAjoqTzW9E/74H+FHmt6J/3wP8KAI6Kk81vRP++B/hR5reif98D/AAoAjoqTzW9E/wC+B/hR5reif98D/CgCOipPNb0T/vgf4Uea3on/AHwP8KAI6Kk81vRP++B/hR5reif98D/CgCOipPNb0T/vgf4Uea3on/fA/wAKAI6Kk81vRP8Avgf4Uea3on/fA/woAjoqTzW9E/74H+FHmt6J/wB8D/CgCOipPNb0T/vgf4Uea3on/fA/woAjoqTzW9E/74H+FMY7iScfgMUAJRRRQAUUUUAb9OSR0GEdlHoDTaKYyTz5f+er/nR58v8Az1f86jooAk8+X/nq/wCdHny/89X/ADqOigCTz5f+er/nR58v/PV/zqOigCTz5f8Anq/50efL/wA9X/Oo6KAJPPl/56v+dHny/wDPV/zqOigCTz5f+er/AJ0xmLEliST3NJRQAlYNb1YNJiYUUUUAIRkEHvxXUW3jXU7fYY47YPHNFPGwDrteOJYlOA2D8qDrnnJGK5iikK1zr5fiHr8s0EjTQKY50nISPYJCmNqsAfucD5RimJ461JbB7BoLR7BzJvgcOdwk3bwW3bud578YBHIrk6KB3Z19l8QNXs57h4orApcTCeSNoMglQgQA53AIEAGD3Oc1Xg8aahDZLYpBa/2csXkfZCHKeX+9yM7s8iZwTnPT0rmKKLAbt/4nu72zvrWaG3EN3LHLtTevl+WgjRV+bkBQBhs9M9a10+I2rxLGkNtp6xLsLq0TSNKUIKF3Zi52kcfNwOORiuLooAkuJFlneRIkhVjkRoSQv0ySfzNR0UUAFFFFMAooooAKKKKACiiigAooooAKng/1En+8v8jUFSQyBAysu5Wx0OCCKAL0DWIhxcR3bTc8xyIF9uCpNV1+5J/1zNM82L+5J/30P8KGmXYwRCCwwSzZ4/Km3cRBRRRSGFb813pL+B7WzVca3HfvK7C1A3QMgAUy5y2CMgY4zWBRSDYKKKKYFkf6iL/gX8615ZNJPh6NEjn+3+aSSXXrtHJ4+56DrmsWOVRGEdCQCSCDg80vmxf3JP8Avof4VUZct9AFk/492/31/kar1LLKGQIilRnJJOSaiqQOp0nxrqGn2em2bQ289nYMXiibcmSS5O4qRuB8w5U5BAxjk5j07xZNZ2EFs1jazC3dpYSxfCOx5wN2Au1nG1cA7gTyBXNUUgN7xB4ou9btIba4gtYo4mUjyVYEqilY1OSeFViB3Oec1g0UUAFFFFMAooooAdE5iljkXG5GDDPTIOa6fVPG2oarDejUILaWa68vMmGAXY5cYTO0NzjcADjPPJNctRSA7JPH97Dci8trK0jvxt/fsXkIKD923zMSzLl+WJzv56Cub1rUn1W9+0SQwwAIsaRQghEUdAMknuTye9UaKLAFFFFMAooooAKmtukv+6P/AEIVDT4ZPLY5XcrDBGcUAdTb3Whr4DuraWCM6+1yGil8s7hFleN3ToG/Ouan/wBVF/wL+lHmxf3JP++h/hTJpBJtCrtVRwM5oER0UV0/ga+8PWEupnxNaz3KXFsbWARRq5hL/emG7+JQBjHPJ6UhnMZGcZGaBz0r1PUtc8AXGnx2NvZSpHDGfJZraQKH/eYMuH3ufnXOGA3DONoxTLnWPhvNcNdS6VeTyPIWKMrpkFuS21wMbcbQuMEHdnIpXCx5fRXc6vdeB/7Lt4dIs7h79o4Y5Jp1kRVPmEyP98jdtwM9O+M10ar8LpdanswjopuUjjmBlS3Cq53MHZydpTAOercggHh3HY8jor1XULn4ZWV4sZ09rt0mYSC0aZodhdcBXLgsVXdgjAye4xVNNS+Gy2qynRbxrrfuaJml8sfux8ow+dm7d1O73IOKVwsebUV6Vean8Pbi2Bj054Z0ijjjzBNj5WxufbIN2Rkt3YEAEEE15s2Nxx0zxTEJRRRTAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA36KKKYwooooAKKKKACiiigAooooAKKKKACiiigBKwa3qwaTEwooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKA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AN+iiimMKKKKACiiigAooooAKKKKACiiigAooooASsGt6sGkxMKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAClVmX7rEfQ4pKcibgTkKo6k0AL5kn99/++jR5kn99/wDvo0vlr/z1T8j/AIUeWv8Az1T8j/hSATzJP77/APfRo8yT++//AH0aXy1/56p+R/wo8tf+eqfkf8KAE8yT++//AH0aPMk/vv8A99Gl8tf+eqfkf8KPLX/nqn5H/CgBPMk/vv8A99GjzJP77/8AfRpfLX/nqn5H/Cjy1/56p+R/woATzJP77/8AfRo8yT++/wD30aXy1/56p+R/wo8tf+eqfkf8KAE8yT++/wD30aPMk/vv/wB9Gl8tf+eqfkf8KPLX/nqn5H/CgBPMk/vv/wB9GjzJP77/APfRpfLX/nqn5H/Cjy1/56p+R/woATzJP77/APfRo8yT++//AH0aXy1/56p+R/wo8tf+eqfkf8KAE8yT++//AH0aPMk/vv8A99Gl8tf+eqfkf8KPLX/nqn5H/CgBPMk/vv8A99GjzJP77/8AfRpfLX/nqn5H/Cjy1/56p+R/woATzJP77/8AfRo8yT++/wD30aXy1/56p+R/wo8tf+eqfkf8KAE8yT++/wD30aPMk/vv/wB9Gl8tf+eqfkf8KPLX/nqn5H/CgBPMk/vv/wB9GjzJP77/APfRpfLX/nqn5H/Cjy1/56p+R/woATzJP77/APfRo8yT++//AH0aXy1/56p+R/wo8tf+eqfkf8KAE8yT++//AH0aPMk/vv8A99Gl8tf+eqfkf8KPLX/nqn5H/CgBPMk/vv8A99GjzJP77/8AfRpfLX/nqn5H/Cjy1/56p+R/woATzJP77/8AfRo8yT++/wD30aXy1/56p+R/wo8tf+eqfkf8KAE8yT++/wD30aaSSckkn1NP8tf+eqfkf8KY6lWKnqKAEooopgFFFFAG/RRRTGFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAJWDW9WDSYmFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFF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" alt="Sistema PDV DataStock" style="width:100%;border-radius:12px;margin-bottom:1rem;border:1px solid rgba(37,99,235,.2)">
+          <div style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:8px;padding:.65rem 1rem;text-align:center;font-size:.75rem;font-weight:700">
+              🔄 Ponto de Venda - Frente de Caixa
+              </div>
+            
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="powerbi">
+  <div class="container">
+    <div class="pdv-inner">
+      
+      <div class="reveal">
+        <div class="pdv-badge">⭐ Solução Principal</div>
+        <p class="section-label">Produto em Destaque</p>
+        <h2 class="section-title">Dashboards Power BI DataStock</h2>
+        <p style="color:var(--gray-mid); line-height:1.75; margin-bottom:1.5rem">
+          Desenvolvemos dashboards estratégicos personalizados em Power BI, conectando suas fontes de dados e transformando informações brutas in indicadores visuais que orientam decisões rápidas e precisas.
+        </p>
+        <div class="pdv-features">
+          <div class="pdv-feat">KPIs personalizados por área</div>
+          <div class="pdv-feat">Integração com Excel, SQL e ERP</div>
+          <div class="pdv-feat">Modelagem de dados com DAX</div>
+          <div class="pdv-feat">Atualização automática</div>
+          <div class="pdv-feat">Publicação no Power BI Service</div>
+          <div class="pdv-feat">Acesso por qualquer dispositivo</div>
+          <div class="pdv-feat">Relatórios agendados por e-mail</div>
+          <div class="pdv-feat">Controle de permissões de acesso</div>
+          <div class="pdv-feat">Análise exploratória de dados</div>
+          <div class="pdv-feat">Suporte e manutenção contínua</div>
+        </div>
+        <a href="powerbi.html" class="btn-primary">📊 Conhecer Nossas Soluções</a>
+      </div>
+      
+      <div class="reveal">
+        <div class="pdv-screen">
+          <img src="Biindex.png" alt="Biindex" style="width: 100%; height: auto; border-radius: 4px; display: block; margin-bottom: 0.5rem;">
+          
+          <div style="background:rgba(37,99,235,.15); border:1px solid rgba(37,99,235,.3); border-radius:8px; padding:.65rem 1rem; text-align:center; font-size:.75rem; font-weight:700">
+            🔄 Power BI Service · Visualização de faturamento por Rota e área.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFÓLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Portfólio</p>
+      <h2 class="section-title">Projetos Desenvolvidos</h2>
+      <p class="section-sub">Uma seleção dos trabalhos entregues com excelência técnica e resultado prático.</p>
+    </div>
+    <div class="portfolio-cats">
+      <button class="port-cat active" onclick="filterPort('all')">Todos</button>
+      <button class="port-cat" onclick="filterPort('bi')">Dashboards Power BI</button>
+      <button class="port-cat" onclick="filterPort('auto')">Automações</button>
+      <button class="port-cat" onclick="filterPort('log')">Logística</button>
+      <button class="port-cat" onclick="filterPort('pdv')">Sistema PDV</button>
+    </div>
+    <div class="portfolio-grid" id="portGrid">
+      <div class="port-card" data-cat="bi" onclick="openModal('bi1')"><div class="port-img">📊</div><div class="port-info"><h4>Dashboard de Indicadores Operacionais</h4><p>Power BI · Business Intelligence</p></div></div>
+      <div class="port-card" data-cat="auto" onclick="openModal('auto1')"><div class="port-img">⚙️</div><div class="port-info"><h4>Controle Inteligente de Insumos</h4><p>Excel VBA · Power BI</p></div></div>
+      <div class="port-card" data-cat="log" onclick="openModal('log1')"><div class="port-img">🏭</div><div class="port-info"><h4>Endereçamento Logístico</h4><p>Logística · Otimização Operacional</p></div></div>
+      <div class="port-card" data-cat="auto" onclick="openModal('auto2')"><div class="port-img">🎯</div><div class="port-info"><h4>Totem de Feedback Corporativo</h4><p>Automação · Dashboard Gerencial</p></div></div>
+      <div class="port-card" data-cat="pdv" onclick="openModal('pdv1')"><div class="port-img">🛒</div><div class="port-info"><h4>Sistema PDV DataStock</h4><p>Oracle Cloud · Automação Comercial</p></div></div>
+      <div class="port-card" data-cat="bi" onclick="openModal('bi2')"><div class="port-img">📈</div><div class="port-info"><h4>Análise de Desempenho Comercial</h4><p>Power BI · SQL · Análise de Dados</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Cases de Sucesso</p>
+      <h2 class="section-title">Resultados Reais</h2>
+      <p class="section-sub">Projetos que geraram impacto mensurável nos negócios dos nossos clientes.</p>
+    </div>
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-icon">📦</div>
+        <h3>Controle Inteligente de Insumos</h3>
+        <p>Sistema desenvolvido para integração entre compras e manutenção utilizando Excel, VBA e Power BI, eliminando controles paralelos e centralizando informações.</p>
+        <div class="case-results">
+          <div class="case-result">Redução de controles manuais</div>
+          <div class="case-result">Aumento da rastreabilidade de insumos</div>
+          <div class="case-result">Indicadores em tempo real para gestão</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-icon">📱</div>
+        <h3>Totem de Feedback Corporativo</h3>
+        <p>Sistema interativo para avaliação de áreas de apoio e coleta de feedback dos colaboradores em tempo real, com dashboard gerencial integrado.</p>
+        <div class="case-results">
+          <div class="case-result">Engajamento dos colaboradores</div>
+          <div class="case-result">Coleta automatizada de dados</div>
+          <div class="case-result">Dashboard gerencial em tempo real</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-icon">🏗️</div>
+        <h3>Projeto de Endereçamento Logístico</h3>
+        <p>Criação de mais de 130 posições dedicadas para produtos de baixo giro em armazém, com impacto direto na produtividade e nos custos operacionais.</p>
+        <div class="case-results">
+          <div class="case-result">Economia superior a R$ 29.000</div>
+          <div class="case-result">Liberação de posições porta-palete</div>
+          <div class="case-result">Maior produtividade operacional</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGIAS -->
+<section id="tecnologias">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <p class="section-label">Stack Tecnológico</p>
+      <h2 class="section-title">Tecnologias que Utilizamos</h2>
+    </div>
+    <div class="tech-grid reveal">
+      <div class="tech-card"><div class="tech-icon">📊</div><div class="tech-name">Power BI</div><div class="tech-desc">Business Intelligence</div></div>
+      <div class="tech-card"><div class="tech-icon">🐍</div><div class="tech-name">Python</div><div class="tech-desc">Análise e automação</div></div>
+      <div class="tech-card"><div class="tech-icon">📗</div><div class="tech-name">Excel VBA</div><div class="tech-desc">Automação de processos</div></div>
+      <div class="tech-card"><div class="tech-icon">🗄️</div><div class="tech-name">SQL</div><div class="tech-desc">Banco de dados</div></div>
+      <div class="tech-card"><div class="tech-icon">☁️</div><div class="tech-name">Oracle Cloud</div><div class="tech-desc">Infraestrutura em nuvem</div></div>
+      <div class="tech-card"><div class="tech-icon">🌐</div><div class="tech-name">Streamlit</div><div class="tech-desc">Apps de dados</div></div>
+      <div class="tech-card"><div class="tech-icon">🔄</div><div class="tech-name">Power Query</div><div class="tech-desc">ETL e transformação</div></div>
+      <div class="tech-card"><div class="tech-icon">🗃️</div><div class="tech-name">SQLite</div><div class="tech-desc">Banco de dados leve</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-label">Depoimentos</p>
+      <h2 class="section-title">O que Dizem Nossos Clientes</h2>
+      <p class="section-sub">Espaço dedicado para depoimentos reais de clientes satisfeitos.</p>
+    </div>
+    <div class="dep-grid">
+      <div class="dep-card dep-placeholder reveal">
+        <div class="dep-stars">★★★★★</div>
+        <p class="dep-text">"Depois que converteu o reporte que era em Excel para PowerBI tudo ficou mais rápido, eu demorava bastante tempo e baixava vários relatórios para montar uma planilha de informação."</p>
+        <div class="dep-author"><div class="dep-avatar">👤</div><div><div class="dep-name">— Renan M.</div><div class="dep-role">Assistente Raia Drogasil</div></div></div>
+      </div>
+      <div class="dep-card dep-placeholder reveal">
+        <div class="dep-stars">★★★★★</div>
+        <p class="dep-text">"O Totem de feedback ajudou bastante a nós se comunicarmos, assim podemos avaliar as áreas sem medo e podemos ter voz"</p>
+        <div class="dep-author"><div class="dep-avatar">👤</div><div><div class="dep-name">— Colaboradores</div><div class="dep-role">Raia Drogasil</div></div></div>
+      </div>
+      <div class="dep-card dep-placeholder reveal">
+        <div class="dep-stars">★★★★★</div>
+        <p class="dep-text">"O reporte de Cálculo automático de HC por área ajudava bastante, já tinhamos uma visão de quantos operadores e conferentes iriamos utilizar no dia."</p>
+        <div class="dep-author"><div class="dep-avatar">👤</div><div><div class="dep-name">— Cicero Adriel</div><div class="dep-role">Supervisor Raia Drogasil</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+ <section id="contato">
+  <div class="container">
+    <div class="contato-grid">
+      <div class="reveal">
+        <p class="section-label">Contato</p>
+        <h2 class="section-title">Vamos Conversar?</h2>
+        <p style="color:var(--gray-mid);line-height:1.75;margin-bottom:2.5rem">Pronto para transformar dados em resultados? Entre em contato e descubra como a DataStock pode ajudar seu negócio.</p>
+        <div class="contact-info">
+          <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-label">WhatsApp</div><div class="contact-val"><a href="https://wa.me/5585985672426" target="_blank">(85) 9 98567-2426</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">📧</div><div><div class="contact-label">E-mail Comercial</div><div class="contact-val"><a href="mailto:ulysson52@gmail.com">ulysson52@gmail.com</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">💼</div><div><div class="contact-label">LinkedIn</div><div class="contact-val"><a href="https://www.linkedin.com/in/ulysson-fontenele-nobre-287a26125/" target="_blank">https://linkedin.com/in/ulyssonfontenele</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div><div class="contact-label">Localização</div><div class="contact-val">Ceará, Brasil</div></div></div>
+        </div>
+      </div>
+<form class="contact-form reveal"
+      action="https://api.web3forms.com/submit"
+      method="POST">
+
+  <input type="hidden" name="access_key" value="55fba35a-d115-42be-8b3c-9bee47e3a509">
+
+  <input type="hidden" name="subject" value="Novo Orçamento - Site DataStock">
+
+  <input type="hidden" name="from_name" value="Site DataStock">
+
+  <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:600;margin-bottom:1.5rem">
+    Solicitar Orçamento
+  </h3>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Nome *</label>
+      <input type="text" name="Nome" placeholder="Seu nome" required>
+    </div>
+
+    <div class="form-group">
+      <label>Empresa</label>
+      <input type="text" name="Empresa" placeholder="Sua empresa">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>E-mail *</label>
+      <input type="email" name="Email" placeholder="seu@email.com" required>
+    </div>
+
+    <div class="form-group">
+      <label>Telefone</label>
+      <input type="tel" name="Telefone" placeholder="(85) 9 9999-9999">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Mensagem</label>
+    <textarea name="Mensagem"
+      placeholder="Descreva sua necessidade ou projeto..."
+      required></textarea>
+  </div>
+
+  <button type="submit"
+          class="btn-primary"
+          style="width:100%;justify-content:center">
+      🚀 Solicitar Orçamento
+  </button>
+
+</form>
+    </div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:.75rem"><div class="nav-logo-icon">📊</div>Data<span>Stock</span></div>
+        <p>Transformando dados em resultados para empresas de pequeno, médio e grande porte. Business Intelligence, automação e consultoria estratégica.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links Rápidos</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="portfolio.html">Portfólio</a></li>
+          <li><a href="#pdv">Sistema PDV</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Soluções</h4>
+        <ul>
+          <li><a href="#servicos">Business Intelligence</a></li>
+          <li><a href="#servicos">Análise de Dados</a></li>
+          <li><a href="#servicos">Automação de Processos</a></li>
+          <li><a href="#servicos">Consultoria Logística</a></li>
+          <li><a href="#pdv">Sistema PDV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> DataStock Soluções Inteligentes · CNPJ 59.348.157/0001-55</p>
+      <p style="color:var(--gray-mid)">Ceará, Brasil · Feito com dados e propósito 🚀</p>
+    </div>
+  </div>
+<a href="admin.html" style="color:rgba(255,255,255,.2);font-size:.7rem;text-decoration:none;margin-left:1rem" title="Admin">⚙</a>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal" onclick="closeModalOut(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// Year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Nav toggle
+function toggleNav(){document.getElementById('navbar').classList.toggle('mobile-open')}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}});
+},{threshold:.12});
+reveals.forEach(r=>ro.observe(r));
+
+// Counter animation
+const counters = document.querySelectorAll('.counter');
+const co = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target,target=+el.dataset.target,suffix=el.dataset.suffix||'+',dur=1800;
+      let start=null;
+      function step(ts){if(!start)start=ts;const p=Math.min((ts-start)/dur,1);el.textContent=Math.floor(p*target)+(p===1?suffix:'');if(p<1)requestAnimationFrame(step)}
+      requestAnimationFrame(step);co.unobserve(el);
+    }
+  });
+},{threshold:.5});
+counters.forEach(c=>co.observe(c));
+
+// Portfolio filter
+function filterPort(cat){
+  document.querySelectorAll('.port-cat').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.port-card').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'block':'none';
+  });
+}
+
+// Modals
+const modalData={
+  bi1:{title:'Dashboard de Indicadores Operacionais',tag:'Power BI · Business Intelligence',desc:'Dashboard executivo desenvolvido para acompanhamento em tempo real dos principais indicadores operacionais da empresa.',obj:'Centralizar informações de múltiplas fontes em um painel unificado e interativo.',tech:['Power BI','DAX','Power Query','SQL'],benefits:['Redução de 80% no tempo de geração de relatórios','Tomada de decisão baseada em dados atualizados','Visibilidade total dos KPIs em tempo real']},
+  auto1:{title:'Controle Inteligente de Insumos',tag:'Excel VBA · Power BI',desc:'Sistema de controle integrado entre departamentos de compras e manutenção, eliminando planilhas paralelas e centralizando dados.',obj:'Integrar o fluxo de insumos da entrada à utilização, com rastreabilidade completa.',tech:['Excel VBA','Power BI','Power Query'],benefits:['Redução de controles manuais','Aumento da rastreabilidade','Indicadores em tempo real']},
+  auto2:{title:'Totem de Feedback Corporativo',tag:'Automação · Dashboard Gerencial',desc:'Sistema interativo instalado em totens nas áreas de apoio para coleta de avaliação de colaboradores em tempo real.',obj:'Coletar feedback de forma estruturada e automatizar análise dos dados coletados.',tech:['Python','SQLite','Power BI','Streamlit'],benefits:['Engajamento dos colaboradores','Coleta automatizada de dados','Dashboard gerencial em tempo real']},
+  log1:{title:'Projeto de Endereçamento Logístico',tag:'Logística · Otimização Operacional',desc:'Reestruturação do layout de armazém com criação de mais de 130 posições dedicadas para produtos de baixo giro.',obj:'Otimizar o uso do espaço físico do armazém e aumentar a produtividade das operações.',tech:['Excel','Power BI','Engenharia de Armazenagem'],benefits:['Economia superior a R$ 29.000','Liberação de posições porta-palete','Maior produtividade operacional']},
+  pdv1:{title:'Sistema PDV DataStock',tag:'Oracle Cloud · Automação Comercial',desc:'Sistema completo de ponto de venda hospedado em nuvem Oracle, com módulos de estoque, financeiro, clientes e relatórios.',obj:'Oferecer uma solução acessível e robusta de automação comercial para pequenos e médios negócios.',tech:['Oracle Cloud','Python','SQLite','Streamlit'],benefits:['Controle total das operações comerciais','Acesso multiusuário e online','Relatórios gerenciais automatizados']},
+  bi2:{title:'Análise de Desempenho Comercial',tag:'Power BI · SQL · Análise de Dados',desc:'Projeto de análise do desempenho comercial com integração de dados de vendas, carteira de clientes e metas.',obj:'Dar visibilidade ao time comercial sobre performance individual e coletiva.',tech:['Power BI','SQL','Excel','DAX'],benefits:['Acompanhamento de metas em tempo real','Identificação de oportunidades de venda','Ranking de performance da equipe']},
+};
+
+function openModal(id){
+  const d=modalData[id];if(!d)return;
+  document.getElementById('modal-content').innerHTML=`
+    <h3>${d.title}</h3><div class="modal-tag">${d.tag}</div>
+    <p>${d.desc}</p>
+    <div class="modal-section"><h4>🎯 Objetivo</h4><p>${d.obj}</p></div>
+    <div class="modal-section"><h4>🛠️ Tecnologias</h4><div class="modal-tags">${d.tech.map(t=>`<span class="modal-tag-item">${t}</span>`).join('')}</div></div>
+    <div class="modal-section"><h4>📈 Benefícios</h4><ul class="exp-list" style="margin-top:.5rem">${d.benefits.map(b=>`<li>${b}</li>`).join('')}</ul></div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function closeModalOut(e){if(e.target===document.getElementById('modal'))closeModal()}
+
+// Form feedback
+function sendForm(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  if(!nome||!email){alert('Preencha pelo menos nome e e-mail');return;}
+  const contacts=JSON.parse(localStorage.getItem('ds_contacts')||'[]');
+  contacts.push({
+    id:Date.now(),nome,
+    empresa:document.getElementById('f-empresa').value,
+    email,
+    telefone:document.getElementById('f-telefone').value,
+    mensagem:document.getElementById('f-msg').value,
+    data:new Date().toLocaleString('pt-BR')
+  });
+  localStorage.setItem('ds_contacts',JSON.stringify(contacts));
+  document.getElementById('form-success').style.display='flex';
+  document.getElementById('form-fields-wrap').style.display='none';
+}
+</script>
+</body>
+</html>
