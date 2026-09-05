@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Anne OS Kids — windows.css
+   Janelas do sistema (arrastar, redimensionar, min/max/close)
+   ========================================================================== */
+
+.Anne-window {
+  position: absolute;
+  min-width: 260px;
+  min-height: 200px;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.06);
+  animation: winOpen .22s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes winOpen { from { opacity:0; transform: scale(.85); } to { opacity:1; transform: scale(1); } }
+.Anne-window.closing { animation: winClose .18s ease forwards; }
+@keyframes winClose { to { opacity:0; transform: scale(.85); } }
+.Anne-window.minimized { display: none; }
+.Anne-window.maximized { border-radius: 0; }
+.Anne-window.active { box-shadow: 0 16px 40px rgba(60,40,90,.4); }
+
+.lw-titlebar {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .7rem;
+  background: linear-gradient(120deg, var(--win-color1, #8c6fff), var(--win-color2, #ff6fa5));
+  color: #fff;
+  cursor: move;
+  user-select: none;
+  flex-shrink: 0;
+}
+.lw-titlebar .lw-icon { font-size: 1.2rem; }
+.lw-titlebar .lw-title { flex: 1; font-weight: 700; font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lw-controls { display: flex; gap: 4px; }
+.lw-btn {
+  width: 26px; height: 26px; border: none; border-radius: 50%;
+  background: rgba(255,255,255,.25); color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: .8rem;
+  transition: background .15s ease;
+}
+.lw-btn:hover { background: rgba(255,255,255,.45); }
+.lw-btn.lw-close:hover { background: var(--Anne-red); }
+
+.lw-body {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: #faf9ff;
+}
+
+.lw-resizer {
+  position: absolute;
+  right: 0; bottom: 0;
+  width: 18px; height: 18px;
+  cursor: nwse-resize;
+  background: transparent;
+}
+.lw-resizer::after {
+  content: "";
+  position: absolute; right: 4px; bottom: 4px;
+  width: 8px; height: 8px;
+  border-right: 3px solid #cbb9ff;
+  border-bottom: 3px solid #cbb9ff;
+  border-radius: 0 0 3px 0;
+}
+
+/* Estado padrão de conteúdo dentro das janelas */
+.app-panel { padding: 1rem; height: 100%; overflow: auto; box-sizing: border-box; }
+.app-panel h2 { margin-top: 0; color: #3a2a55; }
+
+@media (max-width: 640px) {
+  .Anne-window { min-width: 92vw !important; }
+}

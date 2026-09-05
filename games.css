@@ -1,0 +1,317 @@
+/* ==========================================================================
+   Anne OS Kids — games.css
+   Estilos dos aplicativos e jogos (Paint, Calculadora, Notas, Jogos, Música)
+   ========================================================================== */
+
+/* ---------- Genérico de jogos/quiz ---------- */
+.quiz-box { text-align: center; padding: 1rem; }
+.quiz-question { font-size: 1.3rem; font-weight: 700; color: #3a2a55; margin-bottom: 1rem; }
+.quiz-emoji-big { font-size: 5rem; margin: .5rem 0 1rem; }
+.quiz-options { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; }
+.quiz-option {
+  background: #f0eaff; border: 3px solid transparent; border-radius: var(--radius-md);
+  padding: .8rem 1.2rem; font-size: 1.4rem; cursor: pointer; min-width: 90px;
+  transition: transform .12s ease, background .15s ease;
+}
+.quiz-option:hover { transform: translateY(-3px); background: #e2d9ff; }
+.quiz-option.correct { background: var(--Anne-green); color: #fff; border-color: #3d9c5c; }
+.quiz-option.wrong { background: var(--Anne-red); color: #fff; border-color: #c94c4c; }
+.quiz-feedback { margin-top: 1rem; font-size: 1.1rem; font-weight: 700; min-height: 1.6em; }
+.quiz-score { position: absolute; top: 10px; right: 14px; font-weight: 700; color: #8c6fff; }
+.quiz-fact { font-size: .95rem; color: #666; margin-top: .6rem; font-style: italic; }
+.game-header { display:flex; justify-content:space-between; align-items:center; padding: .3rem .5rem 0; }
+.game-header .gh-score { font-weight: 700; color: var(--Anne-purple); }
+.game-progress { font-size: .85rem; color: #888; margin-top: .3rem; }
+
+/* ---------- Hub de jogos (grade de cartões) ---------- */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: .5rem;
+}
+.hub-card {
+  background: linear-gradient(135deg, #fff, #f4f0ff);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(60,40,90,.12);
+  transition: transform .15s ease;
+  border: 2px solid #eee5ff;
+}
+.hub-card:hover { transform: translateY(-4px); border-color: var(--Anne-purple); }
+.hub-card .hc-emoji { font-size: 2.6rem; display: block; margin-bottom: .4rem; }
+.hub-card .hc-title { font-weight: 700; color: #3a2a55; }
+.hub-card .hc-sub { font-size: .78rem; color: #999; margin-top: .2rem; }
+
+/* ---------- Jogo da memória ---------- */
+.memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; padding: .5rem; max-width: 420px; margin: 0 auto; }
+.memory-card {
+  aspect-ratio: 1; background: var(--Anne-purple); border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; font-size: 2rem;
+  cursor: pointer; transition: transform .25s ease; color: transparent;
+  box-shadow: 0 3px 8px rgba(0,0,0,.15);
+}
+.memory-card.flipped, .memory-card.matched { background: #fff; color: #000; border: 2px solid var(--Anne-purple); }
+.memory-card.matched { background: var(--Anne-green); border-color: #3d9c5c; opacity: .85; }
+.memory-stats { display: flex; justify-content: center; gap: 1.5rem; margin-top: .8rem; font-weight: 700; color: #3a2a55; }
+
+/* ---------- Piano ---------- */
+.piano { display: flex; justify-content: center; gap: 4px; padding: 1.2rem .5rem; flex-wrap: wrap; }
+.piano-key {
+  width: 52px; height: 130px; background: #fff; border: 2px solid #ddd; border-radius: 0 0 8px 8px;
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: .5rem;
+  font-weight: 700; color: #888; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  transition: background .1s ease;
+}
+.piano-key:active, .piano-key.playing { background: var(--Anne-yellow); }
+.music-sequence-display { text-align:center; font-size: 2rem; letter-spacing: .3rem; min-height: 2.5rem; }
+.music-controls { display:flex; justify-content:center; gap:.6rem; margin: .6rem 0; }
+.music-btn {
+  background: var(--Anne-purple); color:#fff; border:none; border-radius: 20px; padding:.6rem 1.2rem;
+  font-weight:700; cursor:pointer; font-size:.95rem;
+}
+.music-btn:hover { background: #7658ff; }
+
+/* ---------- Calculadora ---------- */
+.calc-display {
+  background: #2b2350; color: #fff; text-align: right; padding: .8rem 1rem;
+  font-size: 2rem; border-radius: var(--radius-sm); margin-bottom: .6rem; overflow-x: auto;
+  white-space: nowrap; font-family: monospace;
+}
+.calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.calc-btn {
+  padding: 1rem 0; border: none; border-radius: var(--radius-sm); font-size: 1.2rem; font-weight: 700;
+  background: #f0eaff; color: #3a2a55; cursor: pointer;
+}
+.calc-btn:hover { background: #e2d9ff; }
+.calc-btn.op { background: var(--Anne-purple); color: #fff; }
+.calc-btn.op:hover { background: #7658ff; }
+.calc-btn.eq { background: var(--Anne-green); color: #fff; grid-column: span 2; }
+.calc-btn.clear { background: var(--Anne-red); color: #fff; }
+.calc-history { margin-top: .8rem; font-size: .82rem; color: #888; max-height: 90px; overflow-y: auto; }
+
+/* ---------- Notas ---------- */
+.notes-layout { display: flex; height: 100%; }
+.notes-sidebar { width: 42%; max-width: 220px; border-right: 2px solid #eee; overflow-y: auto; padding: .5rem; }
+.notes-search { width: 100%; padding: .5rem .7rem; border-radius: 20px; border: 2px solid #e2d9ff; margin-bottom: .5rem; outline: none;}
+.note-item { padding: .6rem .7rem; border-radius: var(--radius-sm); cursor: pointer; margin-bottom: 4px; }
+.note-item:hover, .note-item.active { background: #f0eaff; }
+.note-item .ni-title { font-weight: 700; font-size: .9rem; color: #3a2a55; }
+.note-item .ni-date { font-size: .72rem; color: #999; }
+.notes-editor { flex: 1; padding: .8rem; display: flex; flex-direction: column; gap: .5rem; }
+.notes-editor input, .notes-editor textarea {
+  border: 2px solid #eee; border-radius: var(--radius-sm); padding: .6rem .8rem; font-size: 1rem; outline: none; font-family: inherit;
+}
+.notes-editor input:focus, .notes-editor textarea:focus { border-color: var(--Anne-purple); }
+.notes-editor textarea { flex: 1; resize: none; }
+.notes-toolbar { display: flex; gap: .5rem; }
+.notes-toolbar button { border:none; border-radius: 16px; padding:.5rem 1rem; cursor:pointer; font-weight:700; background:#f0eaff; color:#3a2a55;}
+.notes-toolbar button.danger { background: var(--Anne-red); color: #fff; }
+.notes-empty { display:flex; align-items:center; justify-content:center; height:100%; color:#aaa; font-size:1.1rem; text-align:center; padding: 2rem;}
+
+/* ---------- Pintura (Paint) ---------- */
+.paint-layout { display: flex; flex-direction: column; height: 100%; }
+.paint-toolbar { display: flex; flex-wrap: wrap; gap: .4rem; padding: .5rem; background: #f5f2ff; align-items: center; }
+.paint-tool {
+  border: 2px solid transparent; background: #fff; border-radius: var(--radius-sm);
+  width: 38px; height: 38px; font-size: 1.1rem; cursor: pointer; display:flex; align-items:center; justify-content:center;
+}
+.paint-tool.active { border-color: var(--Anne-purple); background: #e2d9ff; }
+.paint-colors { display: flex; gap: 3px; flex-wrap: wrap; max-width: 200px; }
+.paint-color { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; box-shadow: 0 0 0 1px #ddd; }
+.paint-color.selected { box-shadow: 0 0 0 2px #3a2a55; }
+.paint-canvas-wrap { flex: 1; position: relative; background: #fff repeating-conic-gradient(#f3f3f3 0 25%, #fff 0 50%) 0/16px 16px; overflow: hidden; }
+#paint-canvas { position: absolute; top:0; left:0; cursor: crosshair; touch-action: none; }
+.paint-range { width: 90px; }
+.paint-gallery { display: grid; grid-template-columns: repeat(auto-fill, 100px); gap: .6rem; padding: .8rem; }
+.paint-gallery img { width: 100px; height: 75px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 2px solid #eee; }
+.paint-gallery .pg-item { text-align:center; font-size: .72rem; color:#777; }
+
+/* ---------- Arquivos ---------- */
+.files-grid { display: grid; grid-template-columns: repeat(auto-fill, 110px); gap: 1rem; padding: .5rem; }
+.file-folder, .file-item { text-align: center; cursor: pointer; }
+.file-folder .fi-emoji, .file-item .fi-emoji { font-size: 2.6rem; }
+.file-item img { width: 90px; height: 68px; object-fit: cover; border-radius: 8px; border: 2px solid #eee; }
+.fi-name { font-size: .78rem; color: #3a2a55; font-weight: 600; margin-top:.2rem; word-break: break-word; }
+.files-breadcrumb { padding: .4rem .8rem; font-weight: 700; color: #8c6fff; }
+.files-empty { text-align:center; color:#aaa; padding: 2rem; }
+
+/* ---------- Meu Computador / Conquistas / Config ---------- */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: .8rem; }
+.stat-card { background: #f5f2ff; border-radius: var(--radius-md); padding: .9rem; text-align: center; }
+.stat-card .sc-value { font-size: 1.6rem; font-weight: 800; color: var(--Anne-purple); }
+.stat-card .sc-label { font-size: .8rem; color: #777; }
+
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: .8rem; }
+.ach-card { background: #f8f6ff; border-radius: var(--radius-md); padding: .9rem; display:flex; gap:.6rem; align-items:center; opacity:.45; }
+.ach-card.unlocked { opacity: 1; background: linear-gradient(120deg,#fff8e1,#fff); border: 2px solid var(--Anne-yellow); }
+.ach-card .ac-emoji { font-size: 1.9rem; }
+.ach-card .ac-name { font-weight: 700; color: #3a2a55; font-size: .88rem; }
+.ach-card .ac-desc { font-size: .74rem; color: #999; }
+
+.settings-section { margin-bottom: 1.3rem; }
+.settings-section h3 { color: var(--Anne-purple); margin-bottom: .6rem; }
+.wallpaper-grid { display: flex; gap: .6rem; flex-wrap: wrap; }
+.wallpaper-choice { width: 72px; height: 48px; border-radius: 10px; cursor: pointer; border: 3px solid transparent; }
+.wallpaper-choice.selected { border-color: var(--Anne-purple); }
+.theme-choices, .settings-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+.theme-choice { padding: .5rem 1rem; border-radius: 20px; background: #f0eaff; cursor: pointer; font-weight: 700; border: 2px solid transparent; }
+.theme-choice.selected { border-color: var(--Anne-purple); }
+.settings-row label { font-weight: 600; color: #555; min-width: 130px; display:inline-block; }
+.danger-btn { background: var(--Anne-red); color: #fff; border: none; border-radius: 20px; padding: .6rem 1.1rem; cursor: pointer; font-weight: 700; }
+
+/* Tema escuro (aplicado no body via classe) */
+body.theme-dark .Anne-window { background: #241e3d; color: #eee; }
+body.theme-dark .lw-body { background: #1c1732; }
+body.theme-dark .app-panel h2 { color: #f0eaff; }
+body.theme-dark .hub-card, body.theme-dark .stat-card, body.theme-dark .ach-card { background: #2c2550; }
+body.theme-dark .stat-card .sc-label, body.theme-dark .hub-card .hc-sub { color: #bbb; }
+body.theme-dark .note-item .ni-title, body.theme-dark .ach-card .ac-name { color: #f0eaff; }
+
+/* ==========================================================================
+   Jogos de tabuleiro (Jogo da Velha, Dama, Xadrez, Resta Um) — genérico
+   ========================================================================== */
+.board-grid { display: grid; gap: 3px; margin: .5rem auto; user-select: none; }
+.board-cell { display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+.ttt-grid { grid-template-columns: repeat(3, 1fr); max-width: 270px; }
+.ttt-cell { aspect-ratio: 1; background: #f0eaff; border-radius: 12px; font-size: 2.2rem; }
+.ttt-cell:hover { background: #e2d9ff; }
+
+.chk-grid, .chs-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: 400px; gap: 0; border: 4px solid #6a4fa8; border-radius: 8px; overflow: hidden; }
+.chk-grid { width: min(400px, 100%); aspect-ratio: 1; grid-template-rows: repeat(8, minmax(0, 1fr)); }
+.chk-cell, .chs-cell { aspect-ratio: 1; min-width: 0; min-height: 0; font-size: 1.6rem; position: relative; overflow: hidden; }
+.chk-cell.light, .chs-cell.light { background: #f5eedd; }
+.chk-cell.dark, .chs-cell.dark { background: #9c7a4a; }
+.chk-cell.selected-cell, .chs-cell.selected-cell { outline: 3px solid var(--Anne-purple); outline-offset: -3px; z-index: 2; }
+.chk-cell.legal-target, .chs-cell.legal-target { box-shadow: inset 0 0 0 4px rgba(111,220,140,.8); }
+.chk-piece { display: block; max-width: 100%; max-height: 100%; overflow: hidden; white-space: nowrap; line-height: 1; font-size: 1.5rem; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
+.chs-piece { font-size: 2rem; }
+.chs-piece.chs-white { color: #fff; text-shadow: 0 0 2px #000, 0 0 4px #000; }
+.chs-piece.chs-black { color: #1a1425; }
+
+.peg-grid { grid-template-columns: repeat(7, 1fr); max-width: 300px; }
+.peg-cell { aspect-ratio: 1; font-size: 1.3rem; border-radius: 6px; }
+.peg-cell.peg-void { background: transparent; cursor: default; }
+.peg-cell.peg-filled { background: #f0eaff; }
+.peg-cell.peg-empty { background: #e8e4f5; }
+.peg-cell.selected-cell { outline: 3px solid var(--Anne-purple); outline-offset: -3px; }
+.peg-cell.legal-target { box-shadow: inset 0 0 0 3px rgba(111,220,140,.9); }
+
+/* ---------- Dominó ---------- */
+.domino-train { display: flex; flex-wrap: nowrap; gap: 4px; justify-content: flex-start; align-items: center; min-height: 60px; padding: .5rem; background: #eef0ff; border-radius: var(--radius-sm); margin: .4rem 0; overflow-x: auto; overscroll-behavior-inline: contain; }
+.domino-hand { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: .5rem; }
+.domino-tile {
+  display: flex; flex: 0 0 auto; border: 2px solid #3a2a55; border-radius: 8px; overflow: hidden; background: #fff;
+  font-weight: 800; font-size: .9rem; box-shadow: 0 3px 6px rgba(0,0,0,.15); cursor: default;
+}
+.domino-tile span { width: 24px; height: 34px; display: flex; align-items: center; justify-content: center; }
+.domino-tile span:first-child { border-right: 2px solid #3a2a55; }
+.domino-tile.domino-vertical { flex-direction: column; }
+.domino-tile.domino-vertical span { width: 34px; height: 24px; }
+.domino-tile.domino-vertical span:first-child { border-right: none; border-bottom: 2px solid #3a2a55; }
+.domino-tile.face-down { background: var(--Anne-purple); width: 48px; height: 34px; }
+.domino-tile.playable { cursor: pointer; border-color: var(--Anne-green); box-shadow: 0 0 0 2px rgba(111,220,140,.6); }
+.domino-tile.disabled { opacity: .4; }
+
+/* ---------- Pega-Vareta ---------- */
+.sticks-area { position: relative; height: 320px; background: #eef0ff; border-radius: var(--radius-md); overflow: hidden; margin: .5rem 0; }
+.stick { position: absolute; height: 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,.25); }
+
+/* ---------- Sequência de Cores (Simon) ---------- */
+.simon-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; max-width: 280px; margin: 0 auto; }
+.simon-btn { aspect-ratio: 1; border: none; border-radius: 20px; cursor: pointer; opacity: .75; transition: opacity .1s ease, transform .1s ease; }
+.simon-btn.lit { opacity: 1; transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255,255,255,.5); }
+
+/* ---------- Labirinto (Cachorro / Come-Come) ---------- */
+.maze-wrap { display: flex; justify-content: center; margin: .5rem 0; }
+.maze-grid { display: grid; gap: 0; background: #f5f2ff; }
+.maze-cell { aspect-ratio: 1; width: 38px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; box-sizing: border-box; }
+.pac-cell { width: 34px; }
+.pac-dot { color: #ffd166; font-size: 1.4rem; }
+.dpad { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: .6rem 0; }
+.dpad div { display: flex; gap: 4px; }
+.dpad button { width: 46px; height: 46px; border-radius: 12px; border: none; background: #f0eaff; font-size: 1.2rem; cursor: pointer; }
+.dpad button:hover { background: #e2d9ff; }
+
+/* ---------- Corrida de Carrinho ---------- */
+.race-wrap { position: relative; height: 340px; border-radius: var(--radius-md); overflow: hidden; margin: .4rem 0; }
+.race-wrap canvas { width: 100%; height: 100%; display: block; }
+.race-overlay { position: absolute; inset: 0; background: rgba(20,15,40,.65); display: flex; align-items: center; justify-content: center; }
+
+/* ---------- Vista a Boneca ---------- */
+.doll-layout { display: flex; gap: 1rem; flex-wrap: wrap; }
+.doll-stage { position: relative; width: 180px; height: 300px; margin: 0 auto; flex-shrink: 0; background: linear-gradient(180deg,#eef0ff,#fff); border-radius: var(--radius-md); }
+.doll-controls { flex: 1; min-width: 220px; }
+.doll-head { position: absolute; top: 34px; left: 60px; width: 60px; height: 60px; border-radius: 50%; }
+.doll-hair { position: absolute; top: 18px; left: 50px; width: 80px; height: 50px; border-radius: 50% 50% 20% 20%; z-index: 1; }
+.doll-hair-short { top: 24px; height: 36px; }
+.doll-hair-curly { top: 14px; height: 60px; border-radius: 50%; }
+.doll-dress { position: absolute; top: 96px; left: 50px; width: 80px; height: 120px; border-radius: 30px 30px 50px 50px; }
+.doll-shirt { position: absolute; top: 96px; left: 55px; width: 70px; height: 60px; border-radius: 16px; }
+.doll-pants { position: absolute; top: 156px; left: 58px; width: 64px; height: 60px; border-radius: 0 0 10px 10px; }
+.doll-shoe { position: absolute; top: 214px; width: 26px; height: 14px; border-radius: 8px; }
+.doll-shoe-left { left: 56px; }
+.doll-shoe-right { left: 98px; }
+.doll-accessory { position: absolute; top: 4px; left: 66px; font-size: 1.8rem; z-index: 3; }
+.doll-tabs { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
+.doll-gallery { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .8rem; }
+.doll-mini { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+
+/* ---------- Snake, Tetris e Worldinho ---------- */
+.arcade-game-panel { text-align: center; }
+.arcade-subtitle { color: #777; font-size: .85rem; margin: -.35rem 0 .5rem; }
+.arcade-score { font-weight: 800; color: var(--Anne-purple); margin: .35rem; }
+.arcade-board { margin: .5rem auto; }
+.snake-board { display: grid; grid-template-columns: repeat(16, 1fr); width: min(360px, 92vw); aspect-ratio: 1; gap: 1px; background: #31224d; padding: 3px; border-radius: 8px; }
+.snake-board div { background: #f2effb; }
+.snake-board .snake-head { background: #3a9d5d; }
+.snake-board .snake-body { background: #6fdc8c; }
+.snake-board .snake-fruit { background: #ff6f6f; border-radius: 50%; }
+.arcade-controls { display: flex; justify-content: center; align-items: center; gap: .3rem; flex-wrap: wrap; margin: .5rem auto; }
+.arcade-controls div { display: flex; gap: .3rem; }
+.arcade-controls button { width: 40px; height: 34px; border: 0; border-radius: 7px; background: #f0eaff; cursor: pointer; }
+.tetris-board { display: grid; grid-template-columns: repeat(10, 1fr); width: min(300px, 82vw); aspect-ratio: 10 / 18; gap: 2px; padding: 4px; background: #241b3c; border-radius: 8px; }
+.tetris-board div { background: #eeeafa; border-radius: 2px; }
+.tetris-board .tetris-filled { box-shadow: inset 0 0 0 2px rgba(255,255,255,.35); }
+.arcade-next { min-height: 42px; margin: .25rem auto .4rem; color: #777; font-size: .75rem; }
+.tetris-preview { display: grid; gap: 2px; justify-content: center; margin-top: .2rem; }
+.tetris-preview i { display: block; width: 16px; height: 16px; background: transparent; }
+.tetris-preview .preview-filled { background: #8c6fff; border-radius: 2px; }
+.arcade-restart { margin-top: .3rem; }
+.worldinho-score { font-weight: 800; color: var(--Anne-purple); margin: .5rem; }
+.worldinho-question { font-size: 1.15rem; font-weight: 800; margin: 1rem 0 .7rem; }
+.worldinho-options { display: flex; justify-content: center; gap: .5rem; flex-wrap: wrap; }
+
+/* ---------- Excelzinho ---------- */
+.excel-toolbar { display: flex; align-items: center; justify-content: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .7rem; }
+.excel-result { font-weight: 800; color: var(--Anne-purple); }
+.excel-grid { display: grid; grid-template-columns: 32px repeat(4, minmax(60px, 1fr)); max-width: 500px; margin: auto; border-top: 1px solid #cfc7e5; border-left: 1px solid #cfc7e5; }
+.excel-cell { min-width: 0; height: 34px; box-sizing: border-box; border-right: 1px solid #cfc7e5; border-bottom: 1px solid #cfc7e5; padding: .35rem; }
+.excel-header, .excel-row-number { background: #eeeafa; font-weight: 800; text-align: center; }
+.excel-input { width: 100%; border-radius: 0; border-top: 0; border-left: 0; background: #fff; color: #31224d; }
+.excel-input:focus { outline: 2px solid var(--Anne-purple); outline-offset: -2px; }
+
+/* ---------- Wordzinho ---------- */
+.wordzinho-toolbar { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; margin: .7rem 0; }
+.wordzinho-toolbar .music-btn { min-width: 34px; padding: .4rem .55rem; }
+.wordzinho-size { min-height: 32px; border: 1px solid #cfc7e5; border-radius: 6px; padding: .25rem; background: #fff; color: #31224d; }
+.wordzinho-editor { min-height: 260px; padding: 1rem; border: 1px solid #cfc7e5; border-radius: 6px; background: #fff; color: #31224d; text-align: left; line-height: 1.5; overflow: auto; }
+.wordzinho-editor:focus { outline: 2px solid var(--Anne-purple); }
+.wordzinho-footer { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .6rem; }
+.wordzinho-count { color: #777; font-size: .85rem; }
+
+body.theme-dark .ttt-cell, body.theme-dark .peg-cell.peg-filled, body.theme-dark .peg-cell.peg-empty { background: #2c2550; }
+body.theme-dark .maze-grid, body.theme-dark .sticks-area { background: #241e3d; }
+body.theme-dark .dpad button { background: #2c2550; color: #eee; }
+body.theme-dark .domino-train { background: #241e3d; }
+
+@media (max-width: 640px) {
+  .notes-layout { flex-direction: column; }
+  .notes-sidebar { width: 100%; max-width: none; height: 40%; border-right: none; border-bottom: 2px solid #eee; }
+  .memory-grid { grid-template-columns: repeat(3, 1fr); }
+  .chk-grid, .chs-grid { max-width: 320px; }
+  .doll-layout { flex-direction: column; align-items: center; }
+}

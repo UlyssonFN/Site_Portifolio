@@ -1,0 +1,47 @@
+COMO ANEXAR OS ARQUIVOS DOS PROJETOS
+=====================================
+
+1. Crie uma pasta chamada "arquivos" no MESMO diretório do portfolio.html.
+2. Coloque dentro dela um .zip para cada projeto, usando EXATAMENTE estes nomes:
+
+projeto-00.zip -> BI de Chamados SAC
+projeto-01.zip -> BI de Controle de Validade
+projeto-02.zip -> Controle de Logística Reversa
+projeto-03.zip -> Indicador de Inventário Módulo
+projeto-04.zip -> Indicador de Devoluções
+projeto-05.zip -> Sistema Python — Consulta de Férias
+projeto-06.zip -> BI de Faturamento
+projeto-07.zip -> Indicador de Doações e Incinerações
+projeto-08.zip -> Indicador de Não Atendido
+projeto-09.zip -> BI de Análise de Pedidos
+projeto-10.zip -> BI de Giro de Produtos
+projeto-11.zip -> BI de Expedição e Transportadoras
+projeto-12.zip -> BI de Crescimento e Prospecção
+projeto-13.zip -> Indicador de Turnover
+projeto-14.zip -> BI de Análise de Frete
+projeto-15.zip -> Otimização de Endereçamentos Porta-Palete
+projeto-16.zip -> Balanceamento de Itens Volumosos
+projeto-17.zip -> Apresentação de Consultoria de Dados
+projeto-18.zip -> Conversão de Reporte Excel → Power BI
+projeto-19.zip -> Controle de Estoque — Projeto Internacional
+projeto-20.zip -> Treinamento: Tempo e Movimentos
+projeto-21.zip -> Treinamento: Priorização e Liderança Ativa
+projeto-22.zip -> Treinamento: Cálculo de Produtividade
+projeto-23.zip -> Controle Inteligente de Vencimento e Prevenção de Perdas
+projeto-24.zip -> Acompanhamento de Novos Gestores
+projeto-25.zip -> Melhoria do Indicador de Perdas
+projeto-26.zip -> Projeto de Bônus — Logística
+
+3. Estrutura final esperada:
+   /portfolio.html
+   /arquivos/projeto-00.zip
+   /arquivos/projeto-01.zip
+   ... (até projeto-26.zip)
+
+Cada modal de projeto já tem o botão "Baixar arquivos do projeto" apontando
+para o caminho certo — assim que você colocar os .zip na pasta "arquivos",
+o download passa a funcionar automaticamente, sem precisar editar o HTML.
+
+Se preferir usar outro formato (.pdf, .pbix, .docx etc.) em vez de .zip,
+basta trocar a extensão no atributo href do botão correspondente dentro
+do portfolio.html (busque por "arquivos/projeto-XX").

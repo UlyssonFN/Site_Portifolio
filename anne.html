@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Anne OS Kids</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="desktop.css">
+<link rel="stylesheet" href="windows.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+
+<a href="index.html" class="return-home" aria-label="Voltar para o site DataStock" title="Voltar para o site DataStock">🏠</a>
+
+<!-- ===================== TELA DE BOOT ===================== -->
+<section id="boot-screen" class="screen active">
+  <div class="boot-logo">🌈</div>
+  <h1 class="boot-title">Anne OS <span>KIDS</span></h1>
+  <div class="boot-bar"><div class="boot-bar-fill" id="boot-bar-fill"></div></div>
+  <p class="boot-status" id="boot-status">Inicializando...</p>
+</section>
+
+<!-- ===================== TELA DE BLOQUEIO ===================== -->
+<section id="lock-screen" class="screen">
+  <div class="lock-clock" id="lock-clock">00:00</div>
+  <div class="lock-date" id="lock-date">--</div>
+  <p class="lock-hint">👆 Toque para continuar</p>
+</section>
+
+<!-- ===================== TELA DE PERFIL/LOGIN ===================== -->
+<section id="login-screen" class="screen">
+  <h1 class="login-title">Quem está brincando hoje? 🎈</h1>
+  <div class="profile-list" id="profile-list"></div>
+  <button class="btn-new-profile" id="btn-new-profile">➕ Criar novo perfil</button>
+</section>
+
+<!-- ===================== FORM NOVO PERFIL ===================== -->
+<section id="new-profile-screen" class="screen">
+  <h1 class="login-title">Criar meu perfil ✨</h1>
+  <div class="new-profile-form">
+    <label>Meu nome:</label>
+    <input type="text" id="np-name" maxlength="16" placeholder="Digite seu nome">
+    <label>Meu avatar:</label>
+    <div class="avatar-picker" id="np-avatar-picker"></div>
+    <label>Minha cor favorita:</label>
+    <div class="color-picker" id="np-color-picker"></div>
+    <div class="new-profile-actions">
+      <button id="np-cancel" class="btn-secondary">Cancelar</button>
+      <button id="np-save" class="btn-primary">Salvar perfil</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DESKTOP ===================== -->
+<section id="desktop-screen" class="screen">
+  <div id="desktop" class="desktop">
+    <div id="desktop-icons" class="desktop-icons"></div>
+    <div id="windows-layer" class="windows-layer"></div>
+    <div id="context-menu" class="context-menu"></div>
+    <button id="support-qrcode-widget" class="support-qrcode-widget" title="Ajude-nos a manter o projeto no ar" aria-label="Abrir QR Code de apoio">
+      <span class="support-qrcode-label">💜 Apoie o projeto</span>
+      <img src="assets/support-qrcode.png" alt="QR Code de apoio">
+    </button>
+  </div>
+
+  <div id="notification-area" class="notification-area"></div>
+
+  <footer id="taskbar" class="taskbar">
+    <button id="start-btn" class="start-btn">🌈 Iniciar</button>
+    <div id="taskbar-apps" class="taskbar-apps"></div>
+    <div class="taskbar-tray">
+      <span class="tray-stars" id="tray-stars">⭐ 0</span>
+      <span class="tray-icon" title="Volume">🔊</span>
+      <span class="tray-icon" title="Bateria">🔋 100%</span>
+      <div class="tray-clock">
+        <span id="tray-time">00:00</span>
+        <span id="tray-date">--/--</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="start-menu" class="start-menu">
+    <div class="start-menu-header">
+      <span id="sm-avatar" class="sm-avatar">🧒</span>
+      <span id="sm-username">Criança</span>
+      <span id="sm-stars">⭐ 0</span>
+    </div>
+    <input type="text" id="sm-search" class="sm-search" placeholder="🔎 Pesquisar aplicativos...">
+    <div class="start-menu-body">
+      <div class="sm-column">
+        <h3>Aplicativos</h3>
+        <div id="sm-apps" class="sm-list"></div>
+      </div>
+      <div class="sm-column">
+        <h3>Sistema</h3>
+        <div id="sm-system" class="sm-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TELA DE DESLIGAR/REINICIAR ===================== -->
+<section id="power-screen" class="screen">
+  <div class="boot-logo" id="power-icon">🌙</div>
+  <p class="boot-status" id="power-text">Desligando...</p>
+</section>
+
+<audio id="silent-audio" hidden></audio>
+
+<script src="database.js"></script>
+<script src="sound.js"></script>
+<script src="notifications.js"></script>
+<script src="users.js"></script>
+<script src="settings.js"></script>
+<script src="achievements.js"></script>
+<script src="js/supportQrCode.js"></script>
+<script src="windows.js"></script>
+<script src="desktop.js"></script>
+<script src="js/apps/paint.js"></script>
+<script src="js/apps/notes.js"></script>
+<script src="js/apps/calculator.js"></script>
+<script src="js/apps/files.js"></script>
+<script src="js/apps/mycomputer.js"></script>
+<script src="js/apps/worldinho.js"></script>
+<script src="js/apps/excelzinho.js"></script>
+<script src="js/apps/wordzinho.js"></script>
+<script src="js/apps/browser.js"></script>
+<script src="js/games/colorGame.js"></script>
+<script src="js/games/animalGame.js"></script>
+<script src="js/games/musicGame.js"></script>
+<script src="js/games/mathGame.js"></script>
+<script src="js/games/lettersGame.js"></script>
+<script src="js/games/numbersGame.js"></script>
+<script src="js/games/ticTacToe.js"></script>
+<script src="js/games/checkers.js"></script>
+<script src="js/games/chess.js"></script>
+<script src="js/games/pegSolitaire.js"></script>
+<script src="js/games/domino.js"></script>
+<script src="js/games/pickupSticks.js"></script>
+<script src="js/games/colorSequence.js"></script>
+<script src="js/games/dogMaze.js"></script>
+<script src="js/games/pacman.js"></script>
+<script src="js/games/carRace.js"></script>
+<script src="js/games/dollDressUp.js"></script>
+<script src="js/games/newArcadeGames.js"></script>
+<script src="js/games/gamesHub.js"></script>
+<script src="js/games/animalsHub.js"></script>
+<script src="apps.js"></script>
+<script src="os.js"></script>
+</body>
+</html>
