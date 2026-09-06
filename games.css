@@ -315,3 +315,59 @@ body.theme-dark .domino-train { background: #241e3d; }
   .chk-grid, .chs-grid { max-width: 320px; }
   .doll-layout { flex-direction: column; align-items: center; }
 }
+
+/* ==========================================================================
+   Novos jogos — Quebra-Cabeça, Chuva de Palavras, Balde de Tinta, Blocos
+   ========================================================================== */
+
+/* ---------- Quebra-Cabeça (slide puzzle) ---------- */
+.pz-toolbar { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+.pz-scenes, .pz-sizes { display: flex; gap: .4rem; flex-wrap: wrap; }
+.pz-scene-btn, .pz-size-btn { border: 2px solid transparent; background: #f0eaff; border-radius: 16px; padding: .4rem .8rem; font-weight: 700; cursor: pointer; font-size: .85rem; color: #3a2a55; }
+.pz-scene-btn.selected, .pz-size-btn.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
+.pz-status { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; font-weight: 700; color: #3a2a55; }
+.pz-board { display: grid; gap: 2px; max-width: 360px; margin: 0 auto; background: #3a2a55; padding: 3px; border-radius: 8px; aspect-ratio: 1; }
+.pz-tile { aspect-ratio: 1; cursor: pointer; border-radius: 3px; background-color: #eee; }
+.pz-tile.pz-blank { background: transparent !important; cursor: default; }
+.pz-win { text-align: center; font-size: 1.2rem; font-weight: 800; color: var(--Anne-green); margin-top: 1rem; }
+
+/* ---------- Chuva de Palavras (digitação) ---------- */
+.typ-stats { display: flex; justify-content: space-between; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .5rem; font-weight: 700; color: #3a2a55; }
+.typ-field { position: relative; height: 280px; background: linear-gradient(180deg,#eaf7ff,#dff0ff); border-radius: var(--radius-md); overflow: hidden; border: 2px solid #d5e8ff; }
+.typ-word { position: absolute; background: #fff; border: 2px solid var(--Anne-purple); border-radius: 20px; padding: .35rem .8rem; font-weight: 800; font-size: 1.05rem; color: #3a2a55; box-shadow: 0 3px 8px rgba(60,40,90,.15); white-space: nowrap; }
+.typ-word.typ-word-hit { background: var(--Anne-green); color: #fff; transform: scale(1.25); transition: transform .15s ease, opacity .15s ease; opacity: 0; }
+.typ-input-display { text-align: center; font-size: 1.4rem; font-weight: 800; letter-spacing: .15rem; min-height: 2.2rem; margin-top: .5rem; color: var(--Anne-purple); background: #f5f2ff; border-radius: var(--radius-sm); padding: .3rem; }
+.typ-gameover { text-align: center; font-weight: 800; color: var(--Anne-red); margin-top: .8rem; font-size: 1.1rem; }
+
+/* ---------- Balde de Tinta ---------- */
+.bp-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .4rem; }
+.bp-scenes { display: flex; gap: .4rem; flex-wrap: wrap; }
+.bp-palette { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; margin-bottom: .6rem; }
+.bp-color { width: 30px; height: 30px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc; }
+.bp-color.selected { box-shadow: 0 0 0 3px var(--Anne-purple); transform: scale(1.1); }
+.bp-canvas-wrap { display: flex; justify-content: center; }
+#bp-canvas { border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(60,40,90,.15); cursor: pointer; max-width: 100%; touch-action: none; background: #fff; }
+
+/* ---------- Blocos Criativos ---------- */
+.blk-toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+.blk-layers { display: flex; gap: .3rem; flex-wrap: wrap; }
+.blk-layer-btn { border: 2px solid transparent; background: #f0eaff; border-radius: 14px; padding: .35rem .7rem; font-size: .8rem; font-weight: 700; cursor: pointer; color: #3a2a55; }
+.blk-layer-btn.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
+.blk-tool-btn { border: 2px solid transparent; background: #fff0f0; border-radius: 14px; padding: .35rem .7rem; font-size: .8rem; font-weight: 700; cursor: pointer; }
+.blk-tool-btn.selected { border-color: var(--Anne-red); background: #ffdada; }
+.blk-palette { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; margin-bottom: .6rem; }
+.blk-color { width: 28px; height: 28px; border-radius: 6px; cursor: pointer; border: 2px solid #fff; box-shadow: 0 0 0 1px #ccc; }
+.blk-color.selected { box-shadow: 0 0 0 3px var(--Anne-purple); }
+.blk-main { display: flex; gap: 1rem; flex-wrap: wrap; }
+.blk-edit-wrap, .blk-preview-wrap { flex: 1; min-width: 220px; }
+.blk-hint { font-size: .78rem; color: #999; text-align: center; margin: .2rem 0; }
+.blk-grid { display: grid; gap: 2px; max-width: 260px; margin: 0 auto; background: #dcd4f5; padding: 3px; border-radius: 8px; aspect-ratio: 1; }
+.blk-cell { aspect-ratio: 1; background: #f5f2ff; border-radius: 3px; cursor: pointer; }
+.blk-cell.has-block { box-shadow: inset 0 0 0 2px rgba(0,0,0,.15); }
+.blk-cell.has-support { background: #ece5ff; }
+#blk-preview { height: 280px; background: linear-gradient(180deg,#dff3ff,#f4faff); border-radius: var(--radius-md); overflow: hidden; }
+.blk-empty { text-align: center; color: #aaa; padding-top: 100px; }
+
+@media (max-width: 640px) {
+  .blk-main { flex-direction: column; }
+}
