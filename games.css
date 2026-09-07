@@ -137,6 +137,17 @@
 .fi-name { font-size: .78rem; color: #3a2a55; font-weight: 600; margin-top:.2rem; word-break: break-word; }
 .files-breadcrumb { padding: .4rem .8rem; font-weight: 700; color: #8c6fff; }
 .files-empty { text-align:center; color:#aaa; padding: 2rem; }
+<<<<<<< HEAD
+=======
+.file-image-viewer { position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(20, 15, 40, .78); }
+.file-image-dialog { position: relative; display: flex; flex-direction: column; align-items: center; gap: .7rem; max-width: min(900px, 96%); max-height: 96%; padding: 1rem; border-radius: var(--radius-md); background: #fff; box-shadow: 0 12px 35px rgba(0,0,0,.35); overflow: auto; }
+.file-image-dialog img { display: block; max-width: 100%; max-height: 68vh; object-fit: contain; }
+.file-image-title { max-width: 100%; color: #3a2a55; font-weight: 700; text-align: center; word-break: break-word; }
+.file-image-close { position: absolute; top: .45rem; right: .45rem; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--Anne-red); color: #fff; cursor: pointer; font-weight: 800; }
+.file-image-download { text-decoration: none; }
+body.theme-dark .file-image-dialog { background: #2c2550; }
+body.theme-dark .file-image-title { color: #f0eaff; }
+>>>>>>> 5914dff (Upgrade com a pagina infantil)
 
 /* ---------- Meu Computador / Conquistas / Config ---------- */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: .8rem; }
@@ -168,7 +179,28 @@ body.theme-dark .lw-body { background: #1c1732; }
 body.theme-dark .app-panel h2 { color: #f0eaff; }
 body.theme-dark .hub-card, body.theme-dark .stat-card, body.theme-dark .ach-card { background: #2c2550; }
 body.theme-dark .stat-card .sc-label, body.theme-dark .hub-card .hc-sub { color: #bbb; }
+<<<<<<< HEAD
 body.theme-dark .note-item .ni-title, body.theme-dark .ach-card .ac-name { color: #f0eaff; }
+=======
+body.theme-dark .hub-card .hc-title { color: #ffffff; }
+body.theme-dark .note-item .ni-title, body.theme-dark .ach-card .ac-name { color: #f0eaff; }
+body.theme-dark .fi-name,
+body.theme-dark .files-breadcrumb,
+body.theme-dark .settings-row label,
+body.theme-dark .settings-section h3 { color: #f0eaff; }
+body.theme-dark .files-breadcrumb { background: #241e3d; }
+body.theme-dark .theme-choice,
+body.theme-dark .mc-tab,
+body.theme-dark .btn-secondary { background: #3a315f; color: #fff; border-color: #6f5cae; }
+body.theme-dark .theme-choice:hover,
+body.theme-dark .mc-tab:hover,
+body.theme-dark .btn-secondary:hover { background: #4a3d78; }
+body.theme-dark .theme-choice.selected,
+body.theme-dark .mc-tab.selected { background: #574691; border-color: #b9a8f5; color: #fff; }
+body.theme-dark .files-empty { color: #c8c1dc; }
+body.theme-dark .settings-row input[type="text"],
+body.theme-dark .settings-row input[type="range"] { color-scheme: dark; }
+>>>>>>> 5914dff (Upgrade com a pagina infantil)
 
 /* ==========================================================================
    Jogos de tabuleiro (Jogo da Velha, Dama, Xadrez, Resta Um) — genérico
@@ -316,6 +348,28 @@ body.theme-dark .domino-train { background: #241e3d; }
   .doll-layout { flex-direction: column; align-items: center; }
 }
 
+<<<<<<< HEAD
+=======
+/* ---------- Jogo da Forca ---------- */
+.hangman-hud { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; margin-bottom: .8rem; font-weight: 700; color: #3a2a55; }
+.hangman-main { display: flex; gap: 1rem; align-items: stretch; }
+.hangman-drawing { width: 150px; min-height: 180px; display: flex; align-items: center; justify-content: center; background: #f5f2ff; border: 2px solid #e2d9ff; border-radius: var(--radius-md); font-size: 3.2rem; text-align: center; }
+.hangman-content { flex: 1; min-width: 0; text-align: center; }
+.hangman-hint { color: #777; min-height: 1.5em; margin: .3rem 0 .8rem; }
+.hangman-word { min-height: 2.5rem; margin-bottom: 1rem; color: #3a2a55; font-size: 1.8rem; font-weight: 800; letter-spacing: .35rem; }
+.hangman-keyboard { display: grid; grid-template-columns: repeat(7, minmax(32px, 1fr)); gap: .35rem; }
+.hangman-key { min-height: 38px; border: 2px solid #e2d9ff; border-radius: var(--radius-sm); background: #f0eaff; color: #3a2a55; cursor: pointer; font-weight: 800; }
+.hangman-key:hover:not(:disabled) { background: #e2d9ff; transform: translateY(-1px); }
+.hangman-key:disabled { cursor: default; opacity: .65; }
+.hangman-key.correct { background: var(--Anne-green); border-color: #3d9c5c; color: #fff; }
+.hangman-key.wrong { background: var(--Anne-red); border-color: #c94c4c; color: #fff; }
+@media (max-width: 640px) {
+  .hangman-main { flex-direction: column; }
+  .hangman-drawing { width: 100%; min-height: 90px; }
+  .hangman-keyboard { grid-template-columns: repeat(7, 1fr); }
+}
+
+>>>>>>> 5914dff (Upgrade com a pagina infantil)
 /* ==========================================================================
    Novos jogos — Quebra-Cabeça, Chuva de Palavras, Balde de Tinta, Blocos
    ========================================================================== */
@@ -325,7 +379,12 @@ body.theme-dark .domino-train { background: #241e3d; }
 .pz-scenes, .pz-sizes { display: flex; gap: .4rem; flex-wrap: wrap; }
 .pz-scene-btn, .pz-size-btn { border: 2px solid transparent; background: #f0eaff; border-radius: 16px; padding: .4rem .8rem; font-weight: 700; cursor: pointer; font-size: .85rem; color: #3a2a55; }
 .pz-scene-btn.selected, .pz-size-btn.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
+<<<<<<< HEAD
 .pz-status { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; font-weight: 700; color: #3a2a55; }
+=======
+.pz-status, .bp-status, .blk-status { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; font-weight: 700; color: #3a2a55; }
+.pz-actions { display: flex; gap: .4rem; flex-wrap: wrap; }
+>>>>>>> 5914dff (Upgrade com a pagina infantil)
 .pz-board { display: grid; gap: 2px; max-width: 360px; margin: 0 auto; background: #3a2a55; padding: 3px; border-radius: 8px; aspect-ratio: 1; }
 .pz-tile { aspect-ratio: 1; cursor: pointer; border-radius: 3px; background-color: #eee; }
 .pz-tile.pz-blank { background: transparent !important; cursor: default; }
@@ -371,3 +430,76 @@ body.theme-dark .domino-train { background: #241e3d; }
 @media (max-width: 640px) {
   .blk-main { flex-direction: column; }
 }
+<<<<<<< HEAD
+=======
+
+/* ---------- Blocos Criativos: controles de rotação ---------- */
+.blk-rotate-row { display: flex; gap: .4rem; justify-content: center; margin-bottom: .4rem; }
+#blk-preview { touch-action: none; cursor: grab; }
+#blk-preview:active { cursor: grabbing; }
+.blk-status { margin-top: .6rem; }
+
+/* ---------- Quebra-Cabeça Fácil (arrastar e soltar) ---------- */
+.dp-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; }
+.dp-scenes { display: flex; gap: .4rem; flex-wrap: wrap; }
+#dp-progress { font-weight: 700; color: #3a2a55; font-size: .9rem; }
+.dp-board { position: relative; }
+.dp-frame { display: grid; gap: 3px; max-width: 300px; margin: 0 auto; background: #dcd4f5; padding: 4px; border-radius: 8px; aspect-ratio: 1; }
+.dp-slot { aspect-ratio: 1; border: 2px dashed #b9a8f5; border-radius: 4px; background: rgba(255,255,255,.4); }
+.dp-tray { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 1rem; min-height: 110px; padding: 8px; background: #f5f2ff; border-radius: var(--radius-md); }
+.dp-piece { width: 88px; height: 88px; border-radius: 6px; cursor: grab; box-shadow: 0 3px 8px rgba(60,40,90,.25); border: 2px solid #fff; touch-action: none; }
+.dp-piece:active { cursor: grabbing; }
+.dp-piece.locked { cursor: default; box-shadow: none; border-color: var(--Anne-green); }
+
+/* ---------- Sinuquinha ---------- */
+.pool-hud { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; font-weight: 700; color: #3a2a55; margin-bottom: .5rem; font-size: .9rem; }
+.pool-canvas-wrap { display: flex; justify-content: center; }
+#pool-canvas { border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(60,40,90,.2); max-width: 100%; touch-action: none; cursor: crosshair; }
+
+/* ---------- Hora de Dormir ---------- */
+.bedtime-tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.bedtime-tab { border: 2px solid transparent; border-radius: 16px; padding: .5rem .8rem; background: #f0eaff; color: #3a2a55; font-weight: 700; cursor: pointer; }
+.bedtime-tab.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
+.bedtime-view { display: none; min-height: 330px; text-align: center; padding: .8rem; background: linear-gradient(145deg, #eef0ff, #fff); border-radius: var(--radius-md); }
+.bedtime-view.active { display: block; }
+.bedtime-art { font-size: 3rem; letter-spacing: .2rem; padding: .8rem; }
+.bedtime-view h3 { color: #3a2a55; margin: .5rem 0; }
+.bedtime-view p { color: #777; line-height: 1.6; }
+.bedtime-play { border: none; border-radius: 18px; padding: .7rem 1rem; background: var(--Anne-purple); color: #fff; font-weight: 700; cursor: pointer; }
+.bedtime-volume { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: 1rem auto; color: #555; font-weight: 600; }
+.bedtime-volume input { width: 150px; }
+.bedtime-story-list { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; margin-bottom: .8rem; }
+.bedtime-story-choice { border: 2px solid transparent; border-radius: 14px; padding: .45rem .7rem; background: #fff; color: #3a2a55; cursor: pointer; font-weight: 700; }
+.bedtime-story-choice.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
+.bedtime-story { max-width: 620px; margin: 0 auto; padding: .8rem 1rem; text-align: left; background: #fffdf4; border: 2px solid #f0dfad; border-radius: var(--radius-md); }
+.bedtime-story h3 { text-align: center; color: #8c6f2e; }
+.bedtime-story p { color: #4c4637; }
+
+/* ---------- Paciencia de Baralho ---------- */
+.solitaire-hud { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-bottom: .7rem; font-weight: 700; color: #3a2a55; }
+.solitaire-top { display: flex; align-items: flex-start; gap: .6rem; min-height: 96px; margin-bottom: 1rem; }
+.sol-foundations { display: flex; gap: .5rem; margin-left: auto; }
+.sol-slot, .sol-card { width: 58px; height: 82px; border: 2px solid #cfc7e5; border-radius: 7px; background: #eef0ff; color: #3a2a55; font-weight: 800; position: relative; box-sizing: border-box; }
+.sol-card { cursor: pointer; box-shadow: 0 2px 5px rgba(40,25,70,.16); font-size: 1.35rem; }
+.sol-card.sol-face-up { background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+.sol-card.sol-face-up .sol-corner-rank { position: absolute; top: 4px; left: 5px; display: flex; flex-direction: column; align-items: center; font-size: .85rem; font-weight: 800; line-height: .9; }
+.sol-card.sol-face-up .sol-corner-rank small { font-size: .7rem; }
+.sol-card.sol-face-up strong { font-size: 1.6rem; }
+.sol-card.red, .sol-foundation.red { color: #d94f5c; }
+.sol-card.black, .sol-foundation.black { color: #2d2b39; }
+.sol-back { background: repeating-linear-gradient(45deg, #7658ff 0 6px, #5b42c4 6px 12px); color: #fff; border-color: #3a2a55; }
+.sol-foundation { cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.solitaire-panel .sol-tableau { display: grid; grid-template-columns: repeat(7, minmax(58px, 1fr)); gap: .5rem; min-height: 410px; }
+.sol-column { position: relative; min-height: 92px; border: 2px dashed #d8d0ed; border-radius: 7px; }
+.sol-column > .sol-card { position: absolute; left: 50%; transform: translateX(-50%); }
+.sol-column > .sol-card.sol-selected { outline: 3px solid var(--Anne-yellow); z-index: 20; }
+.solitaire-panel .sol-win { margin-top: .6rem; }
+@media (max-width: 640px) {
+  .solitaire-panel .sol-tableau { gap: .25rem; }
+  .sol-slot, .sol-card { width: 42px; height: 62px; }
+  .sol-card.sol-face-up .sol-corner-rank { top: 3px; left: 3px; font-size: .65rem; }
+  .sol-card.sol-face-up .sol-corner-rank small { font-size: .55rem; }
+  .sol-card.sol-face-up strong { font-size: 1.15rem; }
+  .sol-foundation { font-size: .9rem; }
+}
+>>>>>>> 5914dff (Upgrade com a pagina infantil)
