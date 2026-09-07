@@ -137,8 +137,6 @@
 .fi-name { font-size: .78rem; color: #3a2a55; font-weight: 600; margin-top:.2rem; word-break: break-word; }
 .files-breadcrumb { padding: .4rem .8rem; font-weight: 700; color: #8c6fff; }
 .files-empty { text-align:center; color:#aaa; padding: 2rem; }
-<<<<<<< HEAD
-=======
 .file-image-viewer { position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(20, 15, 40, .78); }
 .file-image-dialog { position: relative; display: flex; flex-direction: column; align-items: center; gap: .7rem; max-width: min(900px, 96%); max-height: 96%; padding: 1rem; border-radius: var(--radius-md); background: #fff; box-shadow: 0 12px 35px rgba(0,0,0,.35); overflow: auto; }
 .file-image-dialog img { display: block; max-width: 100%; max-height: 68vh; object-fit: contain; }
@@ -147,7 +145,6 @@
 .file-image-download { text-decoration: none; }
 body.theme-dark .file-image-dialog { background: #2c2550; }
 body.theme-dark .file-image-title { color: #f0eaff; }
->>>>>>> 5914dff (Upgrade com a pagina infantil)
 
 /* ---------- Meu Computador / Conquistas / Config ---------- */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: .8rem; }
@@ -179,9 +176,7 @@ body.theme-dark .lw-body { background: #1c1732; }
 body.theme-dark .app-panel h2 { color: #f0eaff; }
 body.theme-dark .hub-card, body.theme-dark .stat-card, body.theme-dark .ach-card { background: #2c2550; }
 body.theme-dark .stat-card .sc-label, body.theme-dark .hub-card .hc-sub { color: #bbb; }
-<<<<<<< HEAD
 body.theme-dark .note-item .ni-title, body.theme-dark .ach-card .ac-name { color: #f0eaff; }
-=======
 body.theme-dark .hub-card .hc-title { color: #ffffff; }
 body.theme-dark .note-item .ni-title, body.theme-dark .ach-card .ac-name { color: #f0eaff; }
 body.theme-dark .fi-name,
@@ -200,7 +195,6 @@ body.theme-dark .mc-tab.selected { background: #574691; border-color: #b9a8f5; c
 body.theme-dark .files-empty { color: #c8c1dc; }
 body.theme-dark .settings-row input[type="text"],
 body.theme-dark .settings-row input[type="range"] { color-scheme: dark; }
->>>>>>> 5914dff (Upgrade com a pagina infantil)
 
 /* ==========================================================================
    Jogos de tabuleiro (Jogo da Velha, Dama, Xadrez, Resta Um) — genérico
@@ -348,8 +342,6 @@ body.theme-dark .domino-train { background: #241e3d; }
   .doll-layout { flex-direction: column; align-items: center; }
 }
 
-<<<<<<< HEAD
-=======
 /* ---------- Jogo da Forca ---------- */
 .hangman-hud { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; margin-bottom: .8rem; font-weight: 700; color: #3a2a55; }
 .hangman-main { display: flex; gap: 1rem; align-items: stretch; }
@@ -369,7 +361,6 @@ body.theme-dark .domino-train { background: #241e3d; }
   .hangman-keyboard { grid-template-columns: repeat(7, 1fr); }
 }
 
->>>>>>> 5914dff (Upgrade com a pagina infantil)
 /* ==========================================================================
    Novos jogos — Quebra-Cabeça, Chuva de Palavras, Balde de Tinta, Blocos
    ========================================================================== */
@@ -379,12 +370,9 @@ body.theme-dark .domino-train { background: #241e3d; }
 .pz-scenes, .pz-sizes { display: flex; gap: .4rem; flex-wrap: wrap; }
 .pz-scene-btn, .pz-size-btn { border: 2px solid transparent; background: #f0eaff; border-radius: 16px; padding: .4rem .8rem; font-weight: 700; cursor: pointer; font-size: .85rem; color: #3a2a55; }
 .pz-scene-btn.selected, .pz-size-btn.selected { border-color: var(--Anne-purple); background: #e2d9ff; }
-<<<<<<< HEAD
 .pz-status { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; font-weight: 700; color: #3a2a55; }
-=======
 .pz-status, .bp-status, .blk-status { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .6rem; font-weight: 700; color: #3a2a55; }
 .pz-actions { display: flex; gap: .4rem; flex-wrap: wrap; }
->>>>>>> 5914dff (Upgrade com a pagina infantil)
 .pz-board { display: grid; gap: 2px; max-width: 360px; margin: 0 auto; background: #3a2a55; padding: 3px; border-radius: 8px; aspect-ratio: 1; }
 .pz-tile { aspect-ratio: 1; cursor: pointer; border-radius: 3px; background-color: #eee; }
 .pz-tile.pz-blank { background: transparent !important; cursor: default; }
@@ -430,8 +418,6 @@ body.theme-dark .domino-train { background: #241e3d; }
 @media (max-width: 640px) {
   .blk-main { flex-direction: column; }
 }
-<<<<<<< HEAD
-=======
 
 /* ---------- Blocos Criativos: controles de rotação ---------- */
 .blk-rotate-row { display: flex; gap: .4rem; justify-content: center; margin-bottom: .4rem; }
@@ -502,4 +488,3 @@ body.theme-dark .domino-train { background: #241e3d; }
   .sol-card.sol-face-up strong { font-size: 1.15rem; }
   .sol-foundation { font-size: .9rem; }
 }
->>>>>>> 5914dff (Upgrade com a pagina infantil)

@@ -161,7 +161,7 @@ function initPoolApp(panel) {
     else text = 'Empate! Jogo equilibrado 🤝';
     msgEl.textContent = text;
     msgEl.style.display = 'block';
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await userManager.saveGameResult('sinuca', scorePlayer);
       if (scorePlayer > scoreCpu) {
         await userManager.saveGameResult('sinuca-vitoria', scorePlayer);
@@ -169,7 +169,7 @@ function initPoolApp(panel) {
       } else {
         await userManager.addStars(2);
       }
-      if (window.achievementManager) await achievementManager.checkAndUnlock();
+      await achievementManager.checkAndUnlock();
     }
   }
 

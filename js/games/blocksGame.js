@@ -162,12 +162,12 @@ function initBlocksApp(panel) {
   }
 
   async function maybeReward() {
-    if (!rewarded && blocks.size >= 15 && window.userManager && userManager.currentUser) {
+    if (!rewarded && blocks.size >= 15 && userManager && userManager.currentUser) {
       rewarded = true;
       await userManager.saveGameResult('blocos-criativos', blocks.size);
       await userManager.addStars(5);
       notificationManager.show('Que construção incrível! 🏗️', '🧱', 3000);
-      if (window.achievementManager) await achievementManager.checkAndUnlock();
+      await achievementManager.checkAndUnlock();
     }
   }
 
@@ -223,7 +223,7 @@ function initBlocksApp(panel) {
     link.href = svgData;
     link.download = 'blocos-criativos.svg';
     link.click();
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await db.add('drawings', {
         usuario_id: userManager.currentUser.id,
         nome: 'Blocos Criativos ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),

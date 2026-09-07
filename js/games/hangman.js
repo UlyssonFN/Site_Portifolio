@@ -111,12 +111,12 @@ function initHangmanGame(panel) {
     }
     messageEl.style.display = 'block';
     render();
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await userManager.saveGameResult('forca', solved ? score : 0);
       if (solved) {
         await userManager.addStars(5);
-        if (window.achievementManager) await achievementManager.checkAndUnlock();
       }
+      await achievementManager.checkAndUnlock();
     }
   }
 

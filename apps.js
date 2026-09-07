@@ -120,10 +120,7 @@ const APP_REGISTRY = {
   excelzinho: { title: 'Excelzinho', icon: '📊', build: () => openExcelzinhoApp(), w: 560, h: 500 },
   wordzinho: { title: 'Wordzinho', icon: '📝', build: () => openWordzinhoApp(), w: 620, h: 520 },
   music: { title: 'Anne Music', icon: '🎵', build: () => openMusicHub(), w: 520, h: 460 },
-<<<<<<< HEAD
-=======
   bedtime: { title: 'Hora de Dormir', icon: '🌙', build: () => openBedtimeApp(), w: 560, h: 560 },
->>>>>>> 5914dff (Upgrade com a pagina infantil)
   animals: { title: 'Mundo dos Animais', icon: '🐾', build: () => openAnimalsHub(), w: 520, h: 460 },
   games: { title: 'Jogos', icon: '🎮', build: () => openGamesHub(), w: 560, h: 500 },
   settings: { title: 'Configurações', icon: '⚙️', build: () => openSettingsApp(), w: 520, h: 560 },

@@ -185,10 +185,10 @@ function initPuzzleApp(panel) {
     panel.querySelector('#pz-score').textContent = 'Pontos: ' + score;
     panel.querySelector('#pz-win').style.display = 'block';
     soundManager.success();
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await userManager.saveGameResult('quebra-cabeca', score);
       await userManager.addStars(5);
-      if (window.achievementManager) await achievementManager.checkAndUnlock();
+      await achievementManager.checkAndUnlock();
     }
   }
 

@@ -168,11 +168,11 @@ function initBucketPaintApp(panel) {
       panel.querySelector('#bp-score').textContent = 'Pontos: ' + score;
       panel.querySelector('#bp-filled').textContent = 'Áreas: ' + filledCount;
       soundManager.click();
-      if (filledCount >= 4 && !rewarded && window.userManager && userManager.currentUser) {
+      if (filledCount >= 4 && !rewarded && userManager && userManager.currentUser) {
         rewarded = true;
         await userManager.saveGameResult('balde-tinta', filledCount * 10);
         await userManager.addStars(4);
-        if (window.achievementManager) await achievementManager.checkAndUnlock();
+        await achievementManager.checkAndUnlock();
       }
     }
   }
@@ -184,7 +184,7 @@ function initBucketPaintApp(panel) {
     link.href = dataUrl;
     link.download = 'balde-de-tinta.png';
     link.click();
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await db.add('drawings', {
         usuario_id: userManager.currentUser.id,
         nome: 'Balde de Tinta ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),

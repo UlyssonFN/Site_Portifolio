@@ -117,10 +117,10 @@ function initTypingApp(panel) {
     gameoverEl.textContent = `Fim de jogo! Você fez ${score} pontos. 🎉`;
     startBtn.textContent = '🔄 Jogar de novo';
     startBtn.disabled = false;
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await userManager.saveGameResult('digitacao', score);
       if (score >= 30) await userManager.addStars(5);
-      if (window.achievementManager) await achievementManager.checkAndUnlock();
+      await achievementManager.checkAndUnlock();
     }
   }
 

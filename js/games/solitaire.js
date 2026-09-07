@@ -206,10 +206,10 @@ function initSolitaireGame(panel) {
   function checkWin() {
     if (foundations.every(pile => pile.length === 13)) {
       won = true; winEl.style.display = 'block'; score += 100; render(); soundManager.success();
-      if (window.userManager && userManager.currentUser) {
+      if (userManager && userManager.currentUser) {
         userManager.saveGameResult('paciencia', score).then(async () => {
           await userManager.addStars(8);
-          if (window.achievementManager) await achievementManager.checkAndUnlock();
+          await achievementManager.checkAndUnlock();
         });
       }
     }

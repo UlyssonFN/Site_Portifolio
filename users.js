@@ -118,3 +118,4 @@ function updateStarDisplay(amount) {
 }
 
 const userManager = new UserManager();
+globalThis.userManager = userManager;

@@ -9,10 +9,12 @@ function arcadeGamePanel(title, subtitle) {
 
 async function finishArcadeGame(game, score) {
   const stars = arcadeStarsForScore(score);
-  if (!stars || !userManager.currentUser) return;
-  await userManager.addScore(score);
-  await userManager.addStars(stars);
-  soundManager.starGain();
+  if (!userManager.currentUser) return;
+  if (score > 0) await userManager.addScore(score);
+  if (stars > 0) {
+    await userManager.addStars(stars);
+    soundManager.starGain();
+  }
   await db.add('games', { usuario_id: userManager.currentUser.id, jogo: game, pontuacao: score, estrelas: stars, data: new Date().toISOString() });
   await achievementManager.checkAndUnlock();
 }

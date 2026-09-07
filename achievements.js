@@ -12,11 +12,6 @@ const ACHIEVEMENT_DEFS = [
   { id: 'twenty_questions', emoji: '🧠', name: '20 perguntas respondidas', desc: 'Cabeça cheia de conhecimento', check: (s) => s.questionsAnswered >= 20 },
   { id: 'five_games', emoji: '🎮', name: 'Jogou 5 jogos', desc: 'Explorador de jogos', check: (s) => s.gamesPlayed >= 5 },
   { id: 'hundred_stars', emoji: '💫', name: '100 estrelas', desc: 'Colecionador de estrelas', check: (s) => s.stars >= 100 },
-<<<<<<< HEAD
-  { id: 'five_notes', emoji: '📝', name: '5 notas escritas', desc: 'Pequeno escritor', check: (s) => s.notes >= 5 }
-];
-
-=======
   { id: 'five_notes', emoji: '📝', name: '5 notas escritas', desc: 'Pequeno escritor', check: (s) => s.notes >= 5 },
   { id: 'jogo_quebra_cabeca', emoji: '🧩', name: 'Mestre dos quebra-cabeças', desc: 'Completou um quebra-cabeça', check: (s) => s.puzzlesCompleted >= 1 },
   { id: 'jogo_digitacao', emoji: '⌨️', name: 'Dedos rápidos', desc: 'Fez 20 pontos na Chuva de Palavras', check: (s) => s.typingBest >= 20 },
@@ -59,7 +54,6 @@ ACHIEVEMENT_PROGRESS.forEach(progress => {
 
 if (ACHIEVEMENT_DEFS.length !== 100) console.warn('Anne OS: catálogo de conquistas fora do tamanho esperado.');
 
->>>>>>> 5914dff (Upgrade com a pagina infantil)
 class AchievementManager {
   constructor() { this.unlocked = []; }
 
@@ -83,8 +77,6 @@ class AchievementManager {
     const questionsAnswered = games.reduce((a, g) => a + (g.perguntas || 0), 0);
     const musicPlays = games.filter(g => g.jogo && g.jogo.startsWith('musica')).length +
       (window.__pianoPlays || 0);
-<<<<<<< HEAD
-=======
     const puzzlesCompleted = games.filter(g => g.jogo === 'quebra-cabeca' || g.jogo === 'quebra-cabeca-arraste').length;
     const typingBest = games.filter(g => g.jogo === 'digitacao').reduce((m, g) => Math.max(m, g.pontuacao || 0), 0);
     const bucketFills = games.filter(g => g.jogo === 'balde-tinta').length;
@@ -92,7 +84,6 @@ class AchievementManager {
     const sinucaVitorias = games.filter(g => g.jogo === 'sinuca-vitoria').length;
     const solitaireWins = games.filter(g => g.jogo === 'paciencia').length;
     const hangmanWins = games.filter(g => g.jogo === 'forca' && (g.pontuacao || 0) > 0).length;
->>>>>>> 5914dff (Upgrade com a pagina infantil)
     return {
       drawings: drawings.length,
       notes: notes.length,
@@ -100,8 +91,6 @@ class AchievementManager {
       animalsCorrect,
       questionsAnswered,
       musicPlays,
-<<<<<<< HEAD
-=======
       puzzlesCompleted,
       typingBest,
       bucketFills,
@@ -109,7 +98,6 @@ class AchievementManager {
       sinucaVitorias,
       solitaireWins,
       hangmanWins,
->>>>>>> 5914dff (Upgrade com a pagina infantil)
       stars: userManager.currentUser.estrelas || 0
     };
   }
@@ -129,16 +117,11 @@ class AchievementManager {
         this.unlocked.push({ achievement_id: def.id });
         notificationManager.achievement(def.name);
         await userManager.addStars(3);
-<<<<<<< HEAD
-=======
         await this.createMilestoneCertificate();
->>>>>>> 5914dff (Upgrade com a pagina infantil)
       }
     }
   }
 
-<<<<<<< HEAD
-=======
   async createMilestoneCertificate() {
     const total = this.unlocked.length;
     if (!total || total % 10 !== 0) return;
@@ -173,7 +156,6 @@ class AchievementManager {
     notificationManager.show(`Novo certificado na pasta Meus Certificados!`, '📜', 4500);
   }
 
->>>>>>> 5914dff (Upgrade com a pagina infantil)
   async getAllForDisplay() {
     await this.loadUnlocked();
     return ACHIEVEMENT_DEFS.map(def => ({
@@ -184,3 +166,4 @@ class AchievementManager {
 }
 
 const achievementManager = new AchievementManager();
+globalThis.achievementManager = achievementManager;

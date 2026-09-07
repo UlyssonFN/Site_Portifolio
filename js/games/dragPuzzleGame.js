@@ -166,10 +166,10 @@ function initDragPuzzleApp(panel) {
     panel.querySelector('#dp-score').textContent = 'Pontos: ' + score;
     panel.querySelector('#dp-win').style.display = 'block';
     soundManager.success();
-    if (window.userManager && userManager.currentUser) {
+    if (userManager && userManager.currentUser) {
       await userManager.saveGameResult('quebra-cabeca-arraste', score);
       await userManager.addStars(4);
-      if (window.achievementManager) await achievementManager.checkAndUnlock();
+      await achievementManager.checkAndUnlock();
     }
   }
 

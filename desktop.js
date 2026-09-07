@@ -12,10 +12,7 @@ const DESKTOP_ICONS = [
   { id: 'excelzinho', emoji: '📊', label: 'Excelzinho' },
   { id: 'wordzinho', emoji: '📝', label: 'Wordzinho' },
   { id: 'music', emoji: '🎵', label: 'Música' },
-<<<<<<< HEAD
-=======
   { id: 'bedtime', emoji: '🌙', label: 'Hora de Dormir' },
->>>>>>> 5914dff (Upgrade com a pagina infantil)
   { id: 'animals', emoji: '🐶', label: 'Mundo dos Animais' },
   { id: 'games', emoji: '🎮', label: 'Jogos' },
   { id: 'settings', emoji: '⚙️', label: 'Configurações' },
@@ -28,10 +25,7 @@ const START_APPS = [
   { id: 'notes', emoji: '📝', label: 'Bloco de Notas' },
   { id: 'calculator', emoji: '🧮', label: 'Calculadora' },
   { id: 'music', emoji: '🎵', label: 'Música' },
-<<<<<<< HEAD
-=======
   { id: 'bedtime', emoji: '🌙', label: 'Hora de Dormir' },
->>>>>>> 5914dff (Upgrade com a pagina infantil)
   { id: 'animals', emoji: '🐾', label: 'Animais' },
   { id: 'games', emoji: '🎮', label: 'Jogos' },
   { id: 'settings', emoji: '⚙️', label: 'Configurações' }
